@@ -5,6 +5,7 @@ public class GitTest
 	{
 		System.out.println("Hello World!");
 		System.out.println("Changing things for fun");
+		System.out.println("Another change");
 	}
 }
 
