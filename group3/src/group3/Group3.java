@@ -4,9 +4,9 @@ public class Group3 {
 
 	public static void main(String[] args) 
 	{
-		method1();
-		method2();
-		method3();
+		method1(); //this is method 1
+		method2(); //this is method 2
+		method3(); //this is method 3
 	}
 	
 	public static void method1()
