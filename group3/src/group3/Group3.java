@@ -4,7 +4,7 @@ public class Group3 {
 
 	public static void main(String[] args) 
 	{
-		method1(); //this is method 1
+		method1(); //this is method 1, the only one that has been implemented thus far
 		method2(); //this is method 2
 		method3(); //this is method 3
 	}
