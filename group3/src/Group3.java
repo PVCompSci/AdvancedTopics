@@ -29,6 +29,8 @@ public class Group3 {
 	public static void method2()
 	{
 		
+		//method 2 be like
+		
 	}
 	
 	public static void method3()
