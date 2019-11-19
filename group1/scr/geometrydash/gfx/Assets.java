@@ -8,7 +8,7 @@ public class Assets {
 	
 	public static void init() {
 		
-		SpriteSheet sheet =new SpriteSheet(ImageLoader.loadImage("/Users/amoskowitz20/git/AdvancedTopics/group1/res/textures/SpriteSheetGeometryDash.png"));
+		SpriteSheet sheet =new SpriteSheet(ImageLoader.loadImage("/textures/SpriteSheetGeometryDash.png"));
 		
 		player1=sheet.crop(0, 0, width, height);
 		player2=sheet.crop(width, 0, width, height);

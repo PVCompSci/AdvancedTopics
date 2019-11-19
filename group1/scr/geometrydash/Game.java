@@ -13,7 +13,6 @@ import geometrydash.state.State;
 
 public class Game implements Runnable{
 
-	//\Users\Adam Gaming\Desktop\EclipsePrograms\Workspace\CollisionTesting\res\textures\
 	private Display display;
 	private Thread thread;
 
