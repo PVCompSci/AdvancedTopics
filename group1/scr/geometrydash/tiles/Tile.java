@@ -3,6 +3,7 @@ package geometrydash.tiles;
 import java.awt.Graphics;
 import java.awt.Polygon;
 import java.awt.image.BufferedImage;
+import java.util.Stack;
 
 public class Tile {
 
@@ -17,6 +18,7 @@ public class Tile {
 		
 	protected BufferedImage texture;
 	protected final int id;
+	protected Stack<Polygon> collisionBoxes;
 	
 	public Tile(BufferedImage texture,int id) {
 		
@@ -30,17 +32,21 @@ public class Tile {
 		
 	}
 	
-	public Polygon getCollisionBox() {
-		return null;
+	public Stack<Polygon> getCollisionBoxes() {
+		return collisionBoxes;
 	}
 	
 	public void render(Graphics g, int x, int y) {
-		
 		g.drawImage(texture, x, y,TILEWIDTH,TILEHEIGHT,null);
 	}
 	
 	public boolean isSolid() {
 		return false;
+	}
+	
+	
+	public void resetCollisionBoxes() {
+		spikeTile.resetCollisionBoxes();
 	}
 	
 	public int getId() {

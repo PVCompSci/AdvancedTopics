@@ -1,7 +1,6 @@
 package geometrydash.state;
 import java.awt.Graphics;
 
-import geometrydash.Game;
 import geometrydash.Handler;
 import geometrydash.entities.creatures.Player;
 import geometrydash.tiles.Tile;
@@ -14,7 +13,7 @@ public class GameState extends State{
 
 	public GameState(Handler handler) {
 		super(handler);
-		world=new World(handler,"/Users/amoskowitz20/git/AdvancedTopics/group1/res/worlds/world1");
+		world=new World(handler,"res/worlds/world1");
 		handler.setWorld(world);
 		player=new Player(handler,Tile.TILEWIDTH*4,Tile.TILEHEIGHT*12);			
 	}

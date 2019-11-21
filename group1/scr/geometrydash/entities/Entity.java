@@ -2,19 +2,20 @@ package geometrydash.entities;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-import geometrydash.Game;
 import geometrydash.Handler;
 
 public abstract class Entity {
 
 	protected Handler handler;
-	protected float x,y;
+	protected float x,y,spawnX,spawnY;
 	protected int width,height;
 	protected Rectangle bounds;
 	
 	public Entity(Handler handler,float x,float y,int width,int height) {
 		
 		this.handler=handler;
+		spawnX=x;
+		spawnY=y;
 		this.x=x;
 		this.y=y;
 		this.width=width;

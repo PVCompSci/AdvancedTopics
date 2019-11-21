@@ -1,7 +1,6 @@
 package geometrydash.state;
 import java.awt.Graphics;
 
-import geometrydash.Game;
 import geometrydash.Handler;
 
 public abstract class State {

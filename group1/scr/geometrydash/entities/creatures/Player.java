@@ -1,10 +1,8 @@
 package geometrydash.entities.creatures;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import geometrydash.Game;
 import geometrydash.Handler;
 import geometrydash.gfx.Assets;
 import geometrydash.tiles.Tile;
@@ -66,9 +64,9 @@ public class Player extends Creature{
 	
 		if(dy>0) {
 			
-			int ty=(int)(y+dy+bounds.y+bounds.height)/Tile.TILEHEIGHT;
-			int x1=(int)(x+bounds.x)/Tile.TILEWIDTH;
-			int x2=(int)(x+bounds.x+bounds.width)/Tile.TILEWIDTH;
+			int ty=(int)(y+dy+1+bounds.height)/Tile.TILEHEIGHT;
+			int x1=(int)(x+1)/Tile.TILEWIDTH;
+			int x2=(int)(x+1+bounds.width)/Tile.TILEWIDTH;
 			
 			if(!collisionWithTile(x1,ty)&&!collisionWithTile(x2,ty)) {
 				
@@ -77,7 +75,7 @@ public class Player extends Creature{
 			}
 			else {
 				
-				y=ty*Tile.TILEHEIGHT-bounds.height-bounds.y-1;
+				y=ty*Tile.TILEHEIGHT-bounds.height-1-1;
 				falling=false;
 				rot%=360;
 				
@@ -93,9 +91,9 @@ public class Player extends Creature{
 		}
 		else if(dy<0) {
 			
-			int ty=(int)(y+dy+bounds.y)/Tile.TILEHEIGHT;
-			int x1=(int)(x+bounds.x)/Tile.TILEWIDTH;
-			int x2=((int)(x+bounds.x+bounds.width)/Tile.TILEWIDTH);
+			int ty=(int)(y+dy+1)/Tile.TILEHEIGHT;
+			int x1=(int)(x+1)/Tile.TILEWIDTH;
+			int x2=((int)(x+1+bounds.width)/Tile.TILEWIDTH);
 			
 			if(!collisionWithTile(x1,ty)&&!collisionWithTile(x2,ty)) {
 				
@@ -103,7 +101,7 @@ public class Player extends Creature{
 				falling=true;
 			}
 			else
-				y=ty*Tile.TILEHEIGHT+Tile.TILEHEIGHT-bounds.y+1;
+				y=ty*Tile.TILEHEIGHT+Tile.TILEHEIGHT-1+1;
 		}
 	}
 	
@@ -115,6 +113,8 @@ public class Player extends Creature{
 	
 	public void render(Graphics g) {
 		
+		bounds.setLocation((int)(x-handler.getGameCamera().getxOffset()+1), (int)(y-handler.getGameCamera().getyOffset())+1);
+		
 		Graphics2D g2=(Graphics2D)g;
 		if(falling) {
 			rot+=rotSpeed;
@@ -122,7 +122,6 @@ public class Player extends Creature{
 
 		g2.rotate(Math.toRadians(rot), (double)(x-handler.getGameCamera().getxOffset()+DEFAULT_WIDTH/2),(double)(y-handler.getGameCamera().getyOffset()+DEFAULT_HEIGHT/2));
 		g.drawImage(Assets.player1,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
-		
 	}
 
 }

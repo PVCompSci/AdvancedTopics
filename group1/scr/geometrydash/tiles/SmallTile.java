@@ -28,4 +28,6 @@ public abstract class SmallTile extends Tile{
 	public boolean isSmallTile() {
 		return true;
 	}
+	
+
 }

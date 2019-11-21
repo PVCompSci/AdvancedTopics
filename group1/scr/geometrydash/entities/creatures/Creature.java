@@ -1,8 +1,5 @@
 package geometrydash.entities.creatures;
 
-import java.awt.Point;
-
-import geometrydash.Game;
 import geometrydash.Handler;
 import geometrydash.entities.Entity;
 import geometrydash.tiles.Tile;
@@ -10,7 +7,7 @@ import geometrydash.tiles.Tile;
 public abstract class Creature extends Entity{
 	
 	public static final int DEFAULT_HEALTH=10;
-	public static final float DEFAULT_SPEED=10f;
+	public static final float DEFAULT_SPEED=11f;
 	public static final int DEFAULT_WIDTH=64,DEFAULT_HEIGHT=64;
 	
 	protected int health;
@@ -34,67 +31,81 @@ public abstract class Creature extends Entity{
 	public void moveX() {
 		if(dx>0) {
 			
-			int tx=(int)(x+dx+bounds.x+bounds.width)/Tile.TILEWIDTH;
-			int y1=(int)(y+bounds.y)/Tile.TILEHEIGHT;
-			int y2=(int)(y+bounds.y+bounds.height)/Tile.TILEHEIGHT;
+			int tx=(int)(x+dx+1+bounds.width)/Tile.TILEWIDTH;
+			int y1=(int)(y+1)/Tile.TILEHEIGHT;
+			int y2=(int)(y+1+bounds.height)/Tile.TILEHEIGHT;
 			
 			if(!collisionWithTile(tx,y1)&&!collisionWithTile(tx,y2)) {
 				x+=dx;
 			}
 			else {
-				x=tx*Tile.TILEWIDTH-bounds.width-bounds.x-1;
+				x=tx*Tile.TILEWIDTH-bounds.width-1-1;
 			}
 		}
 		else if(dx<0) {
-			int tx=(int)(x+dx+bounds.x)/Tile.TILEWIDTH;
-			int y1=(int)(y+bounds.y)/Tile.TILEHEIGHT;
-			int y2=(int)(y+bounds.y+bounds.height)/Tile.TILEHEIGHT;
+			int tx=(int)(x+dx+1)/Tile.TILEWIDTH;
+			int y1=(int)(y+1)/Tile.TILEHEIGHT;
+			int y2=(int)(y+1+bounds.height)/Tile.TILEHEIGHT;
 			if(!collisionWithTile(tx,y1)&&!collisionWithTile(tx,y2)) {
 				x+=dx;
 			}
 			else {
-				x=tx*Tile.TILEWIDTH+Tile.TILEWIDTH-bounds.x+1;
+				x=tx*Tile.TILEWIDTH+Tile.TILEWIDTH-1+1;
 			}
 		}
 	}
 	
 	public void moveY() {
 		if(dy>0) {
-			int ty=(int)(y+dy+bounds.y+bounds.height)/Tile.TILEHEIGHT;
-			int x1=(int)(x+bounds.x)/Tile.TILEWIDTH;
-			int x2=(int)(x+bounds.x+bounds.width)/Tile.TILEWIDTH;
+			int ty=(int)(y+dy+1+bounds.height)/Tile.TILEHEIGHT;
+			int x1=(int)(x+1)/Tile.TILEWIDTH;
+			int x2=(int)(x+1+bounds.width)/Tile.TILEWIDTH;
 			
 			if(!collisionWithTile(x1,ty)&&!collisionWithTile(x2,ty)) {
 				
 				y+=dy;
 			}
 			else {
-				y=ty*Tile.TILEHEIGHT-bounds.height-bounds.y-1;
+				y=ty*Tile.TILEHEIGHT-bounds.height-1-1;
 			}
 		}
 		else if(dy<0) {
 			
-			int ty=(int)(y+dy+bounds.y)/Tile.TILEHEIGHT;
-			int x1=(int)(x+bounds.x)/Tile.TILEWIDTH;
-			int x2=((int)(x+bounds.x+bounds.width)/Tile.TILEWIDTH);
+			int ty=(int)(y+dy+1)/Tile.TILEHEIGHT;
+			int x1=(int)(x+1)/Tile.TILEWIDTH;
+			int x2=((int)(x+1+bounds.width)/Tile.TILEWIDTH);
 			
 			if(!collisionWithTile(x1,ty)&&!collisionWithTile(x2,ty)) {
 				y+=dy;
 			}
 			else {
-				y=ty*Tile.TILEHEIGHT+Tile.TILEHEIGHT-bounds.y+1;
+				y=ty*Tile.TILEHEIGHT+Tile.TILEHEIGHT-1+1;
 			}
 		}
 	}
 	
 	protected boolean collisionWithTile(int x,int y) {
+		if(handler.getWorld().getTile(x,y).isSmallTile()) {
+			while(handler.getWorld().getTile(x,y).getCollisionBoxes().size()>0) {
+				if(handler.getWorld().getTile(x,y).getCollisionBoxes().pop().intersects(bounds)) {
+					//handler.getGame().setMenuState();
+					respawn();
+					System.out.println("collision");
+				}
+			}
+			return false;
+		}
 		return handler.getWorld().getTile(x, y).isSolid();
 	}
 	
 	protected boolean isSmallTile(int x,int y) {
 		return handler.getWorld().getTile(x, y).isSmallTile();
 	}
-	
+	public void respawn()
+	{
+		y=spawnY;
+		x=spawnX;
+	}
 	public float getDx() {
 		return dx;
 	}

@@ -1,5 +1,4 @@
 package geometrydash;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
@@ -118,6 +117,10 @@ public class Game implements Runnable{
 	
 	public void setGameState() {
 		State.setState(gameState);
+	}
+	
+	public void setMenuState() {
+		State.setState(menuState);
 	}
 	
 	public KeyManager getKeyManager() {

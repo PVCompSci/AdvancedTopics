@@ -1,9 +1,7 @@
 package geometrydash.state;
 import java.awt.Graphics;
 
-import geometrydash.Game;
 import geometrydash.Handler;
-import geometrydash.gfx.Assets;
 
 public class MenuState extends State{
 
