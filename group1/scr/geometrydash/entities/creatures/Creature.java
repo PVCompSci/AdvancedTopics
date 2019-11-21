@@ -88,7 +88,7 @@ public abstract class Creature extends Entity{
 		if(handler.getWorld().getTile(x,y).isSmallTile()) {
 			while(handler.getWorld().getTile(x,y).getCollisionBoxes().size()>0) {
 				if(handler.getWorld().getTile(x,y).getCollisionBoxes().pop().intersects(bounds)) {
-					//handler.getGame().setMenuState();
+					handler.getGame().setMenuState();
 					respawn();
 					System.out.println("collision");
 				}
