@@ -15,7 +15,7 @@ public class GameState extends State{
 		super(handler);
 		world=new World(handler,"res/worlds/world1");
 		handler.setWorld(world);
-		player=new Player(handler,Tile.TILEWIDTH*4,Tile.TILEHEIGHT*12);			
+		player=new Player(handler,handler.getWorld().getSpawnX()*Tile.TILEHEIGHT,handler.getWorld().getSpawnY()*Tile.TILEHEIGHT);			
 	}
 	
 	public void tick() {

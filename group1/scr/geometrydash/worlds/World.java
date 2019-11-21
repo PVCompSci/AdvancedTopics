@@ -55,6 +55,22 @@ public class World {
 		return t;
 	}
 	
+	public int getSpawnX() {
+		return spawnX;
+	}
+
+	public void setSpawnX(int spawnX) {
+		this.spawnX = spawnX;
+	}
+
+	public int getSpawnY() {
+		return spawnY;
+	}
+
+	public void setSpawnY(int spawnY) {
+		this.spawnY = spawnY;
+	}
+
 	private void loadWorld(String path) {
 		
 		String file=Utils.loadFileAsString(path);

@@ -9,7 +9,7 @@ import geometrydash.tiles.Tile;
 
 public class Player extends Creature{
 
-	private float grav,power,rotSpeed,rot;
+	private float grav,power,rotSpeed;
 	private boolean falling;
 
 	public Player(Handler handler,float x, float y) {
@@ -40,7 +40,7 @@ public class Player extends Creature{
 			dy+=grav;
 		else
 			dy=grav;
-		dx=0;
+		dx=speed;
 		
 		if(handler.getKeyManager().up)
 			dy=-speed;
@@ -101,7 +101,8 @@ public class Player extends Creature{
 				falling=true;
 			}
 			else
-				y=ty*Tile.TILEHEIGHT+Tile.TILEHEIGHT-1+1;
+				//y=ty*Tile.TILEHEIGHT+Tile.TILEHEIGHT-1+1;
+				respawn();
 		}
 	}
 	
