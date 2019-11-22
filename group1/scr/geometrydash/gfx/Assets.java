@@ -16,6 +16,7 @@ public class Assets {
 		barrier=sheet.crop(width*3, 0, width, height);
 		spike=sheet.crop(width*4, 0, width, height);
 		air=sheet.crop(width*5, 0, width, height);
+		//air=null;
 		border=sheet.crop(width*6, 0, width, height);
 	}
 }

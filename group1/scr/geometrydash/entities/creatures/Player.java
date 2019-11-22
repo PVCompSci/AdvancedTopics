@@ -25,6 +25,7 @@ public class Player extends Creature{
 		grav=1.7f;
 		power=-21f;
 		falling=true;
+		dx=speed;
 	}
 
 	public void tick() {
@@ -40,16 +41,7 @@ public class Player extends Creature{
 			dy+=grav;
 		else
 			dy=grav;
-		dx=speed;
-		
-		if(handler.getKeyManager().up)
-			dy=-speed;
-		if(handler.getKeyManager().down)
-			dy=speed;
-		if(handler.getKeyManager().left)
-			dx=-speed;
-		if(handler.getKeyManager().right)
-			dx=speed;
+
 		if(handler.getKeyManager().space)
 			jump();
 	}
@@ -101,7 +93,7 @@ public class Player extends Creature{
 				falling=true;
 			}
 			else
-				//y=ty*Tile.TILEHEIGHT+Tile.TILEHEIGHT-1+1;
+				y=ty*Tile.TILEHEIGHT+Tile.TILEHEIGHT-1+1;
 				respawn();
 		}
 	}
@@ -114,15 +106,27 @@ public class Player extends Creature{
 	
 	public void render(Graphics g) {
 		
-		bounds.setLocation((int)(x-handler.getGameCamera().getxOffset()+1), (int)(y-handler.getGameCamera().getyOffset())+1);
+		if(!respawn) {
+			dx=speed;
+			bounds.setLocation((int)(x-handler.getGameCamera().getxOffset()+1), (int)(y-handler.getGameCamera().getyOffset())+1);
 		
-		Graphics2D g2=(Graphics2D)g;
-		if(falling) {
+			Graphics2D g2=(Graphics2D)g;
+			if(falling) {
 			rot+=rotSpeed;
+			}
+			
+			g2.rotate(Math.toRadians(rot), (double)(x-handler.getGameCamera().getxOffset()+DEFAULT_WIDTH/2),(double)(y-handler.getGameCamera().getyOffset()+DEFAULT_HEIGHT/2));
+			g.drawImage(Assets.player1,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
+	
 		}
-
-		g2.rotate(Math.toRadians(rot), (double)(x-handler.getGameCamera().getxOffset()+DEFAULT_WIDTH/2),(double)(y-handler.getGameCamera().getyOffset()+DEFAULT_HEIGHT/2));
-		g.drawImage(Assets.player1,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
+		else {
+			dx=0;
+			respawnCounter++;
+			if(respawnCounter>=100) {
+				respawn=false;
+				x=spawnX;
+				y=spawnY;
+			}
+		}
 	}
-
 }

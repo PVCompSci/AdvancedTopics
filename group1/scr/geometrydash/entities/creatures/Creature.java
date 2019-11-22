@@ -10,8 +10,9 @@ public abstract class Creature extends Entity{
 	public static final float DEFAULT_SPEED=11f;
 	public static final int DEFAULT_WIDTH=64,DEFAULT_HEIGHT=64;
 	
-	protected int health,rot;
+	protected int health,rot,respawnCounter;
 	protected float speed;
+	protected boolean respawn;
 	
 	protected float dx,dy;
 
@@ -38,7 +39,7 @@ public abstract class Creature extends Entity{
 				x+=dx;
 			}
 			else {
-				//x=tx*Tile.TILEWIDTH-bounds.width-1-1;
+				x=tx*Tile.TILEWIDTH-bounds.width-1-1;
 				respawn();
 			}
 		}
@@ -50,7 +51,7 @@ public abstract class Creature extends Entity{
 				x+=dx;
 			}
 			else {
-				//x=tx*Tile.TILEWIDTH+Tile.TILEWIDTH-1+1;
+				x=tx*Tile.TILEWIDTH+Tile.TILEWIDTH-1+1;
 				respawn();
 			}
 		}
@@ -89,7 +90,7 @@ public abstract class Creature extends Entity{
 		if(handler.getWorld().getTile(x,y).isSmallTile()) {
 			while(handler.getWorld().getTile(x,y).getCollisionBoxes().size()>0) {
 				if(handler.getWorld().getTile(x,y).getCollisionBoxes().pop().intersects(bounds)) {
-					//handler.getGame().setMenuState();
+					handler.getGame().setMenuState();
 					respawn();
 				}
 			}
@@ -101,11 +102,13 @@ public abstract class Creature extends Entity{
 	protected boolean isSmallTile(int x,int y) {
 		return handler.getWorld().getTile(x, y).isSmallTile();
 	}
+	
+	
 	public void respawn()
 	{
+		respawn=true;
+		respawnCounter=0;
 		rot=0;
-		y=spawnY;
-		x=spawnX;
 	}
 	public float getDx() {
 		return dx;
