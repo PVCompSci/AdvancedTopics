@@ -92,9 +92,10 @@ public class Player extends Creature{
 				y+=dy;
 				falling=true;
 			}
-			else
+			else {
 				y=ty*Tile.TILEHEIGHT+Tile.TILEHEIGHT-1+1;
 				respawn();
+			}
 		}
 	}
 	

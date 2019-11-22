@@ -90,7 +90,6 @@ public abstract class Creature extends Entity{
 		if(handler.getWorld().getTile(x,y).isSmallTile()) {
 			while(handler.getWorld().getTile(x,y).getCollisionBoxes().size()>0) {
 				if(handler.getWorld().getTile(x,y).getCollisionBoxes().pop().intersects(bounds)) {
-					handler.getGame().setMenuState();
 					respawn();
 				}
 			}
@@ -110,6 +109,7 @@ public abstract class Creature extends Entity{
 		respawnCounter=0;
 		rot=0;
 	}
+	
 	public float getDx() {
 		return dx;
 	}
