@@ -23,7 +23,7 @@ public class Player extends Creature{
 		rot=0;
 		rotSpeed=7;
 		grav=1.7f;
-		power=-21f;
+		power=-22f;
 		falling=true;
 		dx=speed;
 	}
@@ -43,7 +43,8 @@ public class Player extends Creature{
 			dy=grav;
 
 		if(handler.getKeyManager().space)
-			jump();
+			if(!respawn)
+				jump();
 	}
 	
 	public void move() {
@@ -123,7 +124,7 @@ public class Player extends Creature{
 		else {
 			dx=0;
 			respawnCounter++;
-			if(respawnCounter>=100) {
+			if(respawnCounter>=60) {
 				respawn=false;
 				x=spawnX;
 				y=spawnY;
