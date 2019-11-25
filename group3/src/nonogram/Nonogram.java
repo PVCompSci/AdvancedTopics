@@ -160,10 +160,6 @@ public class Nonogram
 		horizontal = new ArrayBlockingQueue<Stack>(queueSize);
 		vertical = new ArrayBlockingQueue<Stack>(queueSize);
 		
-		//initializes the counters determining the number of shaded blocks for rows and columns respectively
-		shadedHorizontal = new int[queueSize];
-		shadedVertical = new int[queueSize];
-		
 		//loop that runs for both the horizontal and vertical, inputting the data into both
 		for(int a = 0; a < queueSize; a++)
 		{
@@ -179,29 +175,31 @@ public class Nonogram
 			{
 				//The top "if" and "else" statements are for rows
 				if(imageArray[b][a])
-				{
 					shadedAmtHori++;
-					tempHori.push(1);
-				}
 				
 				else
-					tempHori.push(0);
+				{
+					if(shadedAmtHori > 0)
+						tempHori.push(shadedAmtHori);
+					
+					shadedAmtHori = 0;
+				}
 				
 				//The bottom "if" and "else" statements are for columns
 				if(imageArray[a][b])
-				{
 					shadedAmtVert++;
-					tempVert.push(1);
-				}
 				
 				else
-					tempVert.push(0);
+				{
+					if(shadedAmtVert > 0)
+						tempVert.push(shadedAmtVert);
+					
+					shadedAmtVert = 0;
+				}
 			}
 			
 			//pushes the data gathered into their respectie storage units (either queues or arrays)
-			shadedHorizontal[a] = shadedAmtHori;
 			horizontal.add(tempHori);
-			shadedVertical[a] = shadedAmtVert;
 			vertical.add(tempVert);
 		}
 		
