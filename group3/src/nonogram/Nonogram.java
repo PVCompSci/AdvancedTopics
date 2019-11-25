@@ -46,6 +46,14 @@ public class Nonogram
 	}
 	
 	/**
+	 * @return 2D array of the image
+	 */
+	public boolean[][] getImageArray()
+	{
+		return imageArray;
+	}
+	
+	/**
 	 * Converts a given Image into a BufferedImage (Stolen from StackOverflow)
 	 *
 	 * @param img The Image to be converted
