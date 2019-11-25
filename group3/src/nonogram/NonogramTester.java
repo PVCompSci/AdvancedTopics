@@ -1,10 +1,17 @@
 package nonogram;
 
+import java.io.FileNotFoundException;
+
 public class NonogramTester 
 {
-	public static void main(String[] args) 
+	public static void main(String[] args) throws FileNotFoundException 
 	{
-		// TODO Auto-generated method stub
+		/**
+		 * PLEASE USE NONOGRAM VISUALS CLASS FOR REAL MAIN METHOD!
+		 * THIS IS JUST FOR TESTING THE NONOGRAM CLASS!
+		 */
+		
+		Nonogram nono = new Nonogram();
 	}
 
 }
