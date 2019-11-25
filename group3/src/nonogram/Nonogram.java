@@ -22,7 +22,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class Nonogram 
 {
 	private Queue<Stack> horizontal, vertical;
-	private int[] shadedHorizontal, shadedVertical;
 	private boolean imageArray[][];
 
 	public Nonogram() throws FileNotFoundException
@@ -44,22 +43,6 @@ public class Nonogram
 	public Queue<Stack> getVerticalQueue()
 	{
 		return vertical;
-	}
-	
-	/**
-	 * @return shadedHorizontal, the array that stores how many pixels are shaded in horizontally
-	 */
-	public int[] getPixelsShadedHorizontally()
-	{
-		return shadedHorizontal;
-	}
-	
-	/**
-	 * @return shadedVertical, the array that stores how many pixels are shaded in vertically
-	 */
-	public int[] getPixelsShadedVertically()
-	{
-		return shadedVertical;
 	}
 	
 	/**
@@ -202,29 +185,5 @@ public class Nonogram
 			horizontal.add(tempHori);
 			vertical.add(tempVert);
 		}
-		
-		//The code commented out here is simply for the sake of printing out the nonogram through the console as a test
-		/*
-		System.out.print("   ");
-		
-		for(int num : shadedVertical)
-			System.out.print(" " + num);
-		
-		System.out.println();
-		
-		for(int a = 0; a < vertical.size(); a++)
-		{
-			StringBuilder stackResult = new StringBuilder();
-			
-			Stack<Integer> temp = horizontal.poll();
-			
-			while(temp.size() > 0)
-				stackResult.append(temp.pop() + " ");
-			
-			stackResult = stackResult.reverse();
-			
-			System.out.println(shadedHorizontal[a] + ((shadedHorizontal[a] > 9) ? " " : "  ") + stackResult.toString());
-		}
-		*/
 	}
 }
