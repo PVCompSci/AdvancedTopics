@@ -124,7 +124,7 @@ public class Nonogram
 			}
 			
 			//The code commented out here is simply for the sake of testing to see if the image is processed properly
-			 
+			/*
 			BufferedImage newBuff = new BufferedImage(largerDimension, largerDimension, BufferedImage.TYPE_INT_RGB);
 			Graphics2D testG2 = newBuff.createGraphics();
 			
@@ -141,10 +141,9 @@ public class Nonogram
 			frame.setSize(Toolkit.getDefaultToolkit().getScreenSize());
 			frame.add(new JLabel(new ImageIcon(newBuff)));
 			frame.setVisible(true);
-			
+			*/
 			
 			formatImage(largerDimension);
-			
 		}
 	}
 	
