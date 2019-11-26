@@ -21,7 +21,6 @@ public class KeyManager implements KeyListener{
 		one=keys[KeyEvent.VK_1];
 
 	}
-	
 	public void keyTyped(KeyEvent e) {
 
 	}

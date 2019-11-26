@@ -2,6 +2,7 @@ package geometrydash;
 
 import geometrydash.gfx.GameCamera;
 import geometrydash.input.KeyManager;
+import geometrydash.input.MouseManager;
 import geometrydash.worlds.World;
 
 public class Handler {
@@ -19,6 +20,10 @@ public class Handler {
 	
 	public KeyManager getKeyManager() {
 		return game.getKeyManager();
+	}
+	public MouseManager getMouseManager()
+	{
+		return game.getMouseManager();
 	}
 	
 	public int getWidth() {

@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 public class Assets {
 
 	private static final int width=32,height=32;
-	public static BufferedImage player1,player2,floor,barrier,spike,air,border;
+	public static BufferedImage player1,player2,floor,barrier,spike,air,border,background,menu1;
 	
 	public static void init() {
 		
@@ -15,8 +15,11 @@ public class Assets {
 		floor=sheet.crop(width*2, 0, width, height);
 		barrier=sheet.crop(width*3, 0, width, height);
 		spike=sheet.crop(width*4, 0, width, height);
-		air=sheet.crop(width*5, 0, width, height);
-		//air=null;
+		//air=sheet.crop(width*5, 0, width, height);
+		air=null;
 		border=sheet.crop(width*6, 0, width, height);
+		background= ImageLoader.loadImage("/textures/background.png");
+		menu1=ImageLoader.loadImage("/textures/Menu1.png");
+		
 	}
 }

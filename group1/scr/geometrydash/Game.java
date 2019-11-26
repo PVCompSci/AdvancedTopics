@@ -1,11 +1,13 @@
 package geometrydash;
 import java.awt.Graphics;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 
 import geometrydash.display.Display;
 import geometrydash.gfx.Assets;
 import geometrydash.gfx.GameCamera;
 import geometrydash.input.KeyManager;
+import geometrydash.input.MouseManager;
 import geometrydash.state.GameState;
 import geometrydash.state.MenuState;
 import geometrydash.state.State;
@@ -22,9 +24,10 @@ public class Game implements Runnable{
 	private BufferStrategy bs;
 	private Graphics g;
 			
-	private State gameState,menuState;
+	public State gameState,menuState;
 	
 	private KeyManager keyManager;
+	private MouseManager mouseManager;
 	
 	private GameCamera gameCamera;
 	
@@ -36,12 +39,18 @@ public class Game implements Runnable{
 		this.height=height;
 		this.title=title;
 		keyManager=new KeyManager();
+		mouseManager= new MouseManager();
 	}
 
 	private void init() {
 		
 		display=new Display(title,width,height);
 		display.getFrame().addKeyListener(keyManager);
+		display.getFrame().addMouseListener(mouseManager);
+		display.getFrame().addMouseMotionListener(mouseManager);
+		display.getCanvas().addMouseListener(mouseManager);
+		display.getCanvas().addMouseMotionListener(mouseManager);
+
 		Assets.init();
 		
 		gameCamera=new GameCamera(this,0,0);
@@ -49,6 +58,8 @@ public class Game implements Runnable{
 		
 		gameState=new GameState(handler);
 		menuState=new MenuState(handler);
+	
+		
 		State.setState(menuState);
 		
 	}
@@ -127,10 +138,18 @@ public class Game implements Runnable{
 		
 		return keyManager;
 	}
+	public MouseManager getMouseManager()
+	{
+		return mouseManager;
+	}
 	
 	
 	public GameCamera getGameCamera() {
 		return gameCamera;
+	}
+	public Display getDisplay()
+	{
+		return display;
 	}
 	
 	public int getWidth() {

@@ -1,8 +1,11 @@
 package geometrydash.worlds;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.util.Stack;
 
 import geometrydash.Handler;
+import geometrydash.gfx.Assets;
 import geometrydash.tiles.Tile;
 import geometrydash.utils.Utils;
 
@@ -11,15 +14,19 @@ public class World {
 	private Handler handler;
 	private int width,height,spawnX,spawnY;
 	private int[][]tiles;
+	private double backDx;
+	private float backX;
 	
 	public World(Handler handler,String path) {
 		
 		this.handler=handler;
 		loadWorld(path);
+		backDx=-.1;
+		
 	}
 	
 	public void tick() {
-		
+		backX+=backDx;
 	}
 	
 	public void render(Graphics g) {
@@ -30,11 +37,17 @@ public class World {
 				
 		resetTileCollisions();
 		
+		g.drawImage(Assets.background, (int)backX, 0, handler.getWidth(), handler.getHeight()-180,null);
+		g.drawImage(Assets.background, (int)backX+handler.getWidth(), 0, handler.getWidth(), handler.getHeight(),null);
+		if(backX+handler.getWidth()==0)
+			backX=0;
+		
 		for(int y=yStart;y<yEnd;y++) {
 			for(int x=xStart;x<xEnd;x++) {
 				getTile(x,y).render(g, (int)(x*Tile.TILEWIDTH-handler.getGameCamera().getxOffset()),(int)(y*Tile.TILEHEIGHT-handler.getGameCamera().getyOffset()));;
 			}
 		}
+		
 	}
 	
 	public void resetTileCollisions() {

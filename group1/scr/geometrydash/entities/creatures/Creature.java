@@ -3,6 +3,7 @@ package geometrydash.entities.creatures;
 import geometrydash.Handler;
 import geometrydash.entities.Entity;
 import geometrydash.tiles.Tile;
+import geometrydash.worlds.World;
 
 public abstract class Creature extends Entity{
 	
@@ -13,6 +14,7 @@ public abstract class Creature extends Entity{
 	protected int health,rot,respawnCounter;
 	protected float speed;
 	protected boolean respawn;
+	protected int deathCount;
 	
 	protected float dx,dy;
 
@@ -21,6 +23,7 @@ public abstract class Creature extends Entity{
 		health=DEFAULT_HEALTH;
 		speed=DEFAULT_SPEED;
 		dx=speed;
+		deathCount=0;
 	}
 	
 	public void move() {
@@ -108,8 +111,13 @@ public abstract class Creature extends Entity{
 		respawn=true;
 		respawnCounter=0;
 		rot=0;
+		deathCount++;
+		
 	}
-	
+	public int getDeathCount()
+	{
+		return deathCount;
+	}
 	public float getDx() {
 		return dx;
 	}
