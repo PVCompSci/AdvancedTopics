@@ -1,6 +1,7 @@
 package geometrydash.tiles;
 
 import java.awt.Polygon;
+import java.awt.image.BufferedImage;
 
 import geometrydash.gfx.Assets;
 
@@ -9,8 +10,8 @@ public abstract class SmallTile extends Tile{
 	protected Polygon collisionBox;
 	protected boolean isDeadly;
 	
-	public SmallTile(int id) {
-		super(Assets.spike, id);
+	public SmallTile(int id,BufferedImage img) {
+		super(img, id);
 	}
 
 	public boolean isSolid() {

@@ -1,12 +1,14 @@
 package geometrydash.tiles;
 
+import java.awt.image.BufferedImage;
+
 import geometrydash.gfx.Assets;
 
 public class AirTile extends Tile{
 
-	public AirTile(int id) {
+	public AirTile(int id,BufferedImage img) {
 		
-		super(Assets.air,id);
+		super(img,id);
 	}
 
 }
