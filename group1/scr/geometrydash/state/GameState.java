@@ -18,6 +18,10 @@ public class GameState extends State{
 		player=new Player(handler,handler.getWorld().getSpawnX()*Tile.TILEHEIGHT,handler.getWorld().getSpawnY()*Tile.TILEHEIGHT);			
 	}
 	
+	public Player getPlayer() {
+		return player;
+	}
+	
 	public void tick() {
 		world.tick();
 		player.tick();

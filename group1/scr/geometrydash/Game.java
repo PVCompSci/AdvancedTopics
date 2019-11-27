@@ -134,6 +134,10 @@ public class Game implements Runnable{
 		State.setState(menuState);
 	}
 	
+	public GameState getGameState() {
+		return (GameState)gameState;
+	}
+	
 	public KeyManager getKeyManager() {
 		
 		return keyManager;
@@ -142,7 +146,6 @@ public class Game implements Runnable{
 	{
 		return mouseManager;
 	}
-	
 	
 	public GameCamera getGameCamera() {
 		return gameCamera;

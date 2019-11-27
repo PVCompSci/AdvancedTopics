@@ -27,8 +27,12 @@ public class World {
 	}
 	
 	public void tick() {
-		backX+=backDx;
-		floorX+=floorDx;
+		
+		if(!handler.getGame().getGameState().getPlayer().isRespawing()) {
+			backX+=backDx;
+			floorX+=floorDx;
+		}
+
 	}
 	
 	public void render(Graphics g) {

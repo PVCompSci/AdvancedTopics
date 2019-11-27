@@ -28,7 +28,7 @@ public class Player extends Creature{
 		dx=speed;
 		deathCount=0;
 	}
-
+	
 	public void tick() {
 		
 		getInput();
@@ -131,4 +131,9 @@ public class Player extends Creature{
 			}
 		}
 	}
+	
+	public boolean isRespawing() {
+		return respawn;
+	}
+	
 }
