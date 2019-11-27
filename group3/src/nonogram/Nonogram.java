@@ -189,6 +189,12 @@ public class Nonogram
 				}
 			}
 			
+			if(shadedAmtHori > 0)
+				tempHori.push(shadedAmtHori);
+			
+			if(shadedAmtVert > 0)
+				tempVert.push(shadedAmtVert);
+			
 			//pushes the data gathered into their respectie storage units (either queues or arrays)
 			horizontal.add(tempHori);
 			vertical.add(tempVert);
