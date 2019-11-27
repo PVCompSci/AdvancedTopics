@@ -2,26 +2,29 @@ package nonogram;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.FileNotFoundException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Queue;
+import java.util.Stack;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 public class NonogramVisuals extends JFrame implements KeyListener {
-	//Stores if checking or filling box.
 	private static boolean checking = false;
 	private static JButton[][] buttons;
 	private static JButton currentHover;
+	private static Stack<JButton> currentClick = new Stack<JButton>();
+	private static boolean clicked = false;
 	private static JButton button;
 	
 	private static Color BLACK = new Color(0, 0, 0);
@@ -32,19 +35,18 @@ public class NonogramVisuals extends JFrame implements KeyListener {
 	private static Color LIGHT1 = new Color(230, 230, 230);
 	private static Color WHITE = new Color(255, 255, 255);
 	
-	//Add KeyListener to Frame!
 	public NonogramVisuals() {
 		addKeyListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
 	}
 	 
-	//#MAINMETHODISEPICAMIRIGHT?
-    public static void main(String[] args) throws FileNotFoundException { 
+    public static void main(String[] args) throws Exception { 
+    	printVerboseProcessReport();
+    	
     	Nonogram nono = new Nonogram();
     	NonogramVisuals frame = new NonogramVisuals();
         
-    	//NOT MY (BRIAN'S) PROBLEM TO POPULATE!
         String[][] values = {
         		   { "1", "Steve", "AUS" },
         		   { "2", "Virat", "IND" },
@@ -52,101 +54,130 @@ public class NonogramVisuals extends JFrame implements KeyListener {
         		   { "4", "David", "AUS" },
         		   { "5", "Ben", "ENG" }};
   
-        //Create JPanels (for formating).
         JPanel pMain = new JPanel(new BorderLayout()); 
         JPanel pLayer1 = new JPanel(new BorderLayout());
         JPanel pLayer2 = new JPanel(new GridLayout(values.length, values.length));
-        pMain.setBackground(CONTROL);
         pLayer1.setBackground(CONTROL);
-        pLayer2.setBackground(CONTROL);
+        pLayer2.setOpaque(false);
         
-        //Create JPanel elements (text, buttons, and axes).
         button = new JButton("Switch to White (Space Bar)");
         button.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		toggle();
         	}
         });
+        
         JPanel xAxis = new JPanel(new GridLayout(1, values.length));
         xAxis.setBackground(CONTROL);
+        Queue theXFactor = nono.getVerticalQueue();
         JPanel yAxis = new JPanel(new GridLayout(values.length, 1));
         yAxis.setBackground(CONTROL);
+        Queue theYFactor = nono.getHorizontalQueue();
+        
         for(int i = 0; i < values.length; i++) {
-        	xAxis.add(new JLabel(i + 1 + ""));
-        	yAxis.add(new JLabel(i + 1 + ""));
+        	Stack xStack = (Stack) theXFactor.poll();
+        	int xSize = xStack.size();
+        	JPanel xTable = new JPanel(new GridLayout(xStack.size(), 1));
+        	for(int j = 0; j < xSize; j++) {
+        		JLabel temp = new JLabel(" " + xStack.pop() + " ");
+        		temp.setHorizontalAlignment(JLabel.CENTER);
+        		xTable.add(temp);
+        	}
+        	xAxis.add(xTable);
+        	
+        	Stack yStack = (Stack) theYFactor.poll();
+        	int ySize = yStack.size();
+        	JPanel yTable = new JPanel(new GridLayout(1, yStack.size()));
+        	for(int k = 0; k < ySize; k++) {
+        		JLabel temp = new JLabel(" " + yStack.pop() + " ");
+        		temp.setHorizontalAlignment(JLabel.CENTER);
+        		yTable.add(temp);
+        	}
+        	yAxis.add(yTable);
         }
         
-        //Create Grid elements (buttons).
         buttons = new JButton[values.length][values.length];
         for(int i = 0; i < values.length; i++){
             for(int x = 0; x < values.length; x++){
                 buttons[i][x] = new JButton();
                 buttons[i][x].setFocusable(false);
+                
                 //https://stackoverflow.com/a/7647969
                 buttons[i][x].setOpaque(true);
-                buttons[i][x].setBorderPainted(false);
+                buttons[i][x].setBorder(new LineBorder(Color.BLACK));
                 buttons[i][x].setBackground(CONTROL);
-                //https://alvinalexander.com/java/jbutton-listener-pressed-actionlistener
-                buttons[i][x].addActionListener(new ActionListener() {
-                	public void actionPerformed(ActionEvent e) {
-                		JButton source = (JButton) e.getSource();
-                		
-                		if(checking) {
-                			System.out.println("IsNotFilled");
-                			source.setBackground(WHITE);
-                		} else {
-                			System.out.println("IsFilled");
-                			source.setBackground(BLACK);
-                		}
-                		
-                		source.setSelected(false);
-                		source.setEnabled(false);
-                	}
-                });
+                
                 //https://stackoverflow.com/a/22639054
                 buttons[i][x].addMouseListener(new java.awt.event.MouseAdapter() {
                     public void mouseEntered(java.awt.event.MouseEvent evt) {
                     	JButton source = (JButton) evt.getSource();
                     	currentHover = source;
                     	if(source.getBackground() != BLACK && source.getBackground() != WHITE) {
-                    		source.setBackground(Color.RED);
                     		if(checking) {
                     			source.setBackground(LIGHT1);
                     		} else {
                     			source.setBackground(DARK1);
                     		}
                     	}
+                    	if(clicked && (source.getBackground() != BLACK && source.getBackground() != WHITE)) currentClick.add(source);
                     }
                     public void mouseExited(java.awt.event.MouseEvent evt) {
                     	JButton source = (JButton) evt.getSource();
                     	currentHover = null;
-                    	if(source.getBackground() != BLACK && source.getBackground() != WHITE) {
+                    	if(clicked && (source.getBackground() != BLACK && source.getBackground() != WHITE)) {
+                    		if(checking) {
+                    			source.setBackground(LIGHT2);
+                    		} else {
+                    			source.setBackground(DARK2);
+                    		}
+                    	} else if(source.getBackground() != BLACK && source.getBackground() != WHITE) {
                     		source.setBackground(CONTROL);
                     	}
+                    }
+                    public void mousePressed(java.awt.event.MouseEvent evt) {
+                    	JButton source = (JButton) evt.getSource();
+                    	currentClick.add(source);
+                    	clicked = true;
+                    }
+                    public void mouseReleased(java.awt.event.MouseEvent evt) {
+                    	while(!currentClick.isEmpty()) {
+                    		JButton source = (JButton) currentClick.pop();
+                    		
+                    		if(source.getBackground() != BLACK && source.getBackground() != WHITE) {
+		                		if(checking) {
+		                			System.out.println("IsNotFilled");
+		                			source.setBackground(WHITE);
+		                		} else {
+		                			System.out.println("IsFilled");
+		                			source.setBackground(BLACK);
+		                		}
+                    		}
+	                		
+	                		source.setSelected(false);
+	                		source.setEnabled(false);
+                    	}
+                    	clicked = false;
                     }
                 });
                 pLayer2.add(buttons[i][x]);
             }
         }
-  
-        //Assembles the frame and positions stuff.
+        
         pMain.add(button, BorderLayout.SOUTH); 
         pMain.add(yAxis, BorderLayout.WEST); 
-        pLayer1.add(xAxis, BorderLayout.NORTH); 
+        pMain.add(new JPanel(), BorderLayout.EAST); 
+        pLayer1.add(xAxis, BorderLayout.NORTH);  
         pLayer1.add(pLayer2, BorderLayout.CENTER); 
-        pMain.add(pLayer1, BorderLayout.CENTER); 
-  
-        //Adding the main JPanel to the JFrame and setting the frame visible.
+        pMain.add(pLayer1, BorderLayout.CENTER);
         frame.add(pMain);
+        
         //https://stackoverflow.com/a/11570414
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-        //frame.setUndecorated(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
     }
     
-    //Toggles between the black and white tiles.
     public static void toggle() {
 	    checking = !checking;
 	    if(checking) {
@@ -171,4 +202,24 @@ public class NonogramVisuals extends JFrame implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {} 
+	
+	//https://www.quickprogrammingtips.com/java/how-to-get-the-list-of-running-processes-in-mac-using-java.html
+	private static void printVerboseProcessReport() throws Exception{
+        Process process = Runtime.getRuntime().exec("ps -er -o %cpu,%mem,flags,lim,lstart,nice,rss,start,state,tt,wchan,command ");
+        BufferedReader r =  new BufferedReader(new InputStreamReader(process.getInputStream()));
+        String line = null;
+         
+        int count = 0;
+        while((line=r.readLine())!=null) {
+            if(line.contains("nonogram.NonogramVisuals")) count++;
+        }
+        
+        if(count > 1) {
+        	JOptionPane.showMessageDialog(new JFrame(),
+        	    "This program is running more than once. Please close the other program and try again.",
+        	    "Oh no!",
+        	    JOptionPane.ERROR_MESSAGE);
+        	System.exit(0);
+        }
+    }
 }

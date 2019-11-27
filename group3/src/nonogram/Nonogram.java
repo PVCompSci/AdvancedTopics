@@ -1,13 +1,8 @@
 package nonogram;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.io.FileNotFoundException;
 import java.util.Queue;
 import java.util.Stack;
@@ -16,7 +11,6 @@ import java.util.concurrent.ArrayBlockingQueue;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Nonogram 
