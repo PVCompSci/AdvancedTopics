@@ -28,7 +28,7 @@ public class World {
 	
 	public void tick() {
 		
-		if(!handler.getGame().getGameState().getPlayer().isRespawing()) {
+		if(!handler.getGame().getGameState().getPlayer().isRespawning()) {
 			backX+=backDx;
 			floorX+=floorDx;
 		}
