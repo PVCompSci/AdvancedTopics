@@ -14,19 +14,21 @@ public class World {
 	private Handler handler;
 	private int width,height,spawnX,spawnY;
 	private int[][]tiles;
-	private double backDx;
-	private float backX;
+	private double backDx,floorDx;
+	private float backX,floorX;
 	
 	public World(Handler handler,String path) {
 		
 		this.handler=handler;
 		loadWorld(path);
 		backDx=-.1;
+		floorDx=-11;
 		
 	}
 	
 	public void tick() {
 		backX+=backDx;
+		floorX+=floorDx;
 	}
 	
 	public void render(Graphics g) {
@@ -39,8 +41,13 @@ public class World {
 		
 		g.drawImage(Assets.background, (int)backX, 0, handler.getWidth(), handler.getHeight()-180,null);
 		g.drawImage(Assets.background, (int)backX+handler.getWidth(), 0, handler.getWidth(), handler.getHeight()-180,null);
-		if(backX+handler.getWidth()==0)
+		if(backX+handler.getWidth()<=0)
 			backX=0;
+		
+		g.drawImage(Assets.floorBackground, (int)floorX, 535, handler.getWidth()+10, 300,null);
+		g.drawImage(Assets.floorBackground, (int)floorX+handler.getWidth()+10, 535, handler.getWidth()+10, 300,null);
+		if(floorX+handler.getWidth()<=0)
+			floorX=0;
 		
 		for(int y=yStart;y<yEnd;y++) {
 			for(int x=xStart;x<xEnd;x++) {
