@@ -118,6 +118,10 @@ public abstract class Creature extends Entity{
 	{
 		return deathCount;
 	}
+	public boolean isDead()
+	{
+		return respawn;
+	}
 	public float getDx() {
 		return dx;
 	}

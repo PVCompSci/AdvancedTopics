@@ -132,7 +132,7 @@ public class Player extends Creature{
 		}
 	}
 	
-	public boolean isRespawing() {
+	public boolean isRespawning() {
 		return respawn;
 	}
 	
