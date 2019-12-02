@@ -24,6 +24,15 @@ public class Nonogram
 	}
 	
 	/**
+	 * @return the queue size, which can serve as either the number of rows
+	 * or the number of columns, both of which are identical to each other
+	 */
+	public int getQueueSize()
+	{
+		return horizontal.size();
+	}
+	
+	/**
 	 * @return horizontal, the horizontal queue, that stores stacks of the pixels horizontally
 	 */
 	public Queue<Stack> getHorizontalQueue()
