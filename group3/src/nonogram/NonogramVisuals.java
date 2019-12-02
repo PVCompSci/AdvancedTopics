@@ -47,13 +47,24 @@ public class NonogramVisuals extends JFrame implements KeyListener {
     	Nonogram nono = new Nonogram();
     	NonogramVisuals frame = new NonogramVisuals();
         
+    	/*
         String[][] values = {
         		   { "1", "Steve", "AUS" },
         		   { "2", "Virat", "IND" },
         		   { "3", "Kane", "NZ" },
         		   { "4", "David", "AUS" },
-        		   { "5", "Ben", "ENG" }};
-  
+        		   { "5", "Ben", "ENG" },
+        		   { "6", "Tim", "GER"},
+        		   { "7", "John", "IND"},
+        		   { "8", "Juan", "USA"},
+        		   { "9", "Christian", "ENG"},
+        		   { "10", "Dean", "HELL"}};
+  		*/
+    	
+    	String[][] values = new String[nono.getQueueSize()][nono.getQueueSize()];
+    	
+    	System.out.println(values.length);
+    	
         JPanel pMain = new JPanel(new BorderLayout()); 
         JPanel pLayer1 = new JPanel(new BorderLayout());
         JPanel pLayer2 = new JPanel(new GridLayout(values.length, values.length));
