@@ -1,6 +1,7 @@
 package TypeRacerPackage;
 import javafx.application.Application;
 
+
 import javafx.event.*;
 import javafx.scene.*;
 import javafx.stage.*;
@@ -12,7 +13,7 @@ import java.io.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import TypeMain;
+
 import javafx.scene.input.KeyEvent;
 import javafx.event.EventHandler;
 import javafx.scene.text.Text;
