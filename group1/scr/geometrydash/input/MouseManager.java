@@ -24,7 +24,6 @@ public class MouseManager implements MouseListener, MouseMotionListener {
 			leftClicked=true;
 
 	}
-
 	public void mouseReleased(MouseEvent e) {
 		if(e.getButton()==MouseEvent.BUTTON1)
 			leftClicked=false;

@@ -33,6 +33,7 @@ public class Tile {
 	public static Tile barrierER=new SolidTile(17,Assets.barrierER);
 	public static Tile barrierC=new SolidTile(18,Assets.barrierC);
 	public static Tile barrierR=new SolidTile(19,Assets.barrierR);
+	public static Tile slab=new SolidTile(20,Assets.slab);
 		
 	protected BufferedImage texture;
 	protected final int id;
