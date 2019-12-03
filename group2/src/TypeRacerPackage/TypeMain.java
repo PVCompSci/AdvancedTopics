@@ -20,7 +20,7 @@ import javafx.scene.paint.*;
 public class TypeMain extends Application
 {
 	int mode = 0; 
-	File filename = new File("/Users/gchin20/eclipse-workspace/typingProject/test.txt");
+	File filename = new File(this.getClass().getResource("test.txt").getFile());
 	
 	static Stage primaryStage;
 	TextListener getwords = null;
