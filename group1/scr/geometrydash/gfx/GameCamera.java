@@ -7,18 +7,31 @@ import geometrydash.tiles.Tile;
 public class GameCamera {
 
 	private Game game;
-	private float xOffset,yOffset;
+	private float xOffset,yOffset, cameraDy;
 	
 	public GameCamera(Game game, float xOffset, float yOffset) {
 		this.game=game;
 		this.xOffset=xOffset;
 		this.yOffset=yOffset;
+		cameraDy=0;
 	}
 	
 	public void centerOnEntity(Entity e) {
 		
 		xOffset=e.getX()-game.getWidth()/2+e.getWidth()/2;
-		yOffset=game.getHeight()/2-Tile.TILEHEIGHT;
+		
+		if(e.getY()<400 && e.getY()>200)
+		{
+			cameraDy-=2;
+		}
+		else if(e.getY()<200)
+			cameraDy+=2;
+		else if(e.getY()>400)
+			cameraDy=0;
+			
+		
+		yOffset=game.getHeight()/2-Tile.TILEHEIGHT+cameraDy;
+		
 	}
 	
 	public void move(float xAmt,float yAmt) {

@@ -32,7 +32,8 @@ public class World {
 			backX+=backDx;
 			floorX+=floorDx;
 		}
-
+		handler.getGame().getGameCamera().centerOnEntity(handler.getGame().getGameState().getPlayer());
+		
 	}
 	
 	public void render(Graphics g) {
@@ -43,8 +44,8 @@ public class World {
 				
 		resetTileCollisions();
 		
-		g.drawImage(Assets.background, (int)backX, 0, handler.getWidth(), handler.getHeight()-180,null);
-		g.drawImage(Assets.background, (int)backX+handler.getWidth(), 0, handler.getWidth(), handler.getHeight()-180,null);
+		g.drawImage(Assets.background, (int)backX, 0, handler.getWidth(), handler.getHeight(),null);
+		g.drawImage(Assets.background, (int)backX+handler.getWidth(), 0, handler.getWidth(), handler.getHeight(),null);
 		if(backX+handler.getWidth()<=0)
 			backX=0;
 		

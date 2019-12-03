@@ -128,6 +128,7 @@ public class Player extends Creature{
 				respawn=false;
 				x=spawnX;
 				y=spawnY;
+				handler.playSound("/audio/StereoM.wav");
 			}
 		}
 	}

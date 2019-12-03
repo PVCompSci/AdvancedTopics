@@ -29,7 +29,7 @@ public class Assets {
 		barrierEB=sheet.crop(width, height, width, height);
 		barrierEL=sheet.crop(width*2, height, width, height);
 		barrierET=sheet.crop(width*3, height, width, height);
-		barrierEB=sheet.crop(width*4, height, width, height);
+		barrierER=sheet.crop(width*4, height, width, height);
 		barrierC=sheet.crop(width*5, height, width, height);
 		barrierR=sheet.crop(width*6, height, width, height);
 

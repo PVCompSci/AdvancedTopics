@@ -112,7 +112,12 @@ public abstract class Creature extends Entity{
 		respawnCounter=0;
 		rot=0;
 		deathCount++;
+		handler.getClip().stop();
 		
+	}
+	public boolean isDead()
+	{
+		return respawn;
 	}
 	public int getDeathCount()
 	{
