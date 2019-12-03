@@ -1,7 +1,5 @@
 package TypeRacerPackage;
 
-import javafx.application.Application;
-import javafx.event.*;
 import javafx.scene.*;
 import javafx.stage.*;
 import javafx.scene.control.*;
@@ -14,9 +12,7 @@ import java.util.TimerTask;
 
 import javafx.scene.input.KeyEvent;
 import javafx.event.EventHandler;
-import javafx.scene.text.Text;
 import javafx.scene.text.Font;
-import javafx.scene.text.*;
 import javafx.scene.paint.*;
 
 public class TypeRacer {
