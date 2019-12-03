@@ -7,30 +7,29 @@ import geometrydash.tiles.Tile;
 public class GameCamera {
 
 	private Game game;
-	private float xOffset,yOffset,defaultYOff,dy=3;
+	private float xOffset,yOffset,defaultYOff,dy=5;
 	
 	public GameCamera(Game game, float xOffset, float yOffset) {
 		this.game=game;
 		this.xOffset=xOffset;
 		this.yOffset=yOffset;
 		defaultYOff=game.getHeight()/2-Tile.TILEHEIGHT;
-		yOffset=defaultYOff;
+		this.yOffset=defaultYOff;
 	}
 	
 	public void centerOnEntity(Entity e) {
 		
 		xOffset=e.getX()-game.getWidth()/2+e.getWidth()/2;
-		
-		if(e.getY()<200)
-			yOffset-=dy;
-		else if(e.getY()>600) {
-			yOffset-=dy;
-			if(yOffset<=defaultYOff)
-				yOffset=defaultYOff;
-		}
-				
-		System.out.println(e.getY());
-		System.out.println(yOffset);
+
+		if(!game.getGameState().getPlayer().isRespawning()) {
+			if(e.getY()-yOffset<200)
+				yOffset-=dy;
+			else if(e.getY()-yOffset>400) {
+				yOffset+=dy;
+				if(yOffset>=defaultYOff)
+					yOffset=defaultYOff;
+			}
+		}				
 	}
 	
 	public void move(float xAmt,float yAmt) {
@@ -49,5 +48,8 @@ public class GameCamera {
 	}
 	public void setyOffset(float yOffset) {
 		this.yOffset = yOffset;
+	}
+	public void resetYOffset() {
+		yOffset=defaultYOff;
 	}
 }

@@ -46,6 +46,8 @@ public class Player extends Creature{
 		if(handler.getKeyManager().space)
 			if(!respawn)
 				jump();
+		if(handler.getKeyManager().up)
+			dy=-20;
 	}
 	
 	public void move() {
@@ -108,7 +110,6 @@ public class Player extends Creature{
 	}
 	
 	public void render(Graphics g) {
-		
 		if(!respawn) {
 			dx=speed;
 			bounds.setLocation((int)(x-handler.getGameCamera().getxOffset()+1), (int)(y-handler.getGameCamera().getyOffset())+1);
@@ -126,6 +127,7 @@ public class Player extends Creature{
 			respawnCounter++;
 			if(respawnCounter>=60) {
 				respawn=false;
+				handler.getGameCamera().resetYOffset();
 				x=spawnX;
 				y=spawnY;
 			}

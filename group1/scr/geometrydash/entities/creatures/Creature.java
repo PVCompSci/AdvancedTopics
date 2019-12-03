@@ -111,8 +111,7 @@ public abstract class Creature extends Entity{
 		respawn=true;
 		respawnCounter=0;
 		rot=0;
-		deathCount++;
-		
+		deathCount++;		
 	}
 	public int getDeathCount()
 	{

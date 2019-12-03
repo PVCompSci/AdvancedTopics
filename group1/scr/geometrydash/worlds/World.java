@@ -49,8 +49,8 @@ public class World {
 		if(backX+handler.getWidth()<=0)
 			backX=0;
 		
-		g.drawImage(Assets.floorBackground, (int)floorX, 535, handler.getWidth()+10, 300,null);
-		g.drawImage(Assets.floorBackground, (int)floorX+handler.getWidth()+10, 535, handler.getWidth()+10, 300,null);
+		g.drawImage(Assets.floorBackground, (int)floorX, 832-(int)handler.getGameCamera().getyOffset(), handler.getWidth()+10, 300,null);
+		g.drawImage(Assets.floorBackground, (int)floorX+handler.getWidth()+10, 832-(int)handler.getGameCamera().getyOffset(), handler.getWidth()+10, 300,null);
 		if(floorX+handler.getWidth()<=0)
 			floorX=0;
 		
