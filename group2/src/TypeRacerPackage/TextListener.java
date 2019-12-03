@@ -22,8 +22,6 @@ public class TextListener {
 		}
 		newWords=true;
 	}
-	
-	
 	public String firstOpt()
 	{
 
@@ -53,7 +51,7 @@ public class TextListener {
 			word = line;
 			line="";
 		}
-				
+			System.out.println(line+","+word);	
 		return	word;
 	}
 	

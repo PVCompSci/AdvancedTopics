@@ -45,6 +45,8 @@ public class TypeFrame extends Frame {
      */
     private void windowClosed() {
     	
+    	// TODO: Check if it is safe to close the application
+    	
         // Exit application.
         System.exit(0);
     }

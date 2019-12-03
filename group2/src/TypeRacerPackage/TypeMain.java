@@ -8,7 +8,6 @@ import javafx.scene.control.ScrollPane.*;
 import javafx.scene.layout.*;
 import javafx.geometry.*;
 import java.io.*;
-
 import javafx.scene.input.KeyEvent;
 import javafx.event.EventHandler;
 import javafx.scene.text.Text;
@@ -25,7 +24,6 @@ public class TypeMain extends Application
 	
 	static Stage primaryStage;
 	TextListener getwords = null;
-	
 	public static void main (String[] args )
 	{
 		launch(args);
@@ -65,8 +63,7 @@ public class TypeMain extends Application
 		enterFileLocation.setPromptText("ex. C:/Users/Greg/glendonisdumb/words.txt");
 		enterFileLocation.setOnAction(e->
 		{
-			String a = new String(enterFileLocation.getText());
-			
+			String a = new String (enterFileLocation.getText());
 			File b = new File(a);
 			File c = new File(a+".txt");
 			System.out.println(a+"\n"+b.exists()+"\n"+c.exists());
@@ -84,7 +81,6 @@ public class TypeMain extends Application
 				if (b.exists() == true)
 				{
 					filename=b;
-					
 				}
 				else
 				{
@@ -149,5 +145,4 @@ public class TypeMain extends Application
 		primaryStage.setScene(menu);
 		primaryStage.show();
 	}
-	
 }

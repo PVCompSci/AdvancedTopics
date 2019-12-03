@@ -1,7 +1,5 @@
 package TypeRacerPackage;
 import javafx.application.Application;
-
-
 import javafx.event.*;
 import javafx.scene.*;
 import javafx.stage.*;
@@ -12,7 +10,6 @@ import javafx.geometry.*;
 import java.io.*;
 import java.util.Timer;
 import java.util.TimerTask;
-
 
 import javafx.scene.input.KeyEvent;
 import javafx.event.EventHandler;
@@ -121,19 +118,19 @@ public class TypeRacer {
 		int p = 0;
 		String word = currentString;
 		contenta.getChildren().clear();
-	    for(String s : word.split(""))
+	    for(String s : word.split( "" ))
 	    {
 	        Label l = new Label(s);
 	        if (p<on)
 	        {
 	        l.setTextFill(Color.GREEN);
+	        characterCount++;
 	        }
 	        if (p==on)
 	        {
 	        	if (correct)
 	        	{
 	        		l.setTextFill(Color.BLUE);
-	        		
 	        	}
 	        	else
 	        	{
@@ -160,16 +157,14 @@ public class TypeRacer {
 		{
 			case 0: 
 				currentString=words.firstOpt();
-			
 				break;
 			case 1: 
-				currentString=words.secondOpt();
-				
+				currentString=words
+				.secondOpt();
 				break;
 			
 			case 2: 
 				currentString=words.thirdOpt();
-
 				break;
 			
 			default: 
@@ -181,13 +176,8 @@ public class TypeRacer {
 			TypeMain.primaryStage.show();
 			gameStage.close();
 			t.cancel();
-			
-			
-			TypeMain t = new TypeMain();
-			
-			//get character count from file being read from
 			int wpm=(int)((characterCount/5)/(((double)secondsPassed)/60));
-			
+			System.out.println("WPM: "+ wpm);
 		}
 		else
 		{
