@@ -13,6 +13,7 @@ public class Tile {
 
 	public static Tile[] tiles=new Tile[256];
 	public static Tile airTile=new AirTile(0,Assets.air);
+	public static Tile air2= new AirTile(21,Assets.air);
 	public static Tile ground=new SolidTile(1,Assets.ground);
 	public static Tile floorTile=new SolidTile(2,Assets.floor1);
 	public static Tile borderTile=new SolidTile(5,Assets.barrierMid);

@@ -14,7 +14,8 @@ public abstract class Creature extends Entity{
 	protected int health,rot,respawnCounter;
 	protected float speed;
 	protected boolean respawn;
-	protected int deathCount;
+	protected int deathCount,portalCount;
+	protected boolean portal;
 	
 	protected float dx,dy;
 
@@ -90,6 +91,9 @@ public abstract class Creature extends Entity{
 	}
 	
 	protected boolean collisionWithTile(int x,int y) {
+		if(handler.getWorld().getTile(x,y).getId()==21)// is portal tile
+			portal=true;
+
 		if(handler.getWorld().getTile(x,y).isSmallTile()) {
 			while(handler.getWorld().getTile(x,y).getCollisionBoxes().size()>0) {
 				if(handler.getWorld().getTile(x,y).getCollisionBoxes().pop().intersects(bounds)) {
@@ -99,6 +103,7 @@ public abstract class Creature extends Entity{
 			return false;
 		}
 		return handler.getWorld().getTile(x, y).isSolid();
+	
 	}
 	
 	protected boolean isSmallTile(int x,int y) {
@@ -112,6 +117,7 @@ public abstract class Creature extends Entity{
 		respawnCounter=0;
 		rot=0;
 		deathCount++;
+		portal=false;
 		handler.getClip().stop();
 		
 	}
