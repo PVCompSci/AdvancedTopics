@@ -5,13 +5,14 @@ import java.awt.image.BufferedImage;
 public class Assets {
 
 	private static final int width=64,height=64;
-	public static BufferedImage player1,floor1,ground,barrierMid,barrierSL,barrierST,barrierSR,barrierSB,barrierCTL,barrierCTR,barrierCBR,barrierCBL,barrierEB,barrierEL,barrierET,barrierER,barrierC,barrierR,spike1,spike2,air,border,slab,background,floorBackground,menu1;
+	public static BufferedImage player1,player2,floor1,ground,barrierMid,barrierSL,barrierST,barrierSR,barrierSB,barrierCTL,barrierCTR,barrierCBR,barrierCBL,barrierEB,barrierEL,barrierET,barrierER,barrierC,barrierR,spike1,spike2,air,border,slab,background,floorBackground,menu1;
 	
 	public static void init() {
 		
 		SpriteSheet sheet =new SpriteSheet(ImageLoader.loadImage("/textures/SpriteSheet.png"));
 		
 		player1=sheet.crop(0, height*2, width, height);
+		player2=sheet.crop(width*4, height*2, width, height);
 		
 		air=null;
 		ground=null;
