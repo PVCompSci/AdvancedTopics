@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 public class Assets {
 
 	private static final int width=64,height=64;
-	public static BufferedImage player1,floor1,ground,barrierMid,barrierSL,barrierST,barrierSR,barrierSB,barrierCTL,barrierCTR,barrierCBR,barrierCBL,barrierEB,barrierEL,barrierET,barrierER,barrierC,barrierR,spike1,spike2,air,border,background,floorBackground,menu1;
+	public static BufferedImage player1,floor1,ground,barrierMid,barrierSL,barrierST,barrierSR,barrierSB,barrierCTL,barrierCTR,barrierCBR,barrierCBL,barrierEB,barrierEL,barrierET,barrierER,barrierC,barrierR,spike1,spike2,air,border,slab,background,floorBackground,menu1;
 	
 	public static void init() {
 		
@@ -37,6 +37,7 @@ public class Assets {
 		spike1=sheet.crop(width, height*2, width, height);
 		spike2=sheet.crop(width*2, height*2, width, height);
 		border=sheet.crop(width*7, height, width, height);
+		slab=sheet.crop(width*3, height*2, width, height);
 		
 		background= ImageLoader.loadImage("/textures/Background.png");
 		floorBackground= ImageLoader.loadImage("/textures/Floor.png");
