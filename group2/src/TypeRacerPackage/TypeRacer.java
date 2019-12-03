@@ -9,7 +9,6 @@ import javafx.geometry.*;
 import java.io.*;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import javafx.scene.input.KeyEvent;
 import javafx.event.EventHandler;
 import javafx.scene.text.Font;
@@ -21,9 +20,9 @@ public class TypeRacer {
 	TextListener words = null;
 	String currentString = null;
 	int on;
-	FlowPane contenta = new FlowPane(new Label("ERROR"));
+	FlowPane contentA = new FlowPane(new Label("ERROR"));
 	Stage gameStage;
-	ScrollPane contentb = new ScrollPane();
+	ScrollPane contentB = new ScrollPane();
 	VBox content = new VBox(2);
 	Scene gameScene;
 
@@ -36,25 +35,25 @@ public class TypeRacer {
 		getText();
 		on = 0;
 		gameStage = new Stage();
-		contenta.setAlignment(Pos.CENTER);
+		contentA.setAlignment(Pos.CENTER);
 		characterCount = 0;
 		secondsPassed = 0;
 
 		if (mode == 2) {
-			contenta.setAlignment(Pos.CENTER_LEFT);
+			contentA.setAlignment(Pos.CENTER_LEFT);
 		}
 		content.setAlignment(Pos.TOP_CENTER);
 		content.getChildren().add(new Label("Typing Game"));
 		gameScene = new Scene(content, 600, 300);
 		gameStage.setScene(gameScene);
 		if (mode == 0 || mode == 1) {
-			content.getChildren().add(contenta);
+			content.getChildren().add(contentA);
 		}
 		if (mode == 2) {
-			contentb.setHbarPolicy(ScrollBarPolicy.NEVER);
-			contentb.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-			content.getChildren().add(contentb);
-			contentb.setContent(contenta);
+			contentB.setHbarPolicy(ScrollBarPolicy.NEVER);
+			contentB.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+			content.getChildren().add(contentB);
+			contentB.setContent(contentA);
 		}
 		gameScene.setOnKeyTyped(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent e) {
@@ -97,7 +96,7 @@ public class TypeRacer {
 	public void drawWord(boolean correct) {
 		int p = 0;
 		String word = currentString;
-		contenta.getChildren().clear();
+		contentA.getChildren().clear();
 		for (String s : word.split("")) {
 			Label l = new Label(s);
 			if (p < on) {
@@ -117,7 +116,7 @@ public class TypeRacer {
 			l.setPrefWidth(20);
 			l.setAlignment(Pos.CENTER);
 			l.setFont(new Font("Arial", 24));
-			contenta.getChildren().add(l);
+			contentA.getChildren().add(l);
 			p++;
 		}
 
