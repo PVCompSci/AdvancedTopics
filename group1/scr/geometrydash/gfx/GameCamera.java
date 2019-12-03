@@ -19,7 +19,7 @@ public class GameCamera {
 	}
 	public void centerOnEntity(Entity e) {
 		
-		xOffset=e.getX()-game.getWidth()/2+e.getWidth()/2;
+		xOffset=e.getX()-game.getWidth()/2+e.getWidth()/2+e.getWidth()*2;
 		if(!game.getGameState().getPlayer().isRespawning()) {
 			if(e.getY()-yOffset<200)
 				yOffset-=dy;

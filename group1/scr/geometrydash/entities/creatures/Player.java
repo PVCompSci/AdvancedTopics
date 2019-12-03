@@ -24,7 +24,7 @@ public class Player extends Creature{
 		rotSpeed=7;
 		grav=1.7f;
 		power=-22f;
-		rotSpeedPortal=2f;
+		rotSpeedPortal=1.1f;
 		falling=true;
 		dx=speed;
 		deathCount=0;
@@ -136,6 +136,9 @@ public class Player extends Creature{
 			else {
 				y=ty*Tile.TILEHEIGHT-bounds.height-1-1;
 				falling=false;
+				rot%=360;
+				if(rot>=60)
+					rot=60;
 		
 			}
 		}
@@ -152,6 +155,7 @@ public class Player extends Creature{
 			}
 			else {
 				y=ty*Tile.TILEHEIGHT;
+				
 			}
 			
 		}	
@@ -166,7 +170,10 @@ public class Player extends Creature{
 	{
 		float powerP=-4.8f;
 		dy=powerP;
-		rot-=rotSpeedPortal+2;
+		rot-=rotSpeedPortal+3;
+		if(rot<=-60)
+			rot=-60;
+		
 		
 	}
 	public void render(Graphics g) {
@@ -183,7 +190,10 @@ public class Player extends Creature{
 			}
 			
 			g2.rotate(Math.toRadians(rot), (double)(x-handler.getGameCamera().getxOffset()+DEFAULT_WIDTH/2),(double)(y-handler.getGameCamera().getyOffset()+DEFAULT_HEIGHT/2));
-			g2.drawImage(Assets.player1,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
+			if(portal)
+				g2.drawImage(Assets.player2,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
+			else
+				g2.drawImage(Assets.player1,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
 		}
 		else {
 			dx=0;

@@ -92,7 +92,10 @@ public abstract class Creature extends Entity{
 	
 	protected boolean collisionWithTile(int x,int y) {
 		if(handler.getWorld().getTile(x,y).getId()==21)// is portal tile
+		{
 			portal=true;
+			rot=0;
+		}
 
 		if(handler.getWorld().getTile(x,y).isSmallTile()) {
 			while(handler.getWorld().getTile(x,y).getCollisionBoxes().size()>0) {
