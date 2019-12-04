@@ -8,7 +8,7 @@ import geometrydash.worlds.World;
 public abstract class Creature extends Entity{
 	
 	public static final int DEFAULT_HEALTH=10;
-	public static final float DEFAULT_SPEED=11f;
+	public static final float DEFAULT_SPEED=11.1f;
 	public static final int DEFAULT_WIDTH=64,DEFAULT_HEIGHT=64;
 	
 	protected int health,rot,respawnCounter;
@@ -121,7 +121,6 @@ public abstract class Creature extends Entity{
 		rot=0;
 		deathCount++;
 		portal=false;
-		handler.getClip().stop();
 		
 	}
 	public boolean isDead()

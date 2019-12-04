@@ -38,6 +38,8 @@ public class Player extends Creature{
 		
 		move();
 		handler.getGameCamera().centerOnEntity(this);
+		
+		if(isRespawning()) handler.getClip().stop();
 			
 	}
 	
