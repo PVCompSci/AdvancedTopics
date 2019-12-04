@@ -9,7 +9,7 @@ import geometrydash.tiles.Tile;
 
 public class Player extends Creature{
 
-	private float grav,power,rotSpeed;
+	private float grav,power,rotSpeed,rotSpeedPortal;
 	private boolean falling;
 
 	public Player(Handler handler,float x, float y) {
@@ -24,16 +24,23 @@ public class Player extends Creature{
 		rotSpeed=7;
 		grav=1.7f;
 		power=-22f;
+		rotSpeedPortal=1.1f;
 		falling=true;
 		dx=speed;
 		deathCount=0;
 	}
 	
 	public void tick() {
+		if(!portal)
+			getInput();
+		else
+			getInputPortal();
 		
-		getInput();
 		move();
 		handler.getGameCamera().centerOnEntity(this);
+		
+		if(isRespawning()) handler.getClip().stop();
+			
 	}
 	
 	public void getInput() {
@@ -42,18 +49,32 @@ public class Player extends Creature{
 			dy+=grav;
 		else
 			dy=grav;
-
+		
 		if(handler.getKeyManager().space)
 			if(!respawn)
 				jump();
-		if(handler.getKeyManager().up)
-			dy=-20;
+
+	}
+	public void getInputPortal()
+	{
+		float gravP=.5f;
+		if(falling)
+			dy+=gravP;
+		else
+			dy=gravP;
+		if(handler.getKeyManager().space)
+			if(!respawn)
+				boost();
+		
 	}
 	
 	public void move() {
 		
 		moveX();
-		moveY();
+		if(!portal)
+			moveY();
+		else
+			movePortalY();
 	}
 	
 	public void moveY() {
@@ -102,13 +123,61 @@ public class Player extends Creature{
 			}
 		}
 	}
+	public void movePortalY()
+	{
+		if(dy>0) {
+
+			int ty=(int)(y+dy+1+bounds.height)/Tile.TILEHEIGHT;
+			int x1=(int)(x+1)/Tile.TILEWIDTH;
+			int x2=(int)(x+1+bounds.width)/Tile.TILEWIDTH;
+
+			if(!collisionWithTile(x1,ty)&&!collisionWithTile(x2,ty)) {
+				y+=dy;
+				falling=true;
+			}
+			else {
+				y=ty*Tile.TILEHEIGHT-bounds.height-1-1;
+				falling=false;
+				rot%=360;
+				if(rot>=60)
+					rot=60;
+		
+			}
+		}
+		else if(dy<0)
+		{
+			int ty=(int)(y+dy+1)/Tile.TILEHEIGHT;
+			int x1=(int)(x+1)/Tile.TILEWIDTH;
+			int x2=((int)(x+1+bounds.width)/Tile.TILEWIDTH);
+			
+			if(!collisionWithTile(x1,ty)&&!collisionWithTile(x2,ty)) {
+				
+				y+=dy;
+				falling=true;
+			}
+			else {
+				y=ty*Tile.TILEHEIGHT;
+				
+			}
+			
+		}	
+	}
 	
 	public void jump() {
 		if(!falling) {
 			dy=power;
 		}
 	}
-	
+	public void boost()
+	{
+		float powerP=-4.8f;
+		dy=powerP;
+		rot-=rotSpeedPortal+3;
+		if(rot<=-60)
+			rot=-60;
+		
+		
+	}
 	public void render(Graphics g) {
 		if(!respawn) {
 			dx=speed;
@@ -116,11 +185,17 @@ public class Player extends Creature{
 		
 			Graphics2D g2=(Graphics2D)g;
 			if(falling) {
-			rot+=rotSpeed;
+				if(!portal)
+					rot+=rotSpeed;
+				else
+					rot+=rotSpeedPortal;
 			}
 			
 			g2.rotate(Math.toRadians(rot), (double)(x-handler.getGameCamera().getxOffset()+DEFAULT_WIDTH/2),(double)(y-handler.getGameCamera().getyOffset()+DEFAULT_HEIGHT/2));
-			g2.drawImage(Assets.player1,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
+			if(portal)
+				g2.drawImage(Assets.player2,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
+			else
+				g2.drawImage(Assets.player1,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
 		}
 		else {
 			dx=0;
