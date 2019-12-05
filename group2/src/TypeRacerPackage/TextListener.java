@@ -24,7 +24,6 @@ public class TextListener {
 
 		if (line.length() <= 1) {
 			newWords = true;
-
 		}
 		if (newWords) {
 			line = secondOpt();
