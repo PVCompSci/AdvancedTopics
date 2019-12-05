@@ -16,7 +16,7 @@ public class GameState extends State{
 		super(handler);
 		world=new World(handler,"res/worlds/world1");
 		handler.setWorld(world);
-		player=new Player(handler,handler.getWorld().getSpawnX()*Tile.TILEHEIGHT,handler.getWorld().getSpawnY()*Tile.TILEHEIGHT);			
+		player=new Player(handler,handler.getWorld().getSpawnX()*Tile.TILEWIDTH,handler.getWorld().getSpawnY()*Tile.TILEHEIGHT);			
 	}
 	
 	public Player getPlayer() {

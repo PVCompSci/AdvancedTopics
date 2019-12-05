@@ -138,9 +138,7 @@ public class Player extends Creature{
 			else {
 				y=ty*Tile.TILEHEIGHT-bounds.height-1-1;
 				falling=false;
-				rot%=360;
-				if(rot>=60)
-					rot=60;
+				rot=0;
 		
 			}
 		}
@@ -157,7 +155,7 @@ public class Player extends Creature{
 			}
 			else {
 				y=ty*Tile.TILEHEIGHT;
-				
+				rot=0;	
 			}
 			
 		}	

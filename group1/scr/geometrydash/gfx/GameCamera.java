@@ -14,7 +14,7 @@ public class GameCamera {
 		this.xOffset=xOffset;
 		this.yOffset=yOffset;
 
-		defaultYOff=game.getHeight()/2-Tile.TILEHEIGHT;
+		defaultYOff=game.getHeight()+200;
 		this.yOffset=defaultYOff;
 	}
 	public void centerOnEntity(Entity e) {
