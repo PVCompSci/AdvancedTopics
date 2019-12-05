@@ -20,7 +20,7 @@ public class World {
 	private double backDx,floorDx;
 	private float backX,floorX;
 	
-	public World(Handler handler,String path) {
+	public World(Handler handler,String path) { //initiate image icons for gifs
 		
 		this.handler=handler;
 		loadWorld(path);
@@ -59,12 +59,12 @@ public class World {
 			floorX=0;
 		
 		
-//		g.setColor(Color.white);
-//		float opacity = 0.5f;
-//		Graphics2D g2= (Graphics2D) g;
-//		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
-//		g.drawLine(200, 832-(int)handler.getGameCamera().getyOffset(), 1080, 832-(int)handler.getGameCamera().getyOffset());
-//		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+		g.setColor(Color.white);
+		float opacity = 0.5f;
+		Graphics2D g2= (Graphics2D) g;
+		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+		g.drawLine(200, 832-(int)handler.getGameCamera().getyOffset(), 1080, 832-(int)handler.getGameCamera().getyOffset());
+		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 		
 		for(int y=yStart;y<yEnd;y++) {
 			for(int x=xStart;x<xEnd;x++) {
