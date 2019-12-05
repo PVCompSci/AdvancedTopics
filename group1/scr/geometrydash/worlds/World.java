@@ -1,7 +1,9 @@
 package geometrydash.worlds;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.Stack;
 
@@ -18,7 +20,7 @@ public class World {
 	private double backDx,floorDx;
 	private float backX,floorX;
 	
-	public World(Handler handler,String path) {
+	public World(Handler handler,String path) { //initiate image icons for gifs
 		
 		this.handler=handler;
 		loadWorld(path);
@@ -45,6 +47,7 @@ public class World {
 				
 		resetTileCollisions();		
 		
+		
 		g.drawImage(Assets.background, (int)backX, 0, handler.getWidth(), handler.getHeight(),null);
 		g.drawImage(Assets.background, (int)backX+handler.getWidth(), 0, handler.getWidth(), handler.getHeight(),null);
 		if(backX+handler.getWidth()<=0)
@@ -54,6 +57,14 @@ public class World {
 		g.drawImage(Assets.floorBackground, (int)floorX+handler.getWidth()+10, 1472-(int)handler.getGameCamera().getyOffset(), handler.getWidth()+10, 300,null);
 		if(floorX+handler.getWidth()<=0)
 			floorX=0;
+		
+		
+		g.setColor(Color.white);
+		float opacity = 0.5f;
+		Graphics2D g2= (Graphics2D) g;
+		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+		g.drawLine(200, 832-(int)handler.getGameCamera().getyOffset(), 1080, 832-(int)handler.getGameCamera().getyOffset());
+		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 		
 		for(int y=yStart;y<yEnd;y++) {
 			for(int x=xStart;x<xEnd;x++) {
