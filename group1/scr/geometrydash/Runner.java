@@ -6,5 +6,6 @@ public class Runner {
 		Game myDisplay=new Game("Geometry Dash",1280,720);
 		myDisplay.start();
 		
+		
 	}
 }

@@ -20,8 +20,10 @@ import geometrydash.gfx.Assets;
 public class MenuState extends State {
 
 	private Rectangle playButton;
-	public MenuState(Handler handler) {
-		super(handler);
+	private int id;
+	public MenuState(Handler handler,int id) {
+		super(handler,id);
+		this.id=id;
 		playButton= new Rectangle(550,250,180,180);
 		
 	
@@ -44,6 +46,12 @@ public class MenuState extends State {
 		
 			
 			
+	}
+
+	@Override
+	public int getID() {
+		// TODO Auto-generated method stub
+		return id;
 	}
 
 

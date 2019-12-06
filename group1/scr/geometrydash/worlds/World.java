@@ -48,24 +48,6 @@ public class World {
 		resetTileCollisions();		
 		
 		
-		g.drawImage(Assets.background, (int)backX, 0, handler.getWidth(), handler.getHeight(),null);
-		g.drawImage(Assets.background, (int)backX+handler.getWidth(), 0, handler.getWidth(), handler.getHeight(),null);
-		if(backX+handler.getWidth()<=0)
-			backX=0;
-		
-		g.drawImage(Assets.floorBackground, (int)floorX, 1472-(int)handler.getGameCamera().getyOffset(), handler.getWidth()+10, 300,null);
-		g.drawImage(Assets.floorBackground, (int)floorX+handler.getWidth()+10, 1472-(int)handler.getGameCamera().getyOffset(), handler.getWidth()+10, 300,null);
-		if(floorX+handler.getWidth()<=0)
-			floorX=0;
-		
-		
-//		g.setColor(Color.white);
-//		float opacity = 0.5f;
-//		Graphics2D g2= (Graphics2D) g;
-//		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
-//		g.drawLine(200, 832-(int)handler.getGameCamera().getyOffset(), 1080, 832-(int)handler.getGameCamera().getyOffset());
-//		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
-		
 		for(int y=yStart;y<yEnd;y++) {
 			for(int x=xStart;x<xEnd;x++) {
 				getTile(x,y).render(g, (int)(x*Tile.TILEWIDTH-handler.getGameCamera().getxOffset()),(int)(y*Tile.TILEHEIGHT-handler.getGameCamera().getyOffset()));;
