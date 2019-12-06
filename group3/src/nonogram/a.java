@@ -3,6 +3,7 @@ package nonogram;
 import javax.sound.sampled.AudioSystem;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.Clip;
@@ -44,11 +45,8 @@ public class a
 		
 		try
 		{
-			//I don't know if this will work perfectly if exported. I think we'll need to test it somehow
-			File musicPath = new File(new File("").getAbsolutePath() + "/src/nonogram/Megalovania.wav");
-			System.out.println(musicPath);
-			
-			AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
+			//this allows the file path to not be hardcoded, and still has it work inside the .jar
+			AudioInputStream audioInput = AudioSystem.getAudioInputStream(this.getClass().getResource("/nonogram/Megalovania.wav"));
 			Clip clip = AudioSystem.getClip();
 			clip.open(audioInput);
 			clip.start();
