@@ -26,9 +26,9 @@ public class TextListener {
 		words = new LinkedList<String>();
 		read();
 	}
-	
+
 	private void read() {
-		while(in.hasNext()) {
+		while (in.hasNext()) {
 			String temp = in.next().trim();
 			words.add(temp);
 			text += temp + " ";
@@ -37,7 +37,9 @@ public class TextListener {
 
 	public String firstOpt() {
 		System.out.println(words);
-		return words.remove();
+		if (words.size() > 0)
+			return words.remove();
+		return null;
 	}
 
 	public String secondOpt() {
