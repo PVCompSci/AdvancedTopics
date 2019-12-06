@@ -45,14 +45,15 @@ public class BackgroundAesthetics implements Runnable {
 	{	
 		g=game.getBufferStrategy().getDrawGraphics();	
 	    g.clearRect(0, 0, game.getHeight(),game.getHeight());
+
 		 
 		g.drawImage(Assets.background, (int)backX, 0, handler.getWidth(), handler.getHeight(),null);
 		g.drawImage(Assets.background, (int)backX+handler.getWidth(), 0, handler.getWidth(), handler.getHeight(),null);
 		if(backX+handler.getWidth()<=0)
 			backX=0;
 		
-		g.drawImage(Assets.floorBackground, (int)floorX, 832-(int)handler.getGameCamera().getyOffset(), handler.getWidth()+10, 300,null);
-		g.drawImage(Assets.floorBackground, (int)floorX+handler.getWidth()+10, 832-(int)handler.getGameCamera().getyOffset(), handler.getWidth()+10, 300,null);
+		g.drawImage(Assets.floorBackground, (int)floorX, 1472-(int)handler.getGameCamera().getyOffset(), handler.getWidth()+10, 300,null);
+		g.drawImage(Assets.floorBackground, (int)floorX+handler.getWidth()+10, 1472-(int)handler.getGameCamera().getyOffset(), handler.getWidth()+10, 300,null);
 		if(floorX+handler.getWidth()<=0)
 			floorX=0;
 		
@@ -60,7 +61,7 @@ public class BackgroundAesthetics implements Runnable {
 		float opacity = 0.5f;
 		Graphics2D g2= (Graphics2D) g;
 		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
-		g.drawLine(200, 832-(int)handler.getGameCamera().getyOffset(), 1080, 832-(int)handler.getGameCamera().getyOffset());
+		g.drawLine(200, 1472-(int)handler.getGameCamera().getyOffset(), 1080, 1472-(int)handler.getGameCamera().getyOffset());
 		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 		
 		
@@ -84,7 +85,7 @@ public class BackgroundAesthetics implements Runnable {
 				if(State.getState().getID()==2)
 				{
 					tick();
-					render();
+					//render();
 				}	
 				delta--;
 			}

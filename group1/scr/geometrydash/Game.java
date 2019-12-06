@@ -18,8 +18,10 @@ public class Game implements Runnable{
 	private Thread thread1,thread2;
 
 	private int width,height;
+	private double timer;
 	private String title;
 	private boolean running=false;
+	private boolean timerR;
 
 	private BufferStrategy bs;
 	private Graphics g;
@@ -59,13 +61,15 @@ public class Game implements Runnable{
 		gameCamera=new GameCamera(this,0,0);
 		handler=new Handler(this);
 		
+		timerR=true;
+		timer=0;
+
 		gameState=new GameState(handler,2);
 		menuState=new MenuState(handler,1);
 		backgroundVisuals= new BackgroundAesthetics(this,handler); //thread starts
 		
-		
-		
 		State.setState(menuState);
+		
 		
 	}
 	
@@ -87,12 +91,13 @@ public class Game implements Runnable{
 			return;
 		}
 		g=bs.getDrawGraphics();
+
         //g.clearRect(0, 0, width, height);
 		
 		//Drawing Area
 	
-//		if(State.getState().getID()==2)//renders background  on single thread, for now multi threading
-//			backgroundVisuals.render();
+		if(State.getState().getID()==2)//renders background  on single thread, for now multi threading
+			backgroundVisuals.render();
 		if(State.getState()!=null)
 			State.getState().render(g);
 
@@ -111,12 +116,14 @@ public class Game implements Runnable{
 		double delta=0;
 		long now;
 		long lastTime=System.nanoTime();
+		long timerT=0;
 
 		
 		while(running) {
 			
 			now=System.nanoTime();
 			delta+=(now-lastTime)/timePerTick;
+			timerT+=now-lastTime;
 			lastTime=now;
 			
 			if(delta>=1) {
@@ -125,6 +132,13 @@ public class Game implements Runnable{
 				
 				delta--;
 			}
+				
+			if(timerT>=100000000&&timerR) {
+				timer+=0.1;
+				timerT=0; 
+				System.out.println(timer);
+			}
+
 		}
 		
 		stop();
@@ -207,6 +221,19 @@ public class Game implements Runnable{
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void resetTimer() {
+		timer=0;
+		timerR=true;
+	}
+	
+	public void stopTimer() {
+		timerR=false;
+	}
+	
+	public double getTimer() {
+		return timer;
 	}
 	
 
