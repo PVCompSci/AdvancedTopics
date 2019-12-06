@@ -96,6 +96,10 @@ public abstract class Creature extends Entity{
 			portal=true;
 			rot=0;
 		}
+		else if(handler.getWorld().getTile(x, y).getId()>=21&&handler.getWorld().getTile(x, y).getId()<=23) {
+			portal=false;
+			rot=0;
+		}
 
 		if(handler.getWorld().getTile(x,y).isSmallTile()) {
 			while(handler.getWorld().getTile(x,y).getCollisionBoxes().size()>0) {
