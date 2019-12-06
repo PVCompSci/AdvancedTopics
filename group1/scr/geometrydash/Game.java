@@ -65,9 +65,11 @@ public class Game implements Runnable{
 
 		gameState=new GameState(handler,2);
 		menuState=new MenuState(handler,1);
-		update= new TickThread(this,handler); //thread starts
 		
-		State.setState(menuState);
+		
+		//////enables multithreading by calling TickThread constructor
+		update= new TickThread(this,handler); //thread starts	
+		State.setState(menuState); //starts with menu
 		
 		
 	}

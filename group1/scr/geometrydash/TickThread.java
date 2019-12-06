@@ -33,7 +33,7 @@ public class TickThread implements Runnable {
 		Assets.init();
 		
 	}
-	private void tickAll() //updates everything including keymanager and position of player and position of world
+	private void tickAll() //updates everything including key manager and position of player and position of world
 	{
 		game.getKeyManager().tick();
 		State.getState().tick();
@@ -98,7 +98,6 @@ public class TickThread implements Runnable {
 		try {
 			stop();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	
