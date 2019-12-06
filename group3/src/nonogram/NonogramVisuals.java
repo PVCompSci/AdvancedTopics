@@ -45,8 +45,53 @@ public class NonogramVisuals extends JFrame implements KeyListener {
 	}
 
 	public static void main(String[] args) throws Exception { 
-		printVerboseProcessReport();
+		JFrame titleFrame = new JFrame();
+		
+		JButton startButton = new JButton("Start");
+		startButton.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 15));
 
+		class StartButtonListener implements ActionListener {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					createNonogram();
+				} 
+
+				catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+		
+		startButton.addActionListener(new StartButtonListener());
+		
+		JPanel startPanel = new JPanel(new GridBagLayout());
+		GridBagConstraints constraints = new GridBagConstraints();
+		
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+		constraints.gridheight = 4;
+		constraints.ipady = 100;
+		constraints.anchor = GridBagConstraints.CENTER;
+		
+		startPanel.add(new JLabel(new ImageIcon(startButton.getClass().getResource("/nonogram/Nonogram Title.png"))), constraints);
+		
+		constraints.gridy = 4;
+		constraints.ipady = 25;
+		constraints.ipadx = 25;
+		startPanel.add(startButton, constraints);
+		
+		titleFrame.add(startPanel);
+
+		//https://stackoverflow.com/a/11570414
+		titleFrame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		titleFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		titleFrame.pack();
+		titleFrame.setVisible(true);
+	}
+
+	public static void createNonogram() throws Exception {
+		printVerboseProcessReport();
 
 		Nonogram nono = new Nonogram();
 		NonogramVisuals frame = new NonogramVisuals();    
@@ -66,20 +111,10 @@ public class NonogramVisuals extends JFrame implements KeyListener {
 
 		String[][] values = new String[nono.getQueueSize()][nono.getQueueSize()];
 
-		wrong=0;
+		wrong = 0;
 
 		boolean imageArray[][] = nono.getImageArray();
 
-		for(int l=0;l<imageArray.length;l++) {
-			for(int y=0;y<imageArray.length;y++) {
-				if(imageArray[l][y]) {
-					total++;
-				}
-						
-			}
-		}
-		
-		
 		JPanel pMain = new JPanel(new BorderLayout()); 
 		JPanel pLayer1 = new JPanel(new BorderLayout());
 		JPanel pLayer2 = new JPanel(new GridLayout(values.length, values.length));
@@ -196,7 +231,6 @@ public class NonogramVisuals extends JFrame implements KeyListener {
 
 									if(imageArray[r][c]) {
 										source.setBackground(BLACK);
-										total2++;
 									}else {
 										source.setText("x");
 										source.setBackground(WHITE);
@@ -208,14 +242,6 @@ public class NonogramVisuals extends JFrame implements KeyListener {
 									JOptionPane.showMessageDialog(new JFrame(), "You got three wrong","You lose!", JOptionPane.PLAIN_MESSAGE);
 									System.exit(0);
 								}
-								
-								
-								if(total2==total) {
-									JOptionPane.showMessageDialog(new JFrame(), "You got all the squares!","You win!", JOptionPane.PLAIN_MESSAGE);
-									System.exit(0);
-								}
-								
-
 							}
 
 							source.setSelected(false);
@@ -243,6 +269,8 @@ public class NonogramVisuals extends JFrame implements KeyListener {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		frame.setVisible(true);
+
+		a music = new a();
 	}
 
 	public static void toggle() {
