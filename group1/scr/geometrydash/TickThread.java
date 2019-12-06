@@ -9,7 +9,7 @@ import java.awt.image.BufferStrategy;
 import geometrydash.gfx.Assets;
 import geometrydash.state.State;
 
-public class BackgroundAesthetics implements Runnable {
+public class TickThread implements Runnable {
 
 	private Handler handler;
 	private Thread t;
@@ -18,7 +18,7 @@ public class BackgroundAesthetics implements Runnable {
 	private double backDx,floorDx;
 	private float backX,floorX;
 	
-	public BackgroundAesthetics(Game g, Handler h)
+	public TickThread(Game g, Handler h)
 	{
 		
 		game=g;
@@ -33,7 +33,17 @@ public class BackgroundAesthetics implements Runnable {
 		Assets.init();
 		
 	}
-	public void tick()
+	private void tickAll() //updates everything including keymanager and position of player and position of world
+	{
+		game.getKeyManager().tick();
+		State.getState().tick();
+		if(State.getState().getID()==2) //when the level is running, background is updated here
+		{	
+			backgroundtick();
+			//backgroundRender();
+		}	
+	}
+	public void backgroundtick()
 	{
 		if(!game.getGameState().getPlayer().isRespawning()) {
 			backX+=backDx;
@@ -41,7 +51,7 @@ public class BackgroundAesthetics implements Runnable {
 		}
 		
 	}
-	public void render()
+	public void backgroundRender()
 	{	
 		g=game.getBufferStrategy().getDrawGraphics();	
 	    g.clearRect(0, 0, game.getHeight(),game.getHeight());
@@ -66,7 +76,7 @@ public class BackgroundAesthetics implements Runnable {
 		
 	}
 	@Override
-	public void run() {	
+	public void run() {
 		init();
 		int fps=60;
 		double timePerTick=1000000000/fps;
@@ -81,16 +91,10 @@ public class BackgroundAesthetics implements Runnable {
 			lastTime=now;
 			
 			if(delta>=1) {
-				if(State.getState().getID()==2)
-				{
-					tick();
-					//render();
-				}	
-				delta--;
+				tickAll();
+				delta--;		
 			}
 		}
-		
-		
 		try {
 			stop();
 		} catch (InterruptedException e) {

@@ -1,8 +1,6 @@
 package geometrydash.state;
 import java.awt.Color;
 import java.awt.Graphics;
-
-import geometrydash.BackgroundAesthetics;
 import geometrydash.Handler;
 import geometrydash.entities.creatures.Player;
 import geometrydash.tiles.Tile;
