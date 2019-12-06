@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 public class Assets {
 
 	private static final int width=64,height=64;
-	public static BufferedImage player1,player2,floor1,ground,barrierMid,barrierSL,barrierST,barrierSR,barrierSB,barrierCTL,barrierCTR,barrierCBR,barrierCBL,barrierEB,barrierEL,barrierET,barrierER,barrierC,barrierR,spike1,spike2,spike3,air,border,slab,background,floorBackground,menu1,cubePT,cubePM,cubePB,shipPT,shipPM,shipPB;
+	public static BufferedImage player1,player2,floor1,ground,barrierMid,barrierSL,barrierST,barrierSR,barrierSB,barrierCTL,barrierCTR,barrierCBR,barrierCBL,barrierEB,barrierEL,barrierET,barrierER,barrierC,barrierR,spike1,spike2,spike3,spike4,air,border,slab,background,floorBackground,menu1,cubePT,cubePM,cubePB,shipPT,shipPM,shipPB;
 	
 	public static void init() {
 		
@@ -38,6 +38,7 @@ public class Assets {
 		spike1=sheet.crop(width, height*2, width, height);
 		spike2=sheet.crop(width*2, height*2, width, height);
 		spike3=sheet.crop(width*3, height*3, width, height);
+		spike4=sheet.crop(width*4, height*3, width, height);
 		border=sheet.crop(width*7, height, width, height);
 		slab=sheet.crop(width*3, height*2, width, height);
 		
@@ -47,8 +48,6 @@ public class Assets {
 		cubePT=sheet.crop(0, height*3, width, height);
 		cubePM=sheet.crop(width, height*3, width, height);
 		cubePB=sheet.crop(width*2, height*3, width, height);
-
-
 		
 		background= ImageLoader.loadImage("/textures/Background.png");
 		floorBackground= ImageLoader.loadImage("/textures/Floor.png");
