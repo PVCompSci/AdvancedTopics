@@ -18,10 +18,13 @@ public abstract class State {
 	}
 	
 	protected Handler handler;
+	private int id;
 	
-	public State(Handler handler) {
+	public State(Handler handler, int id) {
 		this.handler=handler;
+		this.id=id;
 	}
+	public abstract int getID();
 	
 	public abstract void tick();
 	
