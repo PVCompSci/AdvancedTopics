@@ -113,7 +113,7 @@ public class TypeRacer {
 			if (p > on) {
 				l.setTextFill(Color.DARKGRAY);
 			}
-			l.setPrefWidth(20);
+			l.setPrefWidth(5);
 			l.setAlignment(Pos.CENTER);
 			l.setFont(new Font("Arial", 24));
 			contentA.getChildren().add(l);
