@@ -101,7 +101,6 @@ public class TypeRacer {
 			Label l = new Label(s);
 			if (p < on) {
 				l.setTextFill(Color.GREEN);
-				characterCount++;
 			}
 			if (p == on) {
 				if (correct) {
@@ -132,7 +131,6 @@ public class TypeRacer {
 			case 1:
 				currentString = words.secondOpt();
 				break;
-
 			case 2:
 				currentString = words.thirdOpt();
 				break;
