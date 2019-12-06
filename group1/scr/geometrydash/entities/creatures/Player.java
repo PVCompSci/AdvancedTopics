@@ -188,8 +188,7 @@ public class Player extends Creature{
 			rot-=rotSpeedPortal+23;	
 		else
 			rot-=rotSpeedPortal+2;
-		
-		
+			
 	}
 	public void render(Graphics g) {
 		 		
