@@ -91,7 +91,7 @@ public abstract class Creature extends Entity{
 	}
 	
 	protected boolean collisionWithTile(int x,int y) {
-		if(handler.getWorld().getTile(x,y).getId()==21)// is portal tile
+		if(handler.getWorld().getTile(x,y).getId()>=24&&handler.getWorld().getTile(x,y).getId()<=26)// is portal tile
 		{
 			portal=true;
 			rot=0;
@@ -116,6 +116,7 @@ public abstract class Creature extends Entity{
 	
 	public void respawn()
 	{
+		handler.getGame().stopTimer();
 		respawn=true;
 		respawnCounter=0;
 		rot=0;

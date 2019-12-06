@@ -24,9 +24,9 @@ public class Tile {
 	public static Tile ground=new SolidTile(1,Assets.ground);
 	public static Tile floorTile=new SolidTile(2,Assets.floor1);
 	public static Tile borderTile=new SolidTile(5,Assets.barrierMid);
-	public static Tile spikeTile1=new SpikeTile(3,true,new Polygon(new int[] {0,TILEWIDTH/2,TILEWIDTH},new int[] {TILEHEIGHT,0,TILEHEIGHT},3),Assets.spike1);
-	public static Tile spikeTile2=new SpikeTile(4,true,new Polygon(new int[] {0,TILEWIDTH/2,TILEWIDTH},new int[] {TILEHEIGHT,TILEHEIGHT/2,TILEHEIGHT},3),Assets.spike2);
-	public static Tile spikeTile3=new SpikeTile(27,true,new Polygon(new int[]{0,0,TILEWIDTH,TILEWIDTH},new int[] {TILEHEIGHT,3*TILEHEIGHT/4,3*TILEHEIGHT/4,TILEHEIGHT},3),Assets.spike3);
+	public static Tile spikeTile1=new SpikeTile(3,true,new Polygon(new int[] {16,TILEWIDTH/2,TILEWIDTH-16},new int[] {TILEHEIGHT,16,TILEHEIGHT},3),Assets.spike1);
+	public static Tile spikeTile2=new SpikeTile(4,true,new Polygon(new int[] {16,TILEWIDTH/2,TILEWIDTH-16},new int[] {TILEHEIGHT,TILEHEIGHT/2+16,TILEHEIGHT},3),Assets.spike2);
+	public static Tile spikeTile3=new SpikeTile(27,true,new Polygon(new int[]{16,8,TILEWIDTH-16,TILEWIDTH-16},new int[] {TILEHEIGHT,3*TILEHEIGHT/4,3*TILEHEIGHT/4,TILEHEIGHT},4),Assets.spike3);
 	
 	public static Tile barrierMid=new SolidTile(5,Assets.barrierMid);
 	public static Tile barrierSL=new SolidTile(6,Assets.barrierSL);

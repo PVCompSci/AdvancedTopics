@@ -27,7 +27,7 @@ public class Assets {
 		barrierCBL=sheet.crop(width*5, 0, width, height);
 		barrierCTL=sheet.crop(width*6, 0, width, height);
 		barrierCTR=sheet.crop(width*7, 0, width, height);
-		barrierCBL=sheet.crop(0, height, width, height);
+		barrierCBR=sheet.crop(0, height, width, height);
 		barrierEB=sheet.crop(width, height, width, height);
 		barrierEL=sheet.crop(width*2, height, width, height);
 		barrierET=sheet.crop(width*3, height, width, height);

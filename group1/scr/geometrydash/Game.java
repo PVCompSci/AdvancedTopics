@@ -18,8 +18,10 @@ public class Game implements Runnable{
 	private Thread thread;
 
 	private int width,height;
+	private double timer;
 	private String title;
 	private boolean running=false;
+	private boolean timerR;
 
 	private BufferStrategy bs;
 	private Graphics g;
@@ -59,6 +61,8 @@ public class Game implements Runnable{
 		gameState=new GameState(handler);
 		menuState=new MenuState(handler);
 	
+		timerR=true;
+		timer=0;
 		
 		State.setState(menuState);
 		
@@ -107,12 +111,14 @@ public class Game implements Runnable{
 		double delta=0;
 		long now;
 		long lastTime=System.nanoTime();
+		long timerT=0;
 
 		
 		while(running) {
 			
 			now=System.nanoTime();
 			delta+=(now-lastTime)/timePerTick;
+			timerT+=now-lastTime;
 			lastTime=now;
 			
 			if(delta>=1) {
@@ -120,7 +126,12 @@ public class Game implements Runnable{
 				render();
 				delta--;
 			}
-
+				
+			if(timerT>=100000000&&timerR) {
+				timer+=0.1;
+				timerT=0; 
+				System.out.println(timer);
+			}
 		}
 		
 		stop();
@@ -184,6 +195,19 @@ public class Game implements Runnable{
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void resetTimer() {
+		timer=0;
+		timerR=true;
+	}
+	
+	public void stopTimer() {
+		timerR=false;
+	}
+	
+	public double getTimer() {
+		return timer;
 	}
 	
 

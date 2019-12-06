@@ -59,12 +59,12 @@ public class World {
 			floorX=0;
 		
 		
-		g.setColor(Color.white);
-		float opacity = 0.5f;
-		Graphics2D g2= (Graphics2D) g;
-		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
-		g.drawLine(200, 832-(int)handler.getGameCamera().getyOffset(), 1080, 832-(int)handler.getGameCamera().getyOffset());
-		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+//		g.setColor(Color.white);
+//		float opacity = 0.5f;
+//		Graphics2D g2= (Graphics2D) g;
+//		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+//		g.drawLine(200, 832-(int)handler.getGameCamera().getyOffset(), 1080, 832-(int)handler.getGameCamera().getyOffset());
+//		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 		
 		for(int y=yStart;y<yEnd;y++) {
 			for(int x=xStart;x<xEnd;x++) {
@@ -116,11 +116,7 @@ public class World {
 		height=Utils.parseInt(tokens[1]);
 		spawnX=Utils.parseInt(tokens[2]);
 		spawnY=Utils.parseInt(tokens[3]);
-		
-		System.out.println(width);
-		System.out.println(height);
-		System.out.println(spawnX);
-		System.out.println(spawnY);
+
 		
 		tiles=new int[width][height];
 		for(int y=0;y<height;y++) {
