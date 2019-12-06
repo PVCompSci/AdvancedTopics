@@ -61,7 +61,7 @@ public class Game implements Runnable{
 		
 		gameState=new GameState(handler,2);
 		menuState=new MenuState(handler,1);
-		backgroundVisuals= new BackgroundAesthetics(this,handler);
+		backgroundVisuals= new BackgroundAesthetics(this,handler); //thread starts
 		
 		
 		
@@ -87,7 +87,7 @@ public class Game implements Runnable{
 			return;
 		}
 		g=bs.getDrawGraphics();
-       // g.clearRect(0, 0, width, height);
+        //g.clearRect(0, 0, width, height);
 		
 		//Drawing Area
 	
