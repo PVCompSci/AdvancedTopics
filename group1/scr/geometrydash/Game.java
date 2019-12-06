@@ -134,9 +134,9 @@ public class Game implements Runnable{
 			}
 				
 			if(timerT>=100000000&&timerR) {
-				timer+=0.1;
-				timerT=0; 
-				System.out.println(timer);
+//				timer+=0.1;
+//				timerT=0; 
+//				System.out.println(timer);
 			}
 
 		}
