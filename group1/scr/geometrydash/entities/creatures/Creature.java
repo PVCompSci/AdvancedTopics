@@ -124,6 +124,12 @@ public abstract class Creature extends Entity{
 		portal=false;
 		
 	}
+	
+	public boolean isPortal() {
+		return portal;
+	}
+	
+	
 	public boolean isDead()
 	{
 		return respawn;

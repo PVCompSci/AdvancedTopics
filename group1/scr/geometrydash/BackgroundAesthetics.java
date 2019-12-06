@@ -45,7 +45,6 @@ public class BackgroundAesthetics implements Runnable {
 	{	
 		g=game.getBufferStrategy().getDrawGraphics();	
 	    g.clearRect(0, 0, game.getHeight(),game.getHeight());
-
 		 
 		g.drawImage(Assets.background, (int)backX, 0, handler.getWidth(), handler.getHeight(),null);
 		g.drawImage(Assets.background, (int)backX+handler.getWidth(), 0, handler.getWidth(), handler.getHeight(),null);
