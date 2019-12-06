@@ -10,7 +10,7 @@ import geometrydash.tiles.Tile;
 public class Player extends Creature{
 
 	private float grav,power,rotSpeed,rotSpeedPortal,powerPortal;
-	private boolean falling;
+	private boolean falling,boost;
 
 	public Player(Handler handler,float x, float y) {
 		
@@ -24,7 +24,7 @@ public class Player extends Creature{
 		rotSpeed=7;
 		grav=1.7f;
 		power=-21.5f;
-		rotSpeedPortal=.8f;
+		rotSpeedPortal=1f;
 		powerPortal=-5.8f;
 		falling=true;
 		dx=speed;
@@ -40,12 +40,9 @@ public class Player extends Creature{
 		
 		move();
 		handler.getGameCamera().centerOnEntity(this);
-		
 		if(isRespawning()) 
-			handler.getClip().stop();
-			
+			handler.getClip().stop();	
 	}
-	
 	public void getInput() {
 		
 		if(falling)
@@ -56,6 +53,7 @@ public class Player extends Creature{
 		if(handler.getKeyManager().space)
 			if(!respawn)
 				jump();
+		
 
 	}
 	public void getInputPortal()
@@ -66,8 +64,19 @@ public class Player extends Creature{
 		else
 			dy=gravP;
 		if(handler.getKeyManager().space)
+		{
 			if(!respawn)
 				boost();
+		}
+		else
+			boost=false;
+		
+		if(rot<=-50)
+			rot=-50;	
+		if(rot>=50)
+			rot=50;
+		
+
 		
 	}
 	
@@ -143,7 +152,6 @@ public class Player extends Creature{
 				falling=false;
 				rot=0;
 				
-		
 			}
 		}
 		else if(dy<0)
@@ -161,6 +169,7 @@ public class Player extends Creature{
 				y=ty*Tile.TILEHEIGHT+bounds.height+2;
 				rot=0;
 				
+				
 			}
 			
 		}	
@@ -173,10 +182,14 @@ public class Player extends Creature{
 	}
 	public void boost()
 	{
+		boost=true;
 		dy=powerPortal;
-		rot-=rotSpeedPortal+2;
-		if(rot<=-60)
-			rot=-60;			
+		if(rot>=12)
+			rot-=rotSpeedPortal+23;	
+		else
+			rot-=rotSpeedPortal+2;
+		
+		
 	}
 	public void render(Graphics g) {
 		 		
@@ -189,7 +202,14 @@ public class Player extends Creature{
 				if(!portal)
 					rot+=rotSpeed;
 				else
+				{
+					if(rot<=-15 && !boost)
+						rot+=rotSpeedPortal+1;
+					else	
 					rot+=rotSpeedPortal;
+					
+				}
+						
 			}
 			
 			g2.rotate(Math.toRadians(rot), (double)(x-handler.getGameCamera().getxOffset()+DEFAULT_WIDTH/2),(double)(y-handler.getGameCamera().getyOffset()+DEFAULT_HEIGHT/2));
