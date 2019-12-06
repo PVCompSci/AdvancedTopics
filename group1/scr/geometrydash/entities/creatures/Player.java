@@ -9,7 +9,7 @@ import geometrydash.tiles.Tile;
 
 public class Player extends Creature{
 
-	private float grav,power,rotSpeed,rotSpeedPortal;
+	private float grav,power,rotSpeed,rotSpeedPortal,powerPortal;
 	private boolean falling;
 
 	public Player(Handler handler,float x, float y) {
@@ -22,15 +22,17 @@ public class Player extends Creature{
 		bounds.height=height-2;
 		rot=0;
 		rotSpeed=7;
-		grav=1.43f;
-		power=-19f;
-		rotSpeedPortal=1.1f;
+		grav=1.7f;
+		power=-21.5f;
+		rotSpeedPortal=.8f;
+		powerPortal=-5.8f;
 		falling=true;
 		dx=speed;
 		deathCount=0;
 	}
 	
 	public void tick() {
+		
 		if(!portal)
 			getInput();
 		else
@@ -39,7 +41,8 @@ public class Player extends Creature{
 		move();
 		handler.getGameCamera().centerOnEntity(this);
 		
-		if(isRespawning()) handler.getClip().stop();
+		if(isRespawning()) 
+			handler.getClip().stop();
 			
 	}
 	
@@ -139,6 +142,7 @@ public class Player extends Creature{
 				y=ty*Tile.TILEHEIGHT-bounds.height-1-1;
 				falling=false;
 				rot=0;
+				
 		
 			}
 		}
@@ -154,8 +158,9 @@ public class Player extends Creature{
 				falling=true;
 			}
 			else {
-				y=ty*Tile.TILEHEIGHT;
-				rot=0;	
+				y=ty*Tile.TILEHEIGHT+bounds.height+2;
+				rot=0;
+				
 			}
 			
 		}	
@@ -168,13 +173,10 @@ public class Player extends Creature{
 	}
 	public void boost()
 	{
-		float powerP=-4.8f;
-		dy=powerP;
-		rot-=rotSpeedPortal+4;
+		dy=powerPortal;
+		rot-=rotSpeedPortal+2;
 		if(rot<=-60)
-			rot=-60;
-		
-		
+			rot=-60;			
 	}
 	public void render(Graphics g) {
 		 		

@@ -15,7 +15,7 @@ import geometrydash.state.State;
 public class Game implements Runnable{
 
 	private Display display;
-	private Thread thread1,thread2;
+	private Thread thread1;
 
 	private int width,height;
 	private double timer;
@@ -34,7 +34,7 @@ public class Game implements Runnable{
 	private GameCamera gameCamera;
 	
 	private Handler handler;
-	private BackgroundAesthetics backgroundVisuals;
+	private TickThread update;
 	
 	public Game(String title, int width, int height) {
 		
@@ -54,7 +54,6 @@ public class Game implements Runnable{
 		display.getFrame().addMouseMotionListener(mouseManager);
 		display.getCanvas().addMouseListener(mouseManager);
 		display.getCanvas().addMouseMotionListener(mouseManager);
-		
 
 		Assets.init();
 		
@@ -66,22 +65,21 @@ public class Game implements Runnable{
 
 		gameState=new GameState(handler,2);
 		menuState=new MenuState(handler,1);
-		backgroundVisuals= new BackgroundAesthetics(this,handler);
-			
+		update= new TickThread(this,handler); //thread starts
+		
 		State.setState(menuState);
 		
-	}
-	
-	private void tick() {
-		
-		keyManager.tick();
-		
-		if(State.getState()!=null)
-			State.getState().tick();
 		
 	}
 	
-	private void render() {
+//	private void tick() { //ticking is now done all on another thread
+		
+//		keyManager.tick();
+//		
+//		if(State.getState()!=null)
+//			State.getState().tick();	}
+	
+	private void renderAll() { //
 		
 		bs=display.getCanvas().getBufferStrategy();
 		if(bs==null) {
@@ -90,13 +88,14 @@ public class Game implements Runnable{
 			return;
 		}
 		g=bs.getDrawGraphics();
-       // g.clearRect(0, 0, width, height);
+        g.clearRect(0, 0, width, height); //clears whatever was previously painted
+
 		
 		//Drawing Area
 	
-		if(State.getState().getID()==2)//renders background  on single thread, for now multi threading
-			backgroundVisuals.render();
-		if(State.getState()!=null)
+		if(State.getState().getID()==2) //renders background
+			update.backgroundRender();
+		if(State.getState()!=null) //renders everything else
 			State.getState().render(g);
 
 		//Finished Drawing
@@ -116,7 +115,6 @@ public class Game implements Runnable{
 		long lastTime=System.nanoTime();
 		long timerT=0;
 
-		
 		while(running) {
 			
 			now=System.nanoTime();
@@ -125,20 +123,17 @@ public class Game implements Runnable{
 			lastTime=now;
 			
 			if(delta>=1) {
-				tick();
-				render();
-				
+				renderAll();
+				//tick();			
 				delta--;
 			}
-				
 			if(timerT>=100000000&&timerR) {
-				timer+=0.1;
-				timerT=0; 
-				System.out.println(timer);
+//				timer+=0.1;
+//				timerT=0; 
+//				System.out.println(timer);
 			}
 
 		}
-		
 		stop();
 	}
 	
@@ -173,9 +168,9 @@ public class Game implements Runnable{
 	{
 		return handler;
 	}
-	public BackgroundAesthetics getBackground()
+	public TickThread getUpdateThread()
 	{
-		return backgroundVisuals;
+		return update;
 	}
 	public Graphics getGraphics()
 	{
@@ -215,7 +210,7 @@ public class Game implements Runnable{
 		running=false;
 		try {
 			thread1.join();
-			backgroundVisuals.stop();
+			update.stop();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

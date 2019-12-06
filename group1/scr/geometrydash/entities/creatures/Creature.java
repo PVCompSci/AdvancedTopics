@@ -43,8 +43,8 @@ public abstract class Creature extends Entity{
 				x+=dx;
 			}
 			else {
-				x=tx*Tile.TILEWIDTH-bounds.width-1-1;
-				respawn();
+					x=tx*Tile.TILEWIDTH-bounds.width-1-1;
+					respawn();
 			}
 		}
 		else if(dx<0) {
@@ -56,7 +56,7 @@ public abstract class Creature extends Entity{
 			}
 			else {
 				x=tx*Tile.TILEWIDTH+Tile.TILEWIDTH-1+1;
-				respawn();
+				respawn();				
 			}
 		}
 	}
@@ -132,8 +132,6 @@ public abstract class Creature extends Entity{
 	public boolean isPortal() {
 		return portal;
 	}
-	
-	
 	public boolean isDead()
 	{
 		return respawn;
