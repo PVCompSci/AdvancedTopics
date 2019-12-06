@@ -1,48 +1,43 @@
 package TypeRacerPackage;
 
 import java.io.*;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
 
 public class TextListener {
 	File filepath;
 	BufferedReader read;
 	boolean newWords;
 	String line = "";
-	String word;
+	String text;
+	Queue<String> words;
+	Scanner in;
 
 	public TextListener(File filelocation) {
-		filepath = filelocation;
-		System.out.println(filepath);
 		try {
-			read = new BufferedReader(new FileReader(filepath));
+			read = new BufferedReader(new FileReader(filelocation));
+			in = new Scanner(new FileReader(filelocation));
 		} catch (FileNotFoundException fnfe) {
 			System.out.println("ERROR");
 		}
 		newWords = true;
+		text = "";
+		words = new LinkedList<String>();
+		read();
+	}
+	
+	private void read() {
+		while(in.hasNext()) {
+			String temp = in.next().trim();
+			words.add(temp);
+			text += temp + " ";
+		}
 	}
 
 	public String firstOpt() {
-
-		if (line.length() <= 1) {
-			newWords = true;
-		}
-		if (newWords) {
-			line = secondOpt();
-			newWords = false;
-		}
-		if (line == null) {
-			return null;
-		}
-		if (line.contains(" ")) {
-			word = line.substring(0, line.indexOf(" "));
-			word = word.trim();
-			line = line.substring(line.indexOf(" "), line.length());
-			line = line.trim();
-		} else {
-			word = line;
-			line = "";
-		}
-		System.out.println(line + "," + word);
-		return word;
+		System.out.println(words);
+		return words.remove();
 	}
 
 	public String secondOpt() {
@@ -62,20 +57,6 @@ public class TextListener {
 	}
 
 	public String thirdOpt() {
-		String b = "";
-		try {
-			String a = read.readLine();
-			b = a;
-			while (a != null) // while not end of file
-			{
-				a = read.readLine();
-				if (a != null) {
-					b = b + a;
-				}
-			}
-		} catch (IOException i) {
-			System.out.println("ERROR");
-		}
-		return b;
+		return text;
 	}
 }
