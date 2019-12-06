@@ -21,15 +21,21 @@ public class GameCamera {
 		
 		xOffset=e.getX()-game.getWidth()/2+e.getWidth()*4;
 		
-		if(!game.getGameState().getPlayer().isRespawning()) {
-			if(e.getY()-yOffset<200)
-				yOffset-=dy;
-			else if(e.getY()-yOffset>400) {
-				yOffset+=dy;
-				if(yOffset>=defaultYOff)
-					yOffset=defaultYOff;
+		if(!game.getGameState().getPlayer().isPortal()) {
+		
+			if(!game.getGameState().getPlayer().isRespawning()) {
+				if(e.getY()-yOffset<200)
+					yOffset-=dy;
+				else if(e.getY()-yOffset>400) {
+					yOffset+=dy;
+					if(yOffset>=defaultYOff)
+						yOffset=defaultYOff;
+				}
 			}
-		}				
+		}
+		else {
+			yOffset=697;
+		}
 	}
 	public void move(float xAmt,float yAmt) {
 		xOffset+=xAmt;

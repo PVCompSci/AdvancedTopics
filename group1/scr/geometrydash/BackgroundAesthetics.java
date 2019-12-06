@@ -44,7 +44,7 @@ public class BackgroundAesthetics implements Runnable {
 	public void render()
 	{	
 		g=game.getBufferStrategy().getDrawGraphics();	
-	    //g.clearRect(0, 0, game.getHeight(),game.getHeight());
+	    g.clearRect(0, 0, game.getHeight(),game.getHeight());
 		 
 		g.drawImage(Assets.background, (int)backX, 0, handler.getWidth(), handler.getHeight(),null);
 		g.drawImage(Assets.background, (int)backX+handler.getWidth(), 0, handler.getWidth(), handler.getHeight(),null);
@@ -60,7 +60,7 @@ public class BackgroundAesthetics implements Runnable {
 		float opacity = 0.5f;
 		Graphics2D g2= (Graphics2D) g;
 		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
-		g.drawLine(200, 832-(int)handler.getGameCamera().getyOffset(), 1080, 832-(int)handler.getGameCamera().getyOffset());
+		g.drawLine(200, 1472-(int)handler.getGameCamera().getyOffset(), 1080, 1472-(int)handler.getGameCamera().getyOffset());
 		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 		
 		

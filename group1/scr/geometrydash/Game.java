@@ -90,7 +90,7 @@ public class Game implements Runnable{
 			return;
 		}
 		g=bs.getDrawGraphics();
-        g.clearRect(0, 0, width, height);
+       // g.clearRect(0, 0, width, height);
 		
 		//Drawing Area
 	
