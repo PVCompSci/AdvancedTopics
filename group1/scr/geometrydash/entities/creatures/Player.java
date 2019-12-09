@@ -168,7 +168,8 @@ public class Player extends Creature{
 			else {
 				y=ty*Tile.TILEHEIGHT+bounds.height+2;
 				rot=0;
-				
+//				dy=0;
+//				falling=true;
 				
 			}
 			
