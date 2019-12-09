@@ -1,6 +1,7 @@
 package TypeRacerPackage;
 
 import javafx.application.Application;
+
 import javafx.scene.*;
 import javafx.stage.*;
 import javafx.scene.control.*;
@@ -17,8 +18,12 @@ public class TypeMain extends Application {
 	static Stage primaryStage;
 	TextListener getwords = null;
 
-	public static void main(String[] args) {
-		launch(args);
+	TextListener getWords = new TextListener(filename);
+	int characters = getWords.getCharacterCount();
+	
+	public static void main(String[] args) 
+	{
+		launch(args); //starts game
 	}
 
 	@Override
@@ -36,32 +41,34 @@ public class TypeMain extends Application {
 		title.getChildren().add(mainTop);
 		menuLay.setTop(title);
 
-		// Main Content
-		// Main Page
+		//start button
 		Button startGameBut = new Button("Start Game");
 		startGameBut.setOnAction(e -> {
-			primaryStage.hide();
-			TypeRacer game = new TypeRacer(mode, filename);
+			primaryStage.hide(); //when the start game button is clicked, the main screen is hidden and the main pops up
+			TypeRacer game = new TypeRacer(mode, filename, characters);
 		});
 		StackPane startButPane = new StackPane();
 		startButPane.setPadding(new Insets(0, 120, 0, 0));
 		startButPane.getChildren().add(startGameBut);
 
-		// Settings
+		//Format
 		VBox settingsBox = new VBox(5);
 		Label setL1 = new Label("Enter Text File Location");
 		TextField enterFileLocation = new TextField();
-		enterFileLocation.setPromptText("ex. C:/Users/Greg/glendonisdumb/words.txt");
+		enterFileLocation.setPromptText("ex. C:/Users/exampleFile/example/words.txt"); //example file input
 		enterFileLocation.setOnAction(e -> {
 			String a = new String(enterFileLocation.getText());
 			File b = new File(a);
 			File c = new File(a + ".txt");
 			System.out.println(a + "\n" + b.exists() + "\n" + c.exists());
-			if (b.exists() == false && c.exists() == false) {
+			if (b.exists() == false && c.exists() == false) 
+			{
 				startGameBut.setDisable(true);
 				startGameBut.setTextFill(Color.RED);
 				startGameBut.setText("Invalid File Location");
-			} else {
+			} 
+			else 
+			{
 				startGameBut.setDisable(false);
 				startGameBut.setTextFill(Color.BLACK);
 				startGameBut.setText("Start Game");
@@ -74,6 +81,7 @@ public class TypeMain extends Application {
 			}
 		});
 
+		//Format options
 		final ToggleGroup modeButList = new ToggleGroup();
 		RadioButton mode0 = new RadioButton("Word by Word");
 		mode0.setToggleGroup(modeButList);
@@ -89,13 +97,15 @@ public class TypeMain extends Application {
 		butListMode.getChildren().addAll(mode0, mode1, mode2);
 		settingsBox.getChildren().addAll(setL1, enterFileLocation, new Label("Display Settings"), butListMode);
 
+		//Leaderboards
 		VBox leaderboard = new VBox(2);
 		// Left Pane
 		VBox navigation = new VBox(2);
 		navigation.setPadding(new Insets(10, 10, 10, 10));
 		menuLay.setLeft(navigation);
-		// Buttons
-		// MainPageBut
+		
+		
+		// Main Page Button
 		Button mainPageBut = new Button("Main Page");
 		mainPageBut.setPrefSize(100, 20);
 		mainPageBut.setOnAction(e -> {
@@ -113,7 +123,7 @@ public class TypeMain extends Application {
 		Button leadBtn = new Button("Leaderboards");
 		leadBtn.setPrefSize(100, 20);
 		leadBtn.setOnAction(e -> {
-			// updateHistory(); you can do this glendon if you really want this option
+			// updateHistory();
 			menuLay.setCenter(leaderboard);
 		});
 		navigation.getChildren().add(leadBtn);

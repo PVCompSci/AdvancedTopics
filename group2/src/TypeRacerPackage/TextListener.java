@@ -58,6 +58,23 @@ public class TextListener {
 		return line;
 	}
 
+	public int getCharacterCount()
+	{
+		int characterCount = 0;
+		try {
+			String s;
+			while((s = read.readLine())!=null)
+			{
+			characterCount += s.length();
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(characterCount);
+		return characterCount;
+	}
+	
 	public String thirdOpt() {
 		return text;
 	}

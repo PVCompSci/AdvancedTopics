@@ -1,47 +1,34 @@
 package TypeRacerPackage;
 
-import java.awt.*;
-import java.awt.event.*;
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
-public class TypeFrame extends Frame {
+public class TypeFrame extends Application
+{
 
-	public TypeFrame() {
+	static Stage endGameStage;
 
-		MenuBar bar = new MenuBar();
-		Menu file = new Menu();
-		MenuItem fileExit = new MenuItem();
 
-		file.setLabel("File");
-		fileExit.setLabel("Exit");
-
-		// action listener for menu listener
-		fileExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				TypeFrame.this.windowClosed();
-			}
-		});
-		file.add(fileExit);
-		bar.add(file);
-
-		setTitle("TypingGame");
-		setMenuBar(bar);
-		setSize(new Dimension(400, 400));
-
-		this.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				TypeFrame.this.windowClosed();
-			}
-		});
+	
+	public void updateHistory() 
+	{
+		
+	}
+	
+	private void windowClosed() {
+		// Exits application.
+		System.exit(0);
 	}
 
-	/**
-	 * Shutdown procedure when run as an application.
-	 */
-	private void windowClosed() {
-
-		// TODO: Check if it is safe to close the application
-
-		// Exit application.
-		System.exit(0);
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		
 	}
 }
