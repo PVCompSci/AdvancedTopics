@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 public class Assets {
 
-	private static final int width=256,height=256;
+	private static final int width=64,height=64;
 	public static BufferedImage player1,player2,floor1,ground,barrierMid,barrierSL,barrierST,barrierSR,barrierSB,barrierCTL,barrierCTR,barrierCBR,barrierCBL,barrierEB,barrierEL,barrierET,barrierER,barrierC,barrierR,spike1,spike2,spike3,spike4,air,border,slab,background,floorBackground,menu1,cubePT,cubePM,cubePB,shipPT,shipPM,shipPB;
 	
 	public static void init() {
