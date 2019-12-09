@@ -75,7 +75,7 @@ public class TextListener {
 		return characterCount;
 	}
 	
-	public String thirdOpt() {
+	public String thirdOpt(){
 		return text;
 	}
 }
