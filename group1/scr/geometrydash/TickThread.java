@@ -1,6 +1,7 @@
 package geometrydash;
 
 import java.awt.AlphaComposite;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -66,12 +67,22 @@ public class TickThread implements Runnable {
 		if(floorX+handler.getWidth()<=0)
 			floorX=0;
 		
-		g.setColor(Color.white);
-		float opacity = 0.5f;
 		Graphics2D g2= (Graphics2D) g;
-		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
-		g.drawLine(200, 1472-(int)handler.getGameCamera().getyOffset(), 1080, 1472-(int)handler.getGameCamera().getyOffset());
+		g2.setStroke(new BasicStroke(.001f));
+		g.setColor(Color.white);
+		g2.drawLine(375, 1472-(int)handler.getGameCamera().getyOffset(), 905, 1472-(int)handler.getGameCamera().getyOffset());
+		float opacity = 1f;	
+		int dx=0;
+		while(opacity>0 && dx<145)
+		{
+			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+			g2.drawLine(375, 1472-(int)handler.getGameCamera().getyOffset(), 375-dx, 1472-(int)handler.getGameCamera().getyOffset());
+			g2.drawLine(905, 1472-(int)handler.getGameCamera().getyOffset(),905+dx, 1472-(int)handler.getGameCamera().getyOffset());
+			dx+=3;
+			opacity-=.03;		
+		}
 		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+		
 		
 		
 	}
