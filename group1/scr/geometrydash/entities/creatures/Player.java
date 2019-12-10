@@ -28,7 +28,7 @@ public class Player extends Creature{
 		powerPortal=-5.8f;
 		falling=true;
 		dx=speed;
-		deathCount=0;
+		attemptCount=1;
 	}
 	
 	public void tick() {
@@ -222,6 +222,7 @@ public class Player extends Creature{
 			dx=0;
 			respawnCounter++;
 			if(respawnCounter>=60) {
+				attemptCount++;
 				respawn=false;
 				handler.getGame().resetTimer();
 				handler.getGameCamera().resetYOffset();

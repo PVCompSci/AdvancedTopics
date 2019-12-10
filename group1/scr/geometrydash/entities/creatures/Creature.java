@@ -14,7 +14,7 @@ public abstract class Creature extends Entity{
 	protected int health,rot,respawnCounter;
 	protected float speed;
 	protected boolean respawn;
-	protected int deathCount,portalCount;
+	protected int attemptCount,portalCount;
 	protected boolean portal;
 	
 	protected float dx,dy;
@@ -24,7 +24,7 @@ public abstract class Creature extends Entity{
 		health=DEFAULT_HEALTH;
 		speed=DEFAULT_SPEED;
 		dx=speed;
-		deathCount=0;
+		attemptCount=1;
 	}
 	
 	public void move() {
@@ -124,7 +124,6 @@ public abstract class Creature extends Entity{
 		respawn=true;
 		respawnCounter=0;
 		rot=0;
-		deathCount++;
 		portal=false;
 		
 	}
@@ -136,9 +135,9 @@ public abstract class Creature extends Entity{
 	{
 		return respawn;
 	}
-	public int getDeathCount()
+	public int getAttemptCount()
 	{
-		return deathCount;
+		return attemptCount;
 	}
 	public float getDx() {
 		return dx;

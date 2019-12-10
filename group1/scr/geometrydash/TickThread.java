@@ -1,10 +1,12 @@
 package geometrydash;
 
 import java.awt.AlphaComposite;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
+import java.util.Stack;
 
 import geometrydash.gfx.Assets;
 import geometrydash.state.State;
@@ -16,7 +18,7 @@ public class TickThread implements Runnable {
 	private Game game;
 	private Graphics g;
 	private double backDx,floorDx;
-	private float backX,floorX;
+	private float backX,floorX,attemptX,defaultAttemptX;
 	
 	public TickThread(Game g, Handler h)
 	{
@@ -25,6 +27,8 @@ public class TickThread implements Runnable {
 		handler=h;	
 		backDx=-.1;
 		floorDx=-11;
+		defaultAttemptX=50;
+		attemptX=defaultAttemptX;
 		start();
 		
 	}
@@ -48,6 +52,8 @@ public class TickThread implements Runnable {
 		if(!game.getGameState().getPlayer().isRespawning()) {
 			backX+=backDx;
 			floorX+=floorDx;
+			if(backX<-4&&attemptX>-1000)
+				attemptX+=floorDx/1.5;
 		}
 		
 	}
@@ -60,6 +66,27 @@ public class TickThread implements Runnable {
 		g.drawImage(Assets.background, (int)backX+handler.getWidth(), 0, handler.getWidth(), handler.getHeight(),null);
 		if(backX+handler.getWidth()<=0)
 			backX=0;
+		
+		if(handler.getGame().getGameState().getPlayer().isRespawning()) {
+			attemptX=defaultAttemptX;
+			floorX=0;
+		}
+		else if(!handler.getGame().getGameState().getPlayer().isRespawning()&&attemptX>-1000) {
+			g.drawImage(Assets.attempts, (int)attemptX, 200,400,70,null);
+			int temp=handler.getGame().getGameState().getPlayer().getAttemptCount();
+			int dist=0;
+			Stack<Integer> nums=new Stack<Integer>();
+			//System.out.println(temp);
+			while(temp>0) {
+				nums.push(temp%10);
+				temp/=10;
+			}
+			while(nums.size()>0) {
+				g.drawImage(Assets.getNum(nums.pop()), (int)attemptX+450+dist, 200, 70,70,null);
+				dist+=80;
+			}
+		}
+		
 		
 		g.drawImage(Assets.floorBackground, (int)floorX, 1472-(int)handler.getGameCamera().getyOffset(), handler.getWidth()+10, 300,null);
 		g.drawImage(Assets.floorBackground, (int)floorX+handler.getWidth()+10, 1472-(int)handler.getGameCamera().getyOffset(), handler.getWidth()+10, 300,null);
