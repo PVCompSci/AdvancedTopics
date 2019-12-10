@@ -88,7 +88,6 @@ public class TickThread implements Runnable {
 			}
 		}
 		
-		
 		g.drawImage(Assets.floorBackground, (int)floorX, 1472-(int)handler.getGameCamera().getyOffset(), handler.getWidth()+10, 300,null);
 		g.drawImage(Assets.floorBackground, (int)floorX+handler.getWidth()+10, 1472-(int)handler.getGameCamera().getyOffset(), handler.getWidth()+10, 300,null);
 		if(floorX+handler.getWidth()<=0)
