@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
+import java.util.Stack;
 
 import geometrydash.gfx.Assets;
 import geometrydash.state.State;
@@ -17,7 +18,7 @@ public class TickThread implements Runnable {
 	private Game game;
 	private Graphics g;
 	private double backDx,floorDx;
-	private float backX,floorX;
+	private float backX,floorX,attemptX,defaultAttemptX;
 	
 	public TickThread(Game g, Handler h)
 	{
@@ -26,6 +27,8 @@ public class TickThread implements Runnable {
 		handler=h;	
 		backDx=-.1;
 		floorDx=-11;
+		defaultAttemptX=400;
+		attemptX=defaultAttemptX;
 		start();
 		
 	}
@@ -49,6 +52,9 @@ public class TickThread implements Runnable {
 		if(!game.getGameState().getPlayer().isRespawning()) {
 			backX+=backDx;
 			floorX+=floorDx;
+						
+			if(attemptX>-1000)
+				attemptX+=floorDx/2;
 		}
 		
 	}
@@ -62,27 +68,33 @@ public class TickThread implements Runnable {
 		if(backX+handler.getWidth()<=0)
 			backX=0;
 		
+		if(handler.getGame().getGameState().getPlayer().isRespawning()) {
+			attemptX=defaultAttemptX;
+			floorX=0;
+		}
+		else if(!handler.getGame().getGameState().getPlayer().isRespawning()&&attemptX>-1000) {
+			g.drawImage(Assets.attempts, (int)attemptX, 200,400,70,null);
+			int temp=handler.getGame().getGameState().getPlayer().getAttemptCount();
+			int dist=0;
+			Stack<Integer> nums=new Stack<Integer>();
+
+			while(temp>0) {
+				nums.push(temp%10);
+				temp/=10;
+			}
+			while(nums.size()>0) {
+				g.drawImage(Assets.getNum(nums.pop()), (int)attemptX+450+dist, 200, 70,70,null);
+				dist+=80;
+			}
+		}
+		
+		
 		g.drawImage(Assets.floorBackground, (int)floorX, 1472-(int)handler.getGameCamera().getyOffset(), handler.getWidth()+10, 300,null);
 		g.drawImage(Assets.floorBackground, (int)floorX+handler.getWidth()+10, 1472-(int)handler.getGameCamera().getyOffset(), handler.getWidth()+10, 300,null);
 		if(floorX+handler.getWidth()<=0)
 			floorX=0;
 		
-		Graphics2D g2= (Graphics2D) g;
-		g2.setStroke(new BasicStroke(.001f));
-		g.setColor(Color.white);
-		g2.drawLine(375, 1472-(int)handler.getGameCamera().getyOffset(), 905, 1472-(int)handler.getGameCamera().getyOffset());
-		float opacity = 1f;	
-		int dx=0;
-		while(opacity>0 && dx<145)
-		{
-			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
-			g2.drawLine(375, 1472-(int)handler.getGameCamera().getyOffset(), 375-dx, 1472-(int)handler.getGameCamera().getyOffset());
-			g2.drawLine(905, 1472-(int)handler.getGameCamera().getyOffset(),905+dx, 1472-(int)handler.getGameCamera().getyOffset());
-			dx+=3;
-			opacity-=.03;		
-		}
-		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
-		
+		g.drawImage(Assets.floorLine, 200, 1470-(int)handler.getGameCamera().getyOffset(), null);
 		
 		
 	}

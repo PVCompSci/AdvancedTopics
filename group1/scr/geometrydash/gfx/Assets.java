@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 public class Assets {
 
 	private static final int width=64,height=64;
-	public static BufferedImage player1,player2,floor1,ground,barrierMid,barrierSL,barrierST,barrierSR,barrierSB,barrierCTL,barrierCTR,barrierCBR,barrierCBL,barrierEB,barrierEL,barrierET,barrierER,barrierC,barrierR,spike1,spike2,spike3,spike4,air,border,slab,background,floorBackground,menu1,cubePT,cubePM,cubePB,shipPT,shipPM,shipPB;
+	public static BufferedImage player1,player2,floor1,ground,barrierMid,barrierSL,barrierST,barrierSR,barrierSB,barrierCTL,barrierCTR,barrierCBR,barrierCBL,barrierEB,barrierEL,barrierET,barrierER,barrierC,barrierR,spike1,spike2,spike3,spike4,air,border,slab,background,floorBackground,floorLine,menu1,cubePT,cubePM,cubePB,shipPT,shipPM,shipPB,attempts,num1,num2,num3,num4,num5,num6,num7,num8,num9,num0;
 	
 	public static void init() {
 		
@@ -52,5 +52,42 @@ public class Assets {
 		background= ImageLoader.loadImage("/textures/Background.png");
 		floorBackground= ImageLoader.loadImage("/textures/Floor.png");
 		menu1=ImageLoader.loadImage("/textures/Menu1.png");
+		floorLine=ImageLoader.loadImage("/textures/FloorLine.png");
+		attempts=ImageLoader.loadImage("/textures/Attempt.png");
+		num1=ImageLoader.loadImage("/textures/num1.png");
+		num2=ImageLoader.loadImage("/textures/num2.png");
+		num3=ImageLoader.loadImage("/textures/num3.png");
+		num4=ImageLoader.loadImage("/textures/num4.png");
+		num5=ImageLoader.loadImage("/textures/num5.png");
+		num6=ImageLoader.loadImage("/textures/num6.png");
+		num7=ImageLoader.loadImage("/textures/num7.png");
+		num8=ImageLoader.loadImage("/textures/num8.png");
+		num9=ImageLoader.loadImage("/textures/num9.png");
+		num0=ImageLoader.loadImage("/textures/num0.png");
+	}
+	
+	public static BufferedImage getNum(int n) {
+		if(n==0)
+			return num0;
+		else if(n==1)
+			return num1;
+		else if(n==2)
+			return num2;
+		else if(n==3)
+			return num3;
+		else if(n==4)
+			return num4;
+		else if(n==5)
+			return num5;
+		else if(n==6)
+			return num6;
+		else if(n==7)
+			return num7;
+		else if(n==8)
+			return num8;
+		else if(n==9)
+			return num9;
+		else
+			return num0;
 	}
 }

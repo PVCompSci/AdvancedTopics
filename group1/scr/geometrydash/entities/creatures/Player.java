@@ -30,8 +30,8 @@ public class Player extends Creature{
 		powerPortal=-5.8f;
 		falling=true;
 		dx=speed;
-		deathCount=0;
 		deathSound=false;
+		attemptCount=1;
 	}
 	
 	public void tick() {
@@ -84,9 +84,7 @@ public class Player extends Creature{
 			rot=-50;	
 		if(rot>=50)
 			rot=50;
-		
-
-		
+			
 	}
 	
 	public void move() {
@@ -177,7 +175,8 @@ public class Player extends Creature{
 			else {
 				y=ty*Tile.TILEHEIGHT+bounds.height+2;
 				rot=0;
-				
+//				dy=0;
+//				falling=true;
 				
 			}
 			
@@ -234,9 +233,11 @@ public class Player extends Creature{
 				handler.playSound("/audio/GeoDeathSound.wav");
 			}
 			else if(respawnCounter>=60) {
+				attemptCount++;
+
 				respawn=false;
 				deathSound=false;
-				deathCount++;
+				
 				handler.getGame().resetTimer();
 				handler.getGameCamera().resetYOffset();
 				x=spawnX;
