@@ -27,7 +27,7 @@ public class TickThread implements Runnable {
 		handler=h;	
 		backDx=-.1;
 		floorDx=-11;
-		defaultAttemptX=50;
+		defaultAttemptX=400;
 		attemptX=defaultAttemptX;
 		start();
 		
@@ -52,8 +52,9 @@ public class TickThread implements Runnable {
 		if(!game.getGameState().getPlayer().isRespawning()) {
 			backX+=backDx;
 			floorX+=floorDx;
-			if(backX<-4&&attemptX>-1000)
-				attemptX+=floorDx/1.5;
+						
+			if(attemptX>-1000)
+				attemptX+=floorDx/2;
 		}
 		
 	}
@@ -76,7 +77,7 @@ public class TickThread implements Runnable {
 			int temp=handler.getGame().getGameState().getPlayer().getAttemptCount();
 			int dist=0;
 			Stack<Integer> nums=new Stack<Integer>();
-			//System.out.println(temp);
+
 			while(temp>0) {
 				nums.push(temp%10);
 				temp/=10;
