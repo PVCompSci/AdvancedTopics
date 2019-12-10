@@ -3,6 +3,8 @@ package geometrydash.entities.creatures;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
+import javax.sound.sampled.LineUnavailableException;
+
 import geometrydash.Handler;
 import geometrydash.gfx.Assets;
 import geometrydash.tiles.Tile;
@@ -10,7 +12,7 @@ import geometrydash.tiles.Tile;
 public class Player extends Creature{
 
 	private float grav,power,rotSpeed,rotSpeedPortal,powerPortal;
-	private boolean falling,boost;
+	private boolean falling,boost,deathSound;
 
 	public Player(Handler handler,float x, float y) {
 		
@@ -29,6 +31,7 @@ public class Player extends Creature{
 		falling=true;
 		dx=speed;
 		deathCount=0;
+		deathSound=false;
 	}
 	
 	public void tick() {
@@ -40,8 +43,14 @@ public class Player extends Creature{
 		
 		move();
 		handler.getGameCamera().centerOnEntity(this);
-		if(isRespawning()) 
-			handler.getClip().stop();	
+		
+		if(isRespawning()) //determines when to stop the audio
+		{
+			if(!deathSound)
+				handler.getClip().stop();
+		}
+				
+			
 	}
 	public void getInput() {
 		
@@ -190,8 +199,7 @@ public class Player extends Creature{
 			rot-=rotSpeedPortal+2;
 			
 	}
-	public void render(Graphics g) {
-		 		
+	public void render(Graphics g) { 		
 		if(!respawn) {
 			dx=speed;
 			bounds.setLocation((int)(x-handler.getGameCamera().getxOffset()+1), (int)(y-handler.getGameCamera().getyOffset())+1);
@@ -217,16 +225,24 @@ public class Player extends Creature{
 			else
 				g2.drawImage(Assets.player1,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
 		}
-		else {
+		else { //if its respawning
 			dx=0;
 			respawnCounter++;
-			if(respawnCounter>=60) {
+			if(respawnCounter<=1)
+			{
+				deathSound=true;
+				handler.playSound("/audio/GeoDeathSound.wav");
+			}
+			else if(respawnCounter>=60) {
 				respawn=false;
+				deathSound=false;
+				deathCount++;
 				handler.getGame().resetTimer();
 				handler.getGameCamera().resetYOffset();
 				x=spawnX;
 				y=spawnY;
 				handler.playSound("/audio/StereoM.wav");
+				
 			}
 		}
 	}

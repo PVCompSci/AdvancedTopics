@@ -40,12 +40,9 @@ public class MenuState extends State {
 
 
 	public void render(Graphics g) {
-		
 		Graphics2D g2=(Graphics2D) g;
 		g2.drawImage(Assets.menu1, 0, 0, handler.getGame().getWidth(), handler.getGame().getHeight(), null);
-		
-			
-			
+				
 	}
 
 	@Override
