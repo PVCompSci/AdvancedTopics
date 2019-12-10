@@ -141,7 +141,6 @@ public class TypeRacer {
 			case 1:
 				currentString = words.secondOpt(); //one line of scrolling text
 				break;
-
 			case 2:
 				currentString = words.thirdOpt(); //entire file
 				break;
