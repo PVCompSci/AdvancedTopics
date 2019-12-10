@@ -66,12 +66,7 @@ public class TickThread implements Runnable {
 		if(floorX+handler.getWidth()<=0)
 			floorX=0;
 		
-		g.setColor(Color.white);
-		float opacity = 0.5f;
-		Graphics2D g2= (Graphics2D) g;
-		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
-		g.drawLine(200, 1472-(int)handler.getGameCamera().getyOffset(), 1080, 1472-(int)handler.getGameCamera().getyOffset());
-		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+		g.drawImage(Assets.floorLine, 200, 1470-(int)handler.getGameCamera().getyOffset(), null);
 		
 		
 	}
