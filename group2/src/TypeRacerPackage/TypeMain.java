@@ -132,4 +132,6 @@ public class TypeMain extends Application {
 		primaryStage.setScene(menu);
 		primaryStage.show();
 	}
+	
+	//jdskl;fjkds
 }
