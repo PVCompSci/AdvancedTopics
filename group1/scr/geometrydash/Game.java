@@ -130,7 +130,7 @@ public class Game implements Runnable{
 				delta--;
 			}
 			if(timerT>=100000000&&timerR) {
-//				timer+=0.1;
+//				timer+=.1;
 //				timerT=0; 
 //				System.out.println(timer);
 			}
