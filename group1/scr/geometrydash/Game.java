@@ -116,6 +116,7 @@ public class Game implements Runnable{
 		long now;
 		long lastTime=System.nanoTime();
 		long timerT=0;
+		int frames=0;
 
 		while(running) {
 			
@@ -126,13 +127,16 @@ public class Game implements Runnable{
 			
 			if(delta>=1) {
 				renderAll();
-				//tick();			
+				//tick();	
+				//frames++;
 				delta--;
 			}
-			if(timerT>=100000000&&timerR) {
-//				timer+=.1;
+			if(timerT>=1000000000&&timerR) {
+//				timer+=1;
 //				timerT=0; 
-//				System.out.println(timer);
+//				frames=0;
+				//System.out.println("Frames: " +frames);
+				
 			}
 
 		}

@@ -52,7 +52,7 @@ public class TickThread implements Runnable {
 		if(!game.getGameState().getPlayer().isRespawning()) {
 			backX+=backDx;
 			floorX+=floorDx;
-						
+			
 			if(attemptX>-1000)
 				attemptX+=floorDx/2;
 		}
