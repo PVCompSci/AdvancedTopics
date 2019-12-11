@@ -128,10 +128,12 @@ public class Game implements Runnable{
 				renderAll();
 				delta--;
 			}
+			
 			if(timerT>=100000000&&timerR) {
 				timer+=.1;
 				timerT=0; 
 				System.out.println(timer);
+
 			}
 
 		}

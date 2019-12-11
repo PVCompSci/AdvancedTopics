@@ -17,24 +17,14 @@ public class World {
 	private Handler handler;
 	private int width,height,spawnX,spawnY;
 	private int[][]tiles;
-	private double backDx,floorDx;
-	private float backX,floorX;
 	
 	public World(Handler handler,String path) { //initiate image icons for gifs
 		
 		this.handler=handler;
-		loadWorld(path);
-		backDx=-.1;
-		floorDx=-11;
-		
+		loadWorld(path);		
 	}
 	
 	public void tick() {
-		
-		if(!handler.getGame().getGameState().getPlayer().isRespawning()) {
-			backX+=backDx;
-			floorX+=floorDx;
-		}
 		handler.getGame().getGameCamera().centerOnEntity(handler.getGame().getGameState().getPlayer());
 		
 	}
