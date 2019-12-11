@@ -28,7 +28,7 @@ public class Player extends Creature{
 		power=-21.5f;
 		rotSpeedPortal=1f;
 		maxPortalSpeed=10f;
-		powerPortal=-.5f;
+		powerPortal=-.4f;
 		falling=true;
 		dx=speed;
 		deathSound=false;
