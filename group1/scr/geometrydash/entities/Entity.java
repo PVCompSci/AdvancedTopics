@@ -21,7 +21,7 @@ public abstract class Entity {
 		this.width=width;
 		this.height=height;
 		
-		bounds=new Rectangle(8,8,width-16,height-16);
+		bounds=new Rectangle(30,30,width,height);
 	}
 	
 	public float getX() {
