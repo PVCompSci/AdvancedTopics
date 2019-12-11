@@ -11,7 +11,7 @@ import geometrydash.tiles.Tile;
 
 public class Player extends Creature{
 
-	private float grav,power,rotSpeed,rotSpeedPortal,powerPortal;
+	private float grav,power,rotSpeed,rotSpeedPortal,powerPortal,maxPortalSpeed;
 	private boolean falling,boost,deathSound;
 
 	public Player(Handler handler,float x, float y) {
@@ -27,7 +27,8 @@ public class Player extends Creature{
 		grav=1.7f;
 		power=-21.5f;
 		rotSpeedPortal=1f;
-		powerPortal=-5.8f;
+		maxPortalSpeed=10f;
+		powerPortal=-.5f;
 		falling=true;
 		dx=speed;
 		deathSound=false;
@@ -67,11 +68,13 @@ public class Player extends Creature{
 	}
 	public void getInputPortal()
 	{
-		float gravP=.5f;
-		if(falling)
-			dy+=gravP;
-		else
-			dy=gravP;
+		float gravP=-powerPortal;
+		if(!boost)
+			if(dy+gravP>=maxPortalSpeed)
+				dy=maxPortalSpeed;
+			else
+				dy+=gravP;
+
 		if(handler.getKeyManager().space)
 		{
 			if(!respawn)
@@ -80,10 +83,11 @@ public class Player extends Creature{
 		else
 			boost=false;
 		
-		if(rot<=-50)
-			rot=-50;	
-		if(rot>=50)
-			rot=50;
+		rot=(int) (dy*5);
+//		if(rot<=-50)
+//			rot=-50;	
+//		if(rot>=50)
+//			rot=50;
 			
 	}
 	
@@ -168,19 +172,31 @@ public class Player extends Creature{
 			int x2=((int)(x+1+bounds.width)/Tile.TILEWIDTH);
 			
 			if(!collisionWithTile(x1,ty)&&!collisionWithTile(x2,ty)) {
-				
 				y+=dy;
 				falling=true;
 			}
 			else {
 				y=ty*Tile.TILEHEIGHT+bounds.height+2;
 				rot=0;
-//				dy=0;
-//				falling=true;
 				
 			}
 			
 		}	
+	}
+	
+	public void boost()
+	{
+		boost=true;
+		if(dy+powerPortal<=-maxPortalSpeed)
+			dy=-maxPortalSpeed;
+		else
+			dy+=powerPortal;
+
+		if(rot>=12)
+			rot-=rotSpeedPortal+23;	
+		else
+			rot-=rotSpeedPortal+2;
+			
 	}
 	
 	public void jump() {
@@ -188,16 +204,7 @@ public class Player extends Creature{
 			dy=power;
 		}
 	}
-	public void boost()
-	{
-		boost=true;
-		dy=powerPortal;
-		if(rot>=12)
-			rot-=rotSpeedPortal+23;	
-		else
-			rot-=rotSpeedPortal+2;
-			
-	}
+
 	public void render(Graphics g) { 		
 		if(!respawn) {
 			dx=speed;
