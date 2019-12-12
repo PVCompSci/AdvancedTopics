@@ -119,6 +119,14 @@ public class NonogramVisuals extends JFrame implements KeyListener {
 
 		boolean imageArray[][] = nono.getImageArray();
 
+		for(int z=0;z<imageArray.length;z++) {
+			for(int y=0;y<imageArray.length;y++) {
+				if(imageArray[z][y]) {
+					total++;
+				}
+			}
+		}
+		
 		JPanel pMain = new JPanel(new BorderLayout()); 
 		JPanel pLayer1 = new JPanel(new BorderLayout());
 		JPanel pLayer2 = new JPanel(new GridLayout(values.length, values.length));
@@ -226,6 +234,7 @@ public class NonogramVisuals extends JFrame implements KeyListener {
 										wrong++;
 									}else {
 										source.setBackground(WHITE);
+										total2++;
 									}
 
 								}else{
@@ -235,6 +244,7 @@ public class NonogramVisuals extends JFrame implements KeyListener {
 
 									if(imageArray[r][c]) {
 										source.setBackground(BLACK);
+										total2++;
 									}else {
 										source.setText("x");
 										source.setBackground(WHITE);
@@ -244,6 +254,11 @@ public class NonogramVisuals extends JFrame implements KeyListener {
 
 								if(wrong>=3) {
 									JOptionPane.showMessageDialog(new JFrame(), "You got three wrong","You lose!", JOptionPane.PLAIN_MESSAGE);
+									System.exit(0);
+								}
+								
+								if(total2==total) {
+									JOptionPane.showMessageDialog(new JFrame(), "You got all the squares","You win!", JOptionPane.PLAIN_MESSAGE);
 									System.exit(0);
 								}
 							}
