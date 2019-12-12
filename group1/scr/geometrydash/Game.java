@@ -130,9 +130,9 @@ public class Game implements Runnable{
 			}
 			
 			if(State.getState().getID()==2&&timerT>=100000000&&timerR) {
-				timer+=.1;
-				timerT=0; 
-				System.out.println(timer);
+//				timer+=.1;
+//				timerT=0; 
+//				System.out.println(timer);
 
 			}
 
