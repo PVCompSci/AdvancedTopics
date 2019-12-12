@@ -15,6 +15,7 @@ public class TypeMain extends Application {
 	int mode = 0;
 	File filename = new File(this.getClass().getResource("test.txt").getFile());
 
+	
 	static Stage primaryStage;
 	TextListener getwords = null;
 
@@ -46,6 +47,7 @@ public class TypeMain extends Application {
 		startGameBut.setOnAction(e -> {
 			primaryStage.hide(); //when the start game button is clicked, the main screen is hidden and the main pops up
 			TypeRacer game = new TypeRacer(mode, filename, characters);
+			
 		});
 		StackPane startButPane = new StackPane();
 		startButPane.setPadding(new Insets(0, 120, 0, 0));
@@ -123,7 +125,7 @@ public class TypeMain extends Application {
 		Button leadBtn = new Button("Leaderboards");
 		leadBtn.setPrefSize(100, 20);
 		leadBtn.setOnAction(e -> {
-			// updateHistory();
+			//updateHistory(5);
 			menuLay.setCenter(leaderboard);
 		});
 		navigation.getChildren().add(leadBtn);
@@ -131,7 +133,11 @@ public class TypeMain extends Application {
 		menuLay.setCenter(startButPane);
 		primaryStage.setScene(menu);
 		primaryStage.show();
+		
 	}
 	
-	//jdskl;fjkds
+
+
+	
+	
 }

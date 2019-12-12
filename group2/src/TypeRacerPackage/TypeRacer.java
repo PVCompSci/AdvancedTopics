@@ -107,6 +107,7 @@ public class TypeRacer {
 			Label l = new Label(s);
 			if (p < on) {
 				l.setTextFill(Color.GREEN);
+				l.setUnderline(true);
 			}
 			if (p == on) 
 			{
@@ -117,14 +118,14 @@ public class TypeRacer {
 				else 
 				{
 					l.setTextFill(Color.RED); //char that the player got incorrect
+					l.setUnderline(true);
 				}
 			}
 			if (p > on) {
 				l.setTextFill(Color.DARKGRAY); //chars that the player didn't get to yet
 			}
-			l.setPrefWidth(5); //spacing between characters
 			l.setAlignment(Pos.CENTER);
-			l.setFont(new Font("Arial", 24)); //font and size
+			l.setFont(new Font("Times New Roman", 24)); //font and size
 			contentA.getChildren().add(l);
 			p++;
 		}
@@ -164,4 +165,7 @@ public class TypeRacer {
 			drawWord(true);
 		}
 	}
+	
+
+	
 }
