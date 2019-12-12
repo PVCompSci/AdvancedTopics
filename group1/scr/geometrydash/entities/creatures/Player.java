@@ -205,7 +205,7 @@ public class Player extends Creature{
 		}
 	}
 
-	public void render(Graphics g) { 		
+	public void render(Graphics g) { 	
 		if(!respawn) {
 			dx=speed;
 			bounds.setLocation((int)(x-handler.getGameCamera().getxOffset()+1), (int)(y-handler.getGameCamera().getyOffset())+1);
@@ -256,6 +256,7 @@ public class Player extends Creature{
 				
 			}
 		}
+
 	}
 	
 	public boolean isRespawning() {
