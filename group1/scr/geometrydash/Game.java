@@ -74,13 +74,6 @@ public class Game implements Runnable{
 		
 	}
 	
-//	private void tick() { //ticking is now done all on another thread
-		
-//		keyManager.tick();
-//		
-//		if(State.getState()!=null)
-//			State.getState().tick();	}
-	
 	private void renderAll() { //
 		
 		bs=display.getCanvas().getBufferStrategy();
@@ -129,12 +122,10 @@ public class Game implements Runnable{
 				delta--;
 			}
 			
-//			if(State.getState().getID()==2&&timerT>=100000000&&timerR) {
-//				timer+=.1;
-//				timerT=0; 
-//				System.out.println(timer);
-//
-//			}
+			if(State.getState().getID()==2&&timerT>=1000000000&&timerR) {
+				timer+=1;
+				timerT=0; 
+			}
 
 		}
 		stop();
@@ -226,6 +217,10 @@ public class Game implements Runnable{
 	
 	public void stopTimer() {
 		timerR=false;
+	}
+	
+	public void startTimer() {
+		timerR=true;
 	}
 	
 	public double getTimer() {
