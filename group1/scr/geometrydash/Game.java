@@ -73,6 +73,12 @@ public class Game implements Runnable{
 		
 	}
 	
+    private void tick() { //ticking is now done all on another thread
+		
+		keyManager.tick();
+		if(State.getState()!=null)
+			State.getState().tick();	}
+	
 	private void renderAll() { //
 		
 		bs=display.getCanvas().getBufferStrategy();
@@ -82,11 +88,11 @@ public class Game implements Runnable{
 			return;
 		}
 		g=bs.getDrawGraphics();
-        g.clearRect(0, 0, width, height); //clears whatever was previously painted
+      //  g.clearRect(0, 0, width, height); //clears whatever was previously painted
 
 		
 		//Drawing Area
-	
+//	
 		if(State.getState().getID()==2) //renders background
 			update.backgroundRender();
 		if(State.getState()!=null) //renders everything else
@@ -117,6 +123,7 @@ public class Game implements Runnable{
 			lastTime=now;
 			
 			if(delta>=1) {
+				//tick();
 				renderAll();
 				delta--;
 			}

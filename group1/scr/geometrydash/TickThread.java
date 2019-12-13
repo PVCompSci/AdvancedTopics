@@ -39,12 +39,12 @@ public class TickThread implements Runnable {
 	}
 	private void tickAll() //updates everything including key manager and position of player and position of world
 	{
-		game.getKeyManager().tick();
-		State.getState().tick();
+        game.getKeyManager().tick();
+        State.getState().tick();
 		if(State.getState().getID()==2) //when the level is running, background is updated here
 		{	
 			backgroundtick();
-			//backgroundRender();
+//			backgroundRender();
 		}	
 	}
 	public void backgroundtick()
@@ -61,7 +61,8 @@ public class TickThread implements Runnable {
 	public void backgroundRender()
 	{	
 		g=game.getBufferStrategy().getDrawGraphics();	
-	    g.clearRect(0, 0, game.getHeight(),game.getHeight());
+	  //  g.clearRect(0, 0, game.getHeight(),game.getHeight());
+	    
 		 
 		g.drawImage(Assets.background, (int)backX, 0, handler.getWidth(), handler.getHeight(),null);
 		g.drawImage(Assets.background, (int)backX+handler.getWidth(), 0, handler.getWidth(), handler.getHeight(),null);
