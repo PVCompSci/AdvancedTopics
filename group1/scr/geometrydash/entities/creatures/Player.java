@@ -262,7 +262,7 @@ public class Player extends Creature{
 		}
 		else {
 			
-			if(x-handler.getGameCamera().getxOffset()<handler.getWidth()) {
+			if(x-handler.getGameCamera().getxOffset()<handler.getWidth()+400) {
 				rot+=8;
 				if(dx>2&&slowingDown)
 					dx-=.3;
@@ -288,8 +288,7 @@ public class Player extends Creature{
 					g2.drawImage(Assets.player1,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
 			}
 			else {
-				handler.getGame().getGameState().setLevelComplete(false);
-				respawn();
+				restart();
 			}
 		}
 
@@ -299,6 +298,18 @@ public class Player extends Creature{
 		return respawn;
 	}
 	
+	public void restart(){
+		rot=0;
+		respawn=true;
+		portal=false;
+		handler.getGame().resetTimer();
+		handler.getGameCamera().resetYOffset();
+		x=spawnX;
+		y=spawnY;
+		handler.getGame().getGameState().setLevelComplete(false);
+		handler.playSound("/audio/StereoM.wav");
+		attemptCount=0;
+	}
 	
 	
 }
