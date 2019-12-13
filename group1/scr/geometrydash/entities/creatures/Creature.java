@@ -15,7 +15,7 @@ public abstract class Creature extends Entity{
 	protected float speed;
 	protected boolean respawn;
 	protected int attemptCount,portalCount;
-	protected boolean portal;
+	protected boolean portal,slowingDown;
 	
 	protected float dx,dy;
 
@@ -25,6 +25,7 @@ public abstract class Creature extends Entity{
 		speed=DEFAULT_SPEED;
 		dx=speed;
 		attemptCount=1;
+		slowingDown=false;
 	}
 	
 	public void move() {
@@ -102,6 +103,14 @@ public abstract class Creature extends Entity{
 			portal=false;
 			rot=0;
 		}
+		else if(handler.getWorld().getTile(x, y).getId()==30) {
+			if(!handler.getGame().getGameState().isLevelComplete()) {
+				handler.getClip().stop();
+				slowingDown=true;
+				dy=0;
+				handler.getGame().getGameState().setLevelComplete(true);
+			}
+		}
 
 		if(handler.getWorld().getTile(x,y).isSmallTile()) {
 			while(handler.getWorld().getTile(x,y).getCollisionBoxes().size()>0) {
@@ -113,7 +122,7 @@ public abstract class Creature extends Entity{
 			return false;
 		}
 		return handler.getWorld().getTile(x, y).isSolid();
-	
+		
 	}
 	
 	protected boolean isSmallTile(int x,int y) {
