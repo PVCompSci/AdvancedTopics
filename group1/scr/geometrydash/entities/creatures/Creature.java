@@ -26,6 +26,7 @@ public abstract class Creature extends Entity{
 		dx=speed;
 		attemptCount=1;
 		slowingDown=false;
+		respawnCounter=70;
 	}
 	
 	public void move() {
@@ -105,6 +106,7 @@ public abstract class Creature extends Entity{
 		}
 		else if(handler.getWorld().getTile(x, y).getId()==30) {
 			if(!handler.getGame().getGameState().isLevelComplete()) {
+				handler.getGame().stopTimer();
 				handler.getClip().stop();
 				slowingDown=true;
 				dy=0;

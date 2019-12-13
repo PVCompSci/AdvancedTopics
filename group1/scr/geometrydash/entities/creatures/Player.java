@@ -13,7 +13,7 @@ public class Player extends Creature{
 
 	private float grav,power,rotSpeed,rotSpeedPortal,powerPortal,maxPortalSpeed;
 	private boolean falling,boost,deathSound;
-	private int c;
+	private int c,jumpCount;
 	public Player(Handler handler,float x, float y) {
 		
 		super(handler,x, y,Creature.DEFAULT_WIDTH,DEFAULT_HEIGHT);
@@ -34,6 +34,7 @@ public class Player extends Creature{
 		deathSound=false;
 		attemptCount=1;
 		c=0;
+		jumpCount=0;
 	}
 	
 	public void tick() {
@@ -51,9 +52,6 @@ public class Player extends Creature{
 				if(!deathSound)
 					handler.getClip().stop();
 			}
-		}
-		else {
-			//moveEndY();
 		}
 			
 	}
@@ -205,6 +203,7 @@ public class Player extends Creature{
 	public void jump() {
 		if(!falling) {
 			dy=power;
+			jumpCount++;
 		}
 	}
 
@@ -252,11 +251,11 @@ public class Player extends Creature{
 					respawn=false;
 					deathSound=false;
 					c=0;
-					handler.getGame().resetTimer();
 					handler.getGameCamera().resetYOffset();
 					x=spawnX;
 					y=spawnY;
 					handler.playSound("/audio/StereoM.wav");
+					handler.getGame().startTimer();
 				}
 			}
 		}
@@ -299,6 +298,9 @@ public class Player extends Creature{
 	}
 	
 	public void restart(){
+		System.out.println("Attempts: "+attemptCount);
+		System.out.println("Jumps: "+jumpCount);
+		System.out.println("Time: "+handler.getGame().getTimer());
 		rot=0;
 		respawn=true;
 		portal=false;
