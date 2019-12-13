@@ -15,7 +15,7 @@ public abstract class SmallTile extends Tile{
 	}
 
 	public boolean isSolid() {
-		return true;
+		return false;
 	}
 	
 	public Polygon getCollisionBox(){
