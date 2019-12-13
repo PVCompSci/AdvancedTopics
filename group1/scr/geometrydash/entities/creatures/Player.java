@@ -38,20 +38,23 @@ public class Player extends Creature{
 	
 	public void tick() {
 		
-		if(!portal)
-			getInput();
-		else
-			getInputPortal();
+		if(!handler.getGame().getGameState().isLevelComplete()) {
+			if(!portal)
+				getInput();
+			else
+				getInputPortal();
 		
-		move();
-		handler.getGameCamera().centerOnEntity(this);
+			move();
 		
-		if(isRespawning()) //determines when to stop the audio
-		{
-			if(!deathSound)
-				handler.getClip().stop();
+			if(isRespawning()) //determines when to stop the audio
+			{
+				if(!deathSound)
+					handler.getClip().stop();
+			}
 		}
-				
+		else {
+			//moveEndY();
+		}
 			
 	}
 	public void getInput() {
@@ -161,6 +164,7 @@ public class Player extends Creature{
 				y=ty*Tile.TILEHEIGHT-bounds.height-1-1;
 				falling=false;
 				rot=0;
+				dy=1;
 				
 			}
 		}
@@ -177,6 +181,7 @@ public class Player extends Creature{
 			else {
 				y=ty*Tile.TILEHEIGHT+bounds.height+2;
 				rot=0;
+				dy=-1;
 			}
 			
 		}	
@@ -203,55 +208,88 @@ public class Player extends Creature{
 		}
 	}
 
-	public void render(Graphics g) { 	
-		if(!respawn) {
-			dx=speed;
-			bounds.setLocation((int)(x-handler.getGameCamera().getxOffset()+1), (int)(y-handler.getGameCamera().getyOffset())+1);
+	public void render(Graphics g) {
 		
-			Graphics2D g2=(Graphics2D)g;
-			if(falling) {
-				if(!portal)
-					rot+=rotSpeed;
-				else
-				{
-					if(rot<=-15 && !boost)
-						rot+=rotSpeedPortal+1;
-					else	
-					rot+=rotSpeedPortal;
-					
-				}
-						
+		Graphics2D g2=(Graphics2D)g;
+
+		if(!handler.getGame().getGameState().isLevelComplete()) {
+			if(!respawn) {
+				dx=speed;
+				bounds.setLocation((int)(x-handler.getGameCamera().getxOffset()+1), (int)(y-handler.getGameCamera().getyOffset())+1);
+		
+				if(falling) {
+					if(!portal)
+						rot+=rotSpeed;
+					else
+					{
+						if(rot<=-15 && !boost)
+							rot+=rotSpeedPortal+1;
+						else	
+							rot+=rotSpeedPortal;
+					}	
 			}
 			
-			g2.rotate(Math.toRadians(rot), (double)(x-handler.getGameCamera().getxOffset()+DEFAULT_WIDTH/2),(double)(y-handler.getGameCamera().getyOffset()+DEFAULT_HEIGHT/2));
-			if(portal)
-				g2.drawImage(Assets.player2,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
-			else
-				g2.drawImage(Assets.player1,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
-		}
-		else { //if its respawning
-			dx=0;
-			respawnCounter++;
-			if(respawnCounter<=4)
-			{
-				c++;
-				if(c<=1)
+				g2.rotate(Math.toRadians(rot), (double)(x-handler.getGameCamera().getxOffset()+DEFAULT_WIDTH/2),(double)(y-handler.getGameCamera().getyOffset()+DEFAULT_HEIGHT/2));
+				if(portal)
+					g2.drawImage(Assets.player2,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
+				else
+					g2.drawImage(Assets.player1,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
+			}
+			else { //if its respawning
+				dx=0;
+				respawnCounter++;
+				if(respawnCounter<=4)
 				{
-					deathSound=true;
-					handler.playSound("/audio/GeoDeathSound.wav");
+					c++;
+					if(c<=1)
+					{
+						deathSound=true;
+						handler.playSound("/audio/GeoDeathSound.wav");
+					}
+				}
+				else if(respawnCounter>=60) {
+					attemptCount++;
+					respawn=false;
+					deathSound=false;
+					c=0;
+					handler.getGame().resetTimer();
+					handler.getGameCamera().resetYOffset();
+					x=spawnX;
+					y=spawnY;
+					handler.playSound("/audio/StereoM.wav");
 				}
 			}
-			else if(respawnCounter>=60) {
-				attemptCount++;
-				respawn=false;
-				deathSound=false;
-				c=0;
-				handler.getGame().resetTimer();
-				handler.getGameCamera().resetYOffset();
-				x=spawnX;
-				y=spawnY;
-				handler.playSound("/audio/StereoM.wav");
-				
+		}
+		else {
+			
+			if(x-handler.getGameCamera().getxOffset()<handler.getWidth()) {
+				rot+=8;
+				if(dx>2&&slowingDown)
+					dx-=.3;
+				else {
+					slowingDown=false;
+					dx+=.5;
+				}
+			
+				dy+=.1;
+				if(!slowingDown&&y-handler.getGameCamera().getyOffset()+40>handler.getHeight()/2-DEFAULT_HEIGHT/2)
+					y-=dy;
+				else if(!slowingDown&&y-handler.getGameCamera().getyOffset()-40<handler.getHeight()/2-DEFAULT_HEIGHT/2)
+					y+=dy;
+				else
+					dy=0;
+			
+				x+=dx;
+			
+				g2.rotate(Math.toRadians(rot), (double)(x-handler.getGameCamera().getxOffset()+DEFAULT_WIDTH/2),(double)(y-handler.getGameCamera().getyOffset()+DEFAULT_HEIGHT/2));
+				if(portal)
+					g2.drawImage(Assets.player2,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
+				else
+					g2.drawImage(Assets.player1,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
+			}
+			else {
+				handler.getGame().getGameState().setLevelComplete(false);
+				respawn();
 			}
 		}
 
