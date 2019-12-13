@@ -83,7 +83,6 @@ public class Tile {
 	public void resetCollisionBoxes() {
 		spikeTile1.resetCollisionBoxes();
 		spikeTile2.resetCollisionBoxes();
-		System.out.println("here");
 	}
 	
 	public int getId() {
