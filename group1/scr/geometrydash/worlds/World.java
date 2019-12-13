@@ -4,6 +4,7 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Polygon;
 import java.awt.image.BufferedImage;
 import java.util.Stack;
 
@@ -49,6 +50,9 @@ public class World {
 	public void resetTileCollisions() {
 
 		getTile(0,0).resetCollisionBoxes();
+		getTile(1,0).resetCollisionBoxes();
+		getTile(2,0).resetCollisionBoxes();
+		getTile(3,0).resetCollisionBoxes();
 	}
 	
 	public Tile getTile(int x,int y) {

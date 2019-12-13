@@ -85,20 +85,18 @@ public class Player extends Creature{
 			boost=false;
 		
 		rot=(int) (dy*5);
-//		if(rot<=-50)
-//			rot=-50;	
-//		if(rot>=50)
-//			rot=50;
 			
 	}
 	
 	public void move() {
 		
-		moveX();
 		if(!portal)
 			moveY();
 		else
 			movePortalY();
+		moveX();
+		
+		handler.getWorld().resetTileCollisions();
 	}
 	
 	public void moveY() {
