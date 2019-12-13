@@ -54,6 +54,8 @@ public class Assets {
 		menu1=ImageLoader.loadImage("/textures/Menu1.png");
 		floorLine=ImageLoader.loadImage("/textures/FloorLine.png");
 		attempts=ImageLoader.loadImage("/textures/Attempt.png");
+		player2=ImageLoader.loadImage("/textures/playerShip.png");
+		
 		num1=ImageLoader.loadImage("/textures/num1.png");
 		num2=ImageLoader.loadImage("/textures/num2.png");
 		num3=ImageLoader.loadImage("/textures/num3.png");

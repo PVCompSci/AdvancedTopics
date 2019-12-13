@@ -114,7 +114,7 @@ public abstract class Creature extends Entity{
 			}
 		}
 
-		if(handler.getWorld().getTile(x,y).isSmallTile()) {
+		if(handler.getWorld().getTile(x,y).isSmallTile()&&!respawn) {
 			while(handler.getWorld().getTile(x,y).getCollisionBoxes().size()>0) {
 				if(handler.getWorld().getTile(x,y).getCollisionBoxes().pop().intersects(bounds)) {
 					respawn();

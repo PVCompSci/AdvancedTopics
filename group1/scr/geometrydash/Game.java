@@ -1,6 +1,5 @@
 package geometrydash;
 import java.awt.Graphics;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 
 import geometrydash.display.Display;
