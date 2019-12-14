@@ -49,7 +49,7 @@ public class TickThread implements Runnable {
 	}
 	public void backgroundtick()
 	{
-		if(!game.getGameState().getPlayer().isRespawning()) {
+		if(!game.getGameState().getPlayer().isRespawning()&&!game.getHandler().getGame().getGameState().isLevelComplete()) {
 			backX+=backDx;
 			floorX+=floorDx;
 			

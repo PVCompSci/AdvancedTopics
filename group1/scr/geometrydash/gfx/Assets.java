@@ -5,14 +5,14 @@ import java.awt.image.BufferedImage;
 public class Assets {
 
 	private static final int width=64,height=64;
-	public static BufferedImage player1,player2,floor1,ground,barrierMid,barrierSL,barrierST,barrierSR,barrierSB,barrierCTL,barrierCTR,barrierCBR,barrierCBL,barrierEB,barrierEL,barrierET,barrierER,barrierC,barrierR,spike1,spike2,spike3,spike4,air,border,slab,background,floorBackground,floorLine,menu1,cubePT,cubePM,cubePB,shipPT,shipPM,shipPB,attempts,num1,num2,num3,num4,num5,num6,num7,num8,num9,num0;
+	public static BufferedImage player1,player2,floor1,ground,barrierMid,barrierSL,barrierST,barrierSR,barrierSB,barrierCTL,barrierCTR,barrierCBR,barrierCBL,barrierEB,barrierEL,barrierET,barrierER,barrierC,barrierR,spike1,spike2,spike3,spike4,air,border,slab,background,floorBackground,floorLine,menu1,levelCompleteScreen,levelComplete,cubePT,cubePM,cubePB,shipPT,shipPM,shipPB,attempts,num1,num2,num3,num4,num5,num6,num7,num8,num9,num0;
 	
 	public static void init() {
 		
 		SpriteSheet sheet =new SpriteSheet(ImageLoader.loadImage("/textures/SpriteSheet.png"));
 		
 		player1=sheet.crop(0, height*2, width, height);
-		player2=sheet.crop(width*4, height*2, width, height);
+		//player2=sheet.crop(width*4, height*2, width, height);
 		
 		air=null;
 		ground=null;
@@ -55,6 +55,9 @@ public class Assets {
 		floorLine=ImageLoader.loadImage("/textures/FloorLine.png");
 		attempts=ImageLoader.loadImage("/textures/Attempt.png");
 		player2=ImageLoader.loadImage("/textures/playerShip.png");
+		levelCompleteScreen= ImageLoader.loadImage("/textures/LevelCompleteScreen.png");
+		levelComplete= ImageLoader.loadImage("/textures/LevelCompleteWords.png");
+
 		
 		num1=ImageLoader.loadImage("/textures/num1.png");
 		num2=ImageLoader.loadImage("/textures/num2.png");

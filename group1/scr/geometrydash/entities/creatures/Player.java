@@ -2,6 +2,7 @@ package geometrydash.entities.creatures;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
 import javax.sound.sampled.LineUnavailableException;
 
@@ -12,8 +13,9 @@ import geometrydash.tiles.Tile;
 public class Player extends Creature{
 
 	private float grav,power,rotSpeed,rotSpeedPortal,powerPortal,maxPortalSpeed;
-	private boolean falling,boost,deathSound;
-	private int c,jumpCount;
+	private boolean falling,boost,deathSound,levelComplete1;
+	private int c,jumpCount,levelCompleteSize,levelCompleteScreenHeight;
+	private Rectangle restart,end;
 	public Player(Handler handler,float x, float y) {
 		
 		super(handler,x, y,Creature.DEFAULT_WIDTH,DEFAULT_HEIGHT);
@@ -35,6 +37,11 @@ public class Player extends Creature{
 		attemptCount=1;
 		c=0;
 		jumpCount=0;
+		levelCompleteSize=0;
+		levelCompleteScreenHeight=-700;
+		levelComplete1=true;
+		restart=new Rectangle(374, 550, 125, 125);
+		end=new Rectangle(785, 550, 125, 125);
 	}
 	
 	public void tick() {
@@ -286,8 +293,35 @@ public class Player extends Creature{
 				else
 					g2.drawImage(Assets.player1,(int)(x-handler.getGameCamera().getxOffset()),(int)(y-handler.getGameCamera().getyOffset()),width,height,null);
 			}
+			else if(levelCompleteSize<105&&levelComplete1){
+				if(levelCompleteSize<=100)
+					g.drawImage(Assets.levelComplete, handler.getWidth()/2-levelCompleteSize*5, 200, levelCompleteSize*10,levelCompleteSize,null);
+				levelCompleteSize+=5;
+				if(levelCompleteSize>100) {
+					levelComplete1=false;
+					try {
+						Thread.sleep(3000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+			else if(levelCompleteSize>0){
+				levelCompleteSize-=2;
+				g.drawImage(Assets.levelComplete, handler.getWidth()/2-levelCompleteSize*5, 200, levelCompleteSize*10,levelCompleteSize,null);
+			}
+			else if(levelCompleteScreenHeight<40) {
+				levelCompleteScreenHeight+=5;
+				g.drawImage(Assets.levelCompleteScreen,240,levelCompleteScreenHeight,800,666,null);
+			}
 			else {
-				restart();
+				g.drawImage(Assets.levelCompleteScreen,240,40,800,666,null);
+				if(handler.getMouseManager().isLeftClicked()&&restart.contains(handler.getMouseManager().getX(),handler.getMouseManager().getY()))
+					restart();
+				else if(handler.getMouseManager().isLeftClicked()&&end.contains(handler.getMouseManager().getX(),handler.getMouseManager().getY())) {
+					System.exit(1000);
+				}
 			}
 		}
 
@@ -311,6 +345,8 @@ public class Player extends Creature{
 		handler.getGame().getGameState().setLevelComplete(false);
 		handler.playSound("/audio/StereoM.wav");
 		attemptCount=0;
+		levelComplete1=true;
+		levelCompleteScreenHeight=-700;
 	}
 	
 	

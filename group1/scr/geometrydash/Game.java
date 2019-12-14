@@ -77,7 +77,8 @@ public class Game implements Runnable{
 		
 		keyManager.tick();
 		if(State.getState()!=null)
-			State.getState().tick();	}
+			State.getState().tick();	
+	}
 	
 	private void renderAll() { //
 		
