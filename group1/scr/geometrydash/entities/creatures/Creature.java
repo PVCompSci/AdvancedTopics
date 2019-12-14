@@ -107,7 +107,6 @@ public abstract class Creature extends Entity{
 		else if(handler.getWorld().getTile(x, y).getId()==30) {
 			if(!handler.getGame().getGameState().isLevelComplete()) {
 				handler.getGame().stopTimer();
-				handler.getClip().stop();
 				slowingDown=true;
 				dy=0;
 				handler.getGame().getGameState().setLevelComplete(true);
@@ -117,7 +116,6 @@ public abstract class Creature extends Entity{
 
 		if(handler.getWorld().getTile(x,y).isSmallTile() && !respawn) {
 			while(handler.getWorld().getTile(x,y).getCollisionBoxes().size()>0) {
-				//System.out.println(handler.getWorld().getTile(x,y).getCollisionBoxes().size());
 				if(handler.getWorld().getTile(x,y).getCollisionBoxes().pop().intersects(bounds)) {
 					respawn();
 				}

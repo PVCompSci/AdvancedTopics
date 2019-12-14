@@ -3,6 +3,7 @@ package geometrydash.entities.creatures;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.util.Stack;
 
 import javax.sound.sampled.LineUnavailableException;
 
@@ -317,6 +318,9 @@ public class Player extends Creature{
 			}
 			else {
 				g.drawImage(Assets.levelCompleteScreen,240,40,800,666,null);
+				drawNums(g,722,287 ,30,30,attemptCount);
+				drawNums(g,655,335 ,30,30,jumpCount);
+				drawNums(g,627,385 ,30,30,(int)handler.getGame().getTimer());
 				if(handler.getMouseManager().isLeftClicked()&&restart.contains(handler.getMouseManager().getX(),handler.getMouseManager().getY()))
 					restart();
 				else if(handler.getMouseManager().isLeftClicked()&&end.contains(handler.getMouseManager().getX(),handler.getMouseManager().getY())) {
@@ -332,9 +336,6 @@ public class Player extends Creature{
 	}
 	
 	public void restart(){
-		System.out.println("Attempts: "+attemptCount);
-		System.out.println("Jumps: "+jumpCount);
-		System.out.println("Time: "+handler.getGame().getTimer());
 		rot=0;
 		respawn=true;
 		portal=false;
@@ -345,8 +346,23 @@ public class Player extends Creature{
 		handler.getGame().getGameState().setLevelComplete(false);
 		handler.playSound("/audio/StereoM.wav");
 		attemptCount=0;
+		jumpCount=0;
 		levelComplete1=true;
 		levelCompleteScreenHeight=-700;
+	}
+	
+	public void drawNums(Graphics g,int xStart,int yStart,int width, int height,int num) {
+		int dist=0;
+		Stack<Integer> nums=new Stack<Integer>();
+
+		while(num>0) {
+			nums.push(num%10);
+			num/=10;
+		}
+		while(nums.size()>0) {
+			g.drawImage(Assets.getEndNum(nums.pop()), xStart+dist, yStart, width,height,null);
+			dist+=width;
+		}
 	}
 	
 	

@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 public class Assets {
 
 	private static final int width=64,height=64;
-	public static BufferedImage player1,player2,floor1,ground,barrierMid,barrierSL,barrierST,barrierSR,barrierSB,barrierCTL,barrierCTR,barrierCBR,barrierCBL,barrierEB,barrierEL,barrierET,barrierER,barrierC,barrierR,spike1,spike2,spike3,spike4,air,border,slab,background,floorBackground,floorLine,menu1,levelCompleteScreen,levelComplete,cubePT,cubePM,cubePB,shipPT,shipPM,shipPB,attempts,num1,num2,num3,num4,num5,num6,num7,num8,num9,num0;
+	public static BufferedImage player1,player2,floor1,ground,barrierMid,barrierSL,barrierST,barrierSR,barrierSB,barrierCTL,barrierCTR,barrierCBR,barrierCBL,barrierEB,barrierEL,barrierET,barrierER,barrierC,barrierR,spike1,spike2,spike3,spike4,air,border,slab,background,floorBackground,floorLine,menu1,levelCompleteScreen,levelComplete,cubePT,cubePM,cubePB,shipPT,shipPM,shipPB,attempts,num1,num2,num3,num4,num5,num6,num7,num8,num9,num0,endNum1,endNum2,endNum3,endNum4,endNum5,endNum6,endNum7,endNum8,endNum9,endNum0;
 	
 	public static void init() {
 		
@@ -69,6 +69,17 @@ public class Assets {
 		num8=ImageLoader.loadImage("/textures/num8.png");
 		num9=ImageLoader.loadImage("/textures/num9.png");
 		num0=ImageLoader.loadImage("/textures/num0.png");
+		
+		endNum1=ImageLoader.loadImage("/textures/endNum1.png");
+		endNum2=ImageLoader.loadImage("/textures/endNum2.png");
+		endNum3=ImageLoader.loadImage("/textures/endNum3.png");
+		endNum4=ImageLoader.loadImage("/textures/endNum4.png");
+		endNum5=ImageLoader.loadImage("/textures/endNum5.png");
+		endNum6=ImageLoader.loadImage("/textures/endNum6.png");
+		endNum7=ImageLoader.loadImage("/textures/endNum7.png");
+		endNum8=ImageLoader.loadImage("/textures/endNum8.png");
+		endNum9=ImageLoader.loadImage("/textures/endNum9.png");
+		endNum0=ImageLoader.loadImage("/textures/endNum0.png");
 	}
 	
 	public static BufferedImage getNum(int n) {
@@ -94,5 +105,30 @@ public class Assets {
 			return num9;
 		else
 			return num0;
+	}
+	
+	public static BufferedImage getEndNum(int n) {
+		if(n==0)
+			return endNum0;
+		else if(n==1)
+			return endNum1;
+		else if(n==2)
+			return endNum2;
+		else if(n==3)
+			return endNum3;
+		else if(n==4)
+			return endNum4;
+		else if(n==5)
+			return endNum5;
+		else if(n==6)
+			return endNum6;
+		else if(n==7)
+			return endNum7;
+		else if(n==8)
+			return endNum8;
+		else if(n==9)
+			return endNum9;
+		else
+			return endNum0;
 	}
 }
