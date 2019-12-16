@@ -30,7 +30,8 @@ public class Tile {
 	public static Tile spikeTile2=new SpikeTile(4,true,new Polygon(new int[] {8,TILEWIDTH/2,TILEWIDTH-8},new int[] {TILEHEIGHT,TILEHEIGHT/2+8,TILEHEIGHT},3),Assets.spike2);
 	public static Tile spikeTile3=new SpikeTile(27,true,new Polygon(new int[]{8,TILEWIDTH/2,TILEWIDTH-8},new int[] {TILEHEIGHT,TILEHEIGHT/4+8,TILEHEIGHT},3),Assets.spike3);
 	public static Tile spikeTile4=new SpikeTile(28,true,new Polygon(new int[] {8,TILEWIDTH/2,TILEWIDTH-8},new int[] {0,TILEHEIGHT-8,0},3),Assets.spike4);
-	
+	public static Tile spikeTile5=new SpikeTile(29,true,new Polygon(new int[] {8,TILEWIDTH/2,TILEWIDTH-8},new int[] {0,(TILEHEIGHT/4)*3-8,0},3),Assets.spike5);
+
 	public static Tile barrierMid=new SolidTile(5,Assets.barrierMid);
 	public static Tile barrierSL=new SolidTile(6,Assets.barrierSL);
 	public static Tile barrierST=new SolidTile(7,Assets.barrierST);

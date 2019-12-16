@@ -5,14 +5,13 @@ import java.awt.image.BufferedImage;
 public class Assets {
 
 	private static final int width=64,height=64;
-	public static BufferedImage player1,player2,floor1,ground,barrierMid,barrierSL,barrierST,barrierSR,barrierSB,barrierCTL,barrierCTR,barrierCBR,barrierCBL,barrierEB,barrierEL,barrierET,barrierER,barrierC,barrierR,spike1,spike2,spike3,spike4,air,border,slab,background,floorBackground,floorLine,menu1,levelCompleteScreen,levelComplete,cubePT,cubePM,cubePB,shipPT,shipPM,shipPB,attempts,num1,num2,num3,num4,num5,num6,num7,num8,num9,num0,endNum1,endNum2,endNum3,endNum4,endNum5,endNum6,endNum7,endNum8,endNum9,endNum0;
+	public static BufferedImage player1,player2,floor1,ground,barrierMid,barrierSL,barrierST,barrierSR,barrierSB,barrierCTL,barrierCTR,barrierCBR,barrierCBL,barrierEB,barrierEL,barrierET,barrierER,barrierC,barrierR,spike1,spike2,spike5,spike3,spike4,air,border,slab,background,floorBackground,floorLine,menu1,levelCompleteScreen,levelComplete,cubePT,cubePM,cubePB,shipPT,shipPM,shipPB,attempts,num1,num2,num3,num4,num5,num6,num7,num8,num9,num0,endNum1,endNum2,endNum3,endNum4,endNum5,endNum6,endNum7,endNum8,endNum9,endNum0,endCol;
 	
 	public static void init() {
 		
 		SpriteSheet sheet =new SpriteSheet(ImageLoader.loadImage("/textures/SpriteSheet.png"));
 		
 		player1=sheet.crop(0, height*2, width, height);
-		//player2=sheet.crop(width*4, height*2, width, height);
 		
 		air=null;
 		ground=null;
@@ -39,6 +38,7 @@ public class Assets {
 		spike2=sheet.crop(width*2, height*2, width, height);
 		spike3=sheet.crop(width*3, height*3, width, height);
 		spike4=sheet.crop(width*4, height*3, width, height);
+		spike5=sheet.crop(width*4, height*2, width, height);
 		border=sheet.crop(width*7, height, width, height);
 		slab=sheet.crop(width*3, height*2, width, height);
 		
@@ -80,6 +80,7 @@ public class Assets {
 		endNum8=ImageLoader.loadImage("/textures/endNum8.png");
 		endNum9=ImageLoader.loadImage("/textures/endNum9.png");
 		endNum0=ImageLoader.loadImage("/textures/endNum0.png");
+		endCol=ImageLoader.loadImage("/textures/endCol.png");
 	}
 	
 	public static BufferedImage getNum(int n) {

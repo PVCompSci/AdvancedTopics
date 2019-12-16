@@ -320,7 +320,8 @@ public class Player extends Creature{
 				g.drawImage(Assets.levelCompleteScreen,240,40,800,666,null);
 				drawNums(g,722,287 ,30,30,attemptCount);
 				drawNums(g,655,335 ,30,30,jumpCount);
-				drawNums(g,627,385 ,30,30,(int)handler.getGame().getTimer());
+				drawTime(g,627,385 ,30,30,(int)handler.getGame().getTimer());
+
 				if(handler.getMouseManager().isLeftClicked()&&restart.contains(handler.getMouseManager().getX(),handler.getMouseManager().getY()))
 					restart();
 				else if(handler.getMouseManager().isLeftClicked()&&end.contains(handler.getMouseManager().getX(),handler.getMouseManager().getY())) {
@@ -363,6 +364,32 @@ public class Player extends Creature{
 			g.drawImage(Assets.getEndNum(nums.pop()), xStart+dist, yStart, width,height,null);
 			dist+=width;
 		}
+	}
+	
+	public void drawTime(Graphics g,int xStart,int yStart,int width,int height,int num) {
+		int dist=0;
+		int count=0;
+		
+		while(num/60>0) {
+			drawTime(g,xStart,yStart,width,height,num/60);
+			num%=60;
+			dist+=width*2;
+			count++;
+		}
+
+		if(num<10) {
+			g.drawImage(Assets.getEndNum(0), xStart+dist, yStart, width,height,null);
+			g.drawImage(Assets.getEndNum(num), xStart+dist+width, yStart, width,height,null);
+		}
+		else {
+			if(count!=0) {
+				g.drawImage(Assets.endCol, xStart+dist, yStart, width,height,null);
+				dist+=width;
+			}
+			g.drawImage(Assets.getEndNum(num/10), xStart+dist, yStart, width,height,null);
+			g.drawImage(Assets.getEndNum(num%10), xStart+dist+width, yStart, width,height,null);
+		}
+
 	}
 	
 	
