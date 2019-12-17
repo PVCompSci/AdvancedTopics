@@ -11,6 +11,8 @@ import java.io.File;
 
 public class a
 {
+	private Clip clip;
+	
 	public a()
 	{
 		//Code commented out here would allow you to choose your own music
@@ -46,8 +48,29 @@ public class a
 		try
 		{
 			//this allows the file path to not be hardcoded, and still has it work inside the .jar
+			AudioInputStream audioInput = AudioSystem.getAudioInputStream(this.getClass().getResource("/nonogram/27 Let the Game Begin.wav"));
+			clip = AudioSystem.getClip();
+			clip.open(audioInput);
+			clip.start();
+			clip.loop(Clip.LOOP_CONTINUOUSLY);
+		}
+		
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+	
+	public void playMegalovania()
+	{
+		clip.close();
+		JOptionPane.showMessageDialog(null, "Blame Eric. He wanted this song.");
+		
+		try
+		{
+			//this allows the file path to not be hardcoded, and still has it work inside the .jar
 			AudioInputStream audioInput = AudioSystem.getAudioInputStream(this.getClass().getResource("/nonogram/Megalovania.wav"));
-			Clip clip = AudioSystem.getClip();
+			clip = AudioSystem.getClip();
 			clip.open(audioInput);
 			clip.start();
 			clip.loop(Clip.LOOP_CONTINUOUSLY);

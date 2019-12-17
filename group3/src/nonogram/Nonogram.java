@@ -22,7 +22,7 @@ public class Nonogram
 	{
 		readImage();
 	}
-	
+
 	/**
 	 * @return the queue size, which can serve as either the number of rows
 	 * or the number of columns, both of which are identical to each other
@@ -31,7 +31,7 @@ public class Nonogram
 	{
 		return horizontal.size();
 	}
-	
+
 	/**
 	 * @return horizontal, the horizontal queue, that stores stacks of the pixels horizontally
 	 */
@@ -39,7 +39,7 @@ public class Nonogram
 	{
 		return horizontal;
 	}
-	
+
 	/**
 	 * @return vertical, the vertical queue, that stores stacks of the pixels vertically
 	 */
@@ -47,7 +47,7 @@ public class Nonogram
 	{
 		return vertical;
 	}
-	
+
 	/**
 	 * @return 2D array of the image
 	 */
@@ -55,7 +55,7 @@ public class Nonogram
 	{
 		return imageArray;
 	}
-	
+
 	/**
 	 * Converts a given Image into a BufferedImage (Stolen from StackOverflow)
 	 *
@@ -78,7 +78,7 @@ public class Nonogram
 		// Return the buffered image
 		return bimage;
 	}
-	
+
 	/**
 	 * Requests the user to input an image
 	 * Assembles the image into stacks and queues for use within the graphics
@@ -108,20 +108,20 @@ public class Nonogram
 			BufferedImage img = toBufferedImage(image);
 
 			int largerDimension = ((img.getWidth() > img.getHeight()) ? img.getWidth() : img.getHeight());
-			
+
 			imageArray = new boolean[largerDimension][largerDimension];
-			
+
 			for(int a = (largerDimension - img.getWidth()) / 2; a < img.getWidth() + ((largerDimension - img.getWidth()) / 2); a++)
 			{
 				for(int b = (largerDimension - img.getHeight()) / 2; b < img.getHeight() + ((largerDimension - img.getHeight()) / 2); b++) 
 					imageArray[a][b] = ((Math.abs(Math.abs(img.getRGB(a - ((largerDimension - img.getWidth()) / 2), b - (largerDimension - img.getHeight()) / 2)) - 16777215)) > (Math.abs(img.getRGB(a - ((largerDimension - img.getWidth()) / 2), b - (largerDimension - img.getHeight()) / 2)))) ? false : true;
 			}
-			
+
 			//The code commented out here is simply for the sake of testing to see if the image is processed properly
 			/*
 			BufferedImage newBuff = new BufferedImage(largerDimension, largerDimension, BufferedImage.TYPE_INT_RGB);
 			Graphics2D testG2 = newBuff.createGraphics();
-			
+
 			for(int a = 0; a < largerDimension; a++)
 			{
 				for(int b = 0; b < largerDimension; b++)
@@ -130,17 +130,17 @@ public class Nonogram
 					testG2.drawRect(a, b, 1, 1);
 				}
 			}
-			
+
 			JFrame frame = new JFrame();
 			frame.setSize(Toolkit.getDefaultToolkit().getScreenSize());
 			frame.add(new JLabel(new ImageIcon(newBuff)));
 			frame.setVisible(true);
-			*/
-			
+			 */
+
 			formatImage(largerDimension);
 		}
 	}
-	
+
 	/**
 	 * Converts the image into a format of stacks and queues, alongside
 	 * recording the number of shaded pixels for each row and column of
@@ -153,54 +153,64 @@ public class Nonogram
 		//initializes the Queues
 		horizontal = new ArrayBlockingQueue<Stack>(queueSize);
 		vertical = new ArrayBlockingQueue<Stack>(queueSize);
-		
+
 		//loop that runs for both the horizontal and vertical, inputting the data into both
 		for(int a = 0; a < queueSize; a++)
 		{
 			//initializes the integer used to store the amount of shaded blocks temporarily
 			int shadedAmtHori = 0;
 			int shadedAmtVert = 0;
-			
+
 			//initializes the temporary stacks that will be later input into their respective queues
 			Stack<Integer> tempHori = new Stack<Integer>();
 			Stack<Integer> tempVert = new Stack<Integer>();
-			
+
 			for(int b = 0; b < queueSize; b++)
 			{
 				//The top "if" and "else" statements are for rows
 				if(imageArray[b][a])
 					shadedAmtHori++;
-				
+
 				else
 				{
 					if(shadedAmtHori > 0)
 						tempHori.push(shadedAmtHori);
-					
+
 					shadedAmtHori = 0;
 				}
-				
+
 				//The bottom "if" and "else" statements are for columns
 				if(imageArray[a][b])
 					shadedAmtVert++;
-				
+
 				else
 				{
 					if(shadedAmtVert > 0)
 						tempVert.push(shadedAmtVert);
-					
+
 					shadedAmtVert = 0;
 				}
 			}
-			
+
 			if(shadedAmtHori > 0)
 				tempHori.push(shadedAmtHori);
-			
+
 			if(shadedAmtVert > 0)
 				tempVert.push(shadedAmtVert);
+
+			//reverses the order of the queues for display, so Larry doesn't have to worry about it
+			Stack<Integer> tempHori2 = new Stack<Integer>();
+			Stack<Integer> tempVert2 = new Stack<Integer>();
+			
+			while(tempHori.size() > 0)
+				tempHori2.push(tempHori.pop());
+			
+			while(tempVert.size() > 0)
+				tempVert2.push(tempVert.pop());
 			
 			//pushes the data gathered into their respectie storage units (either queues or arrays)
-			horizontal.add(tempHori);
-			vertical.add(tempVert);
+			horizontal.add(tempHori2);
+			vertical.add(tempVert2);
 		}
 	}
 }

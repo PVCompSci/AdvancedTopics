@@ -41,6 +41,9 @@ public class NonogramVisuals extends JFrame implements KeyListener {
 	private static int wrong;
 	private static int total;
 	private static int total2;
+	
+	private static a music;
+	private static boolean playingMegalovania;
 
 	public NonogramVisuals() {
 		addKeyListener(this);
@@ -78,7 +81,7 @@ public class NonogramVisuals extends JFrame implements KeyListener {
 		constraints.ipady = 100;
 		constraints.anchor = GridBagConstraints.CENTER;
 		
-		startPanel.add(new JLabel(new ImageIcon(startButton.getClass().getResource("/nonogram/Nonogram Title.png"))), constraints);
+		startPanel.add(new JLabel(new ImageIcon(startButton.getClass().getResource("/nonogram/logo.png"))), constraints);
 		
 		constraints.gridy = 4;
 		constraints.ipady = 25;
@@ -234,7 +237,6 @@ public class NonogramVisuals extends JFrame implements KeyListener {
 										wrong++;
 									}else {
 										source.setBackground(WHITE);
-										total2++;
 									}
 
 								}else{
@@ -289,7 +291,7 @@ public class NonogramVisuals extends JFrame implements KeyListener {
 		frame.pack();
 		frame.setVisible(true);
 
-		a music = new a();
+		music = new a();
 	}
 
 	public static void toggle() {
@@ -309,6 +311,7 @@ public class NonogramVisuals extends JFrame implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 		if(key == KeyEvent.VK_SPACE) toggle();
+		if(key == KeyEvent.VK_M && !playingMegalovania) {playingMegalovania = true; music.playMegalovania();}
 	}
 
 	@Override
